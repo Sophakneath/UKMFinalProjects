@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/home" android:title="Home" android:icon="@drawable/home"/>
+    <item android:id="@+id/fav" android:title="Favourite" android:icon="@drawable/blue_fav"/>
+    <item android:id="@+id/add" android:title="Add Posts" android:icon="@drawable/blue_add"/>
+    <item android:id="@+id/about" android:title="About" android:icon="@drawable/about"/>
+    <item android:id="@+id/privacy" android:title="Privacy Policy" android:icon="@drawable/blue_pri"/>
+    <item android:id="@+id/logout" android:title="Logout" android:icon="@drawable/logout"/>
+</menu>

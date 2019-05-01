@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,6 +7,11 @@
     tools:context=".LoginActivity"
     android:orientation="vertical"
     android:background="@color/mainColor">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
     <TextView
         android:layout_width="wrap_content"
@@ -60,7 +65,7 @@
         android:textColorHint="@color/hintColor"
         android:backgroundTintMode="src_over"
         android:paddingBottom="17dp"
-        android:textColor="@color/mainColor"
+        android:textColor="@color/whitey"
         android:id="@+id/email"/>
 
     <LinearLayout
@@ -96,8 +101,9 @@
         android:textColorHint="@color/hintColor"
         android:backgroundTintMode="src_over"
         android:paddingBottom="17dp"
-        android:textColor="@color/mainColor"
-        android:id="@+id/password"/>
+        android:textColor="@color/whitey"
+        android:id="@+id/password"
+        android:inputType="textPassword"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -118,7 +124,8 @@
             android:textSize="18dp"
             android:textColor="@color/whitey"
             android:layout_gravity="center"
-            android:layout_marginLeft="10dp"/>
+            android:layout_marginLeft="10dp"
+            android:id="@+id/forgotPassword"/>
     </LinearLayout>
     <Button
         android:layout_width="match_parent"
@@ -129,7 +136,8 @@
         android:layout_marginTop="25dp"
         android:background="@drawable/button_login"
         android:textColor="@color/whitey"
-        android:textSize="18dp" />
+        android:textSize="18dp"
+        android:id="@+id/login"/>
 
 
     <TextView
@@ -139,6 +147,24 @@
         android:textSize="18dp"
         android:textColor="@color/whitey"
         android:layout_marginTop="27dp"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        android:id="@+id/gotosignup"/>
 
-</LinearLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/blurr"
+        android:id="@+id/blurr"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/progress"
+            android:indeterminateDrawable="@drawable/progresscolor"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
+
+</RelativeLayout>

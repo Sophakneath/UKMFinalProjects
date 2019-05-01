@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,152 +8,175 @@
     android:orientation="vertical"
     android:background="@color/mainColor">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="40dp"
-        android:text="SIGN UP"
-        android:textColor="@color/whitey"
-        android:textStyle="bold"
-        android:layout_marginTop="50dp"
-        android:layout_marginLeft="30dp"
-        />
-
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="10dp"
-        android:background="@drawable/line_shape"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="210dp"
-        />
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="50dp">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/users"
-            />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Username"
-            android:textSize="20dp"
+            android:textSize="40dp"
+            android:text="SIGN UP"
             android:textColor="@color/whitey"
-            android:layout_marginLeft="18dp"/>
-    </LinearLayout>
-
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginTop="5dp"
-        android:hint="Hello"
-        android:backgroundTint="#C1C1C1"
-        android:textColorHint="@color/hintColor"
-        android:backgroundTintMode="src_over"
-        android:paddingBottom="17dp"
-        android:textColor="@color/mainColor"
-        android:id="@+id/users"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="30dp">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/email"
+            android:textStyle="bold"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="30dp"
             />
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="10dp"
+            android:background="@drawable/line_shape"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="210dp"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="50dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/users"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Username"
+                android:textSize="20dp"
+                android:textColor="@color/whitey"
+                android:layout_marginLeft="18dp"/>
+        </LinearLayout>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="5dp"
+            android:hint="Hello"
+            android:backgroundTint="#C1C1C1"
+            android:textColorHint="@color/hintColor"
+            android:backgroundTintMode="src_over"
+            android:paddingBottom="17dp"
+            android:textColor="@color/whitey"
+            android:id="@+id/users" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="30dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/email"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Email"
+                android:textSize="20dp"
+                android:textColor="@color/whitey"
+                android:layout_marginLeft="18dp"/>
+        </LinearLayout>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="5dp"
+            android:hint="abc@gmail.com"
+            android:backgroundTint="#C1C1C1"
+            android:textColorHint="@color/hintColor"
+            android:backgroundTintMode="src_over"
+            android:paddingBottom="17dp"
+            android:textColor="@color/whitey"
+            android:id="@+id/email"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="30dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/locker"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Password"
+                android:textSize="20dp"
+                android:textColor="@color/whitey"
+                android:layout_marginLeft="18dp"/>
+        </LinearLayout>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="5dp"
+            android:hint="**********"
+            android:backgroundTint="#C1C1C1"
+            android:textColorHint="@color/hintColor"
+            android:backgroundTintMode="src_over"
+            android:paddingBottom="17dp"
+            android:textColor="@color/whitey"
+            android:id="@+id/password"
+            android:inputType="textPassword"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Continue"
+            android:layout_marginLeft="80dp"
+            android:layout_marginRight="80dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/button_login"
+            android:textColor="@color/whitey"
+            android:textSize="18dp"
+            android:id="@+id/signup"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Email"
-            android:textSize="20dp"
+            android:text="Already a member ? Login"
+            android:textSize="18dp"
             android:textColor="@color/whitey"
-            android:layout_marginLeft="18dp"/>
+            android:layout_marginTop="26dp"
+            android:layout_gravity="center"
+            android:id="@+id/gotologin"/>
+
     </LinearLayout>
 
-    <EditText
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginTop="5dp"
-        android:hint="abc@gmail.com"
-        android:backgroundTint="#C1C1C1"
-        android:textColorHint="@color/hintColor"
-        android:backgroundTintMode="src_over"
-        android:paddingBottom="17dp"
-        android:textColor="@color/mainColor"
-        android:id="@+id/email"/>
+        android:layout_height="match_parent"
+        android:background="@color/whiteBlurr"
+        android:id="@+id/blurr"
+        android:visibility="gone">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="30dp">
-
-        <ImageView
+        <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/locker"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Password"
-            android:textSize="20dp"
-            android:textColor="@color/whitey"
-            android:layout_marginLeft="18dp"/>
-    </LinearLayout>
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginTop="5dp"
-        android:hint="**********"
-        android:backgroundTint="#C1C1C1"
-        android:textColorHint="@color/hintColor"
-        android:backgroundTintMode="src_over"
-        android:paddingBottom="17dp"
-        android:textColor="@color/mainColor"
-        android:id="@+id/password"/>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Continue"
-        android:layout_marginLeft="80dp"
-        android:layout_marginRight="80dp"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/button_login"
-        android:textColor="@color/whitey"
-        android:textSize="18dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Already a member ? Login"
-        android:textSize="18dp"
-        android:textColor="@color/whitey"
-        android:layout_marginTop="26dp"
-        android:layout_gravity="center"/>
-
-</LinearLayout>
+            android:id="@+id/progress"
+            android:indeterminateDrawable="@drawable/progresscolor"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
+</RelativeLayout>

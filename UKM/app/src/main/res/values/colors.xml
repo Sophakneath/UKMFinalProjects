@@ -5,8 +5,11 @@
     <color name="mainTextColor">#292E43</color>
     <color name="primaryTextColor">#505050</color>
     <color name="hintColor">#808080</color>
-    <color name="titleColor">#75767B</color>
+    <color name="titleColor">#67676b</color>
     <color name="whitey">#FFFFFF</color>
-    <color name="whiteBlurr">#6fffffff</color>
+    <color name="whiteBlurr">#6affffff</color>
+    <color name="blurr">#64292e43</color>
+    <color name="whiteIcons">#d2ffffff</color>
+
 
 </resources>

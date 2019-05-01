@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">JOBBER</string>
+    <string-array name="categories">
+        <item>Career</item>
+        <item>Competition States</item>
+        <item>Events</item>
+        <item>Internship</item>
+        <item>Scholarship</item>
+    </string-array>
+    <string name="google_maps_key">AIzaSyDSblxyuyVOPLTOXKrn_F8EVZ3-sNUoLG8</string>
 </resources>
