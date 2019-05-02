@@ -27,6 +27,7 @@ import com.bumptech.glide.Glide;
 import com.example.phakneath.jobber.Dialog.LoadingDialog;
 import com.example.phakneath.jobber.Model.ESCCI;
 import com.example.phakneath.jobber.Model.saveESCCI;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -55,13 +56,14 @@ import java.util.List;
 public class FavouriteActivity extends AppCompatActivity implements View.OnClickListener{
 
     ImageView back;
-    SwipeRefreshLayout swipeRefreshLayout;
+    //SwipeRefreshLayout swipeRefreshLayout;
     RecyclerView recyclerView;
     DatabaseReference mDatabase;
     FirebaseRecyclerPagingAdapter mAdapter;
     FirebaseAuth mAuth;
     FirebaseStorage storage;
     StorageReference storageReference,ref;
+    ShimmerFrameLayout shimmer;
 
     PagedList.Config config;
     DatabasePagingOptions<ESCCI> options;
@@ -110,8 +112,9 @@ public class FavouriteActivity extends AppCompatActivity implements View.OnClick
     public void initView()
     {
         back = findViewById(R.id.back);
-        swipeRefreshLayout = findViewById(R.id.swipeRefresh);
+        //swipeRefreshLayout = findViewById(R.id.swipeRefresh);
         recyclerView = findViewById(R.id.mRecyclerView);
+        shimmer = findViewById(R.id.shimmer);
     }
 
     @Override
@@ -258,7 +261,10 @@ public class FavouriteActivity extends AppCompatActivity implements View.OnClick
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     Toast.makeText(FavouriteActivity.this, "Delete Successful", Toast.LENGTH_SHORT).show();
-                    swipeRefreshLayout.setRefreshing(false);
+                    shimmer.stopShimmerAnimation();
+                    shimmer.setVisibility(View.GONE);
+                    recyclerView.setVisibility(View.VISIBLE);
+                    //swipeRefreshLayout.setRefreshing(false);
                     mAdapter.refresh();
                 }
             });
@@ -350,7 +356,10 @@ public class FavouriteActivity extends AppCompatActivity implements View.OnClick
                                                 .OnPositiveClicked(new FancyAlertDialogListener() {
                                                     @Override
                                                     public void OnClick() {
-                                                        swipeRefreshLayout.setRefreshing(true);
+                                                        shimmer.startShimmerAnimation();
+                                                        shimmer.setVisibility(View.VISIBLE);
+                                                        recyclerView.setVisibility(View.GONE);
+                                                        //swipeRefreshLayout.setRefreshing(true);
                                                         delete(model);
                                                         mAdapter.notifyItemRemoved(position);
 
@@ -413,17 +422,26 @@ public class FavouriteActivity extends AppCompatActivity implements View.OnClick
                     case LOADING_INITIAL:
                     case LOADING_MORE:
                         // Do your loading animation
-                        swipeRefreshLayout.setRefreshing(true);
+                        shimmer.startShimmerAnimation();
+                        shimmer.setVisibility(View.VISIBLE);
+                        recyclerView.setVisibility(View.GONE);
+                        //swipeRefreshLayout.setRefreshing(true);
                         break;
 
                     case LOADED:
                         // Stop Animation
-                        swipeRefreshLayout.setRefreshing(false);
+                        shimmer.stopShimmerAnimation();
+                        shimmer.setVisibility(View.GONE);
+                        recyclerView.setVisibility(View.VISIBLE);
+                        //swipeRefreshLayout.setRefreshing(false);
                         break;
 
                     case FINISHED:
                         //Reached end of Data set
-                        swipeRefreshLayout.setRefreshing(false);
+                        shimmer.stopShimmerAnimation();
+                        shimmer.setVisibility(View.GONE);
+                        recyclerView.setVisibility(View.VISIBLE);
+                        //swipeRefreshLayout.setRefreshing(false);
                         break;
 
                     case ERROR:
@@ -434,19 +452,22 @@ public class FavouriteActivity extends AppCompatActivity implements View.OnClick
 
             @Override
             protected void onError(@NonNull DatabaseError databaseError) {
-                swipeRefreshLayout.setRefreshing(false);
+                shimmer.stopShimmerAnimation();
+                shimmer.setVisibility(View.GONE);
+                recyclerView.setVisibility(View.VISIBLE);
+                //swipeRefreshLayout.setRefreshing(false);
                 databaseError.toException().printStackTrace();
                 retry();
             }
 
         };
 
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        /*swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 mAdapter.refresh();
             }
-        });
+        });*/
     }
 
     public List<String> getSaveFavourite()

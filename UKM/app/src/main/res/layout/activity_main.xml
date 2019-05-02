@@ -303,23 +303,52 @@
             android:layout_marginLeft="20dp"
             android:textColor="@color/mainTextColor"/>
 
-        <android.support.v4.widget.SwipeRefreshLayout
-            android:id="@+id/swipeRefresh"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No Posts"
+            android:layout_gravity="center_horizontal"
+            android:textSize="18dp"
+            android:textColor="@color/hintColor"
+            android:layout_marginTop="20dp"
+            android:id="@+id/noPosts"
+            android:visibility="gone"/>
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:layout_marginTop="12dp"
+            android:layout_marginRight="13dp"
+            android:layout_marginLeft="13dp"
+            android:visibility="gone">
+
+            <!-- Adding 3 rows of placeholders -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <include layout="@layout/items_place_holder" />
+
+                <include layout="@layout/items_place_holder" />
+
+                <include layout="@layout/items_place_holder" />
+
+            </LinearLayout>
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/mRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="13dp"
-            android:layout_marginRight="13dp">
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/mRecyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </android.support.v4.widget.SwipeRefreshLayout>
+            android:visibility="gone"
+            android:layout_marginTop="12dp"
+            android:layout_marginRight="13dp"
+            android:layout_marginLeft="13dp"/>
 
     </LinearLayout>
 
@@ -332,7 +361,8 @@
         app:menu="@menu/drawermenu"
         android:layout_gravity="start"
         app:headerLayout="@layout/header_layout"
-        android:id="@+id/nav">
+        android:id="@+id/nav"
+        >
 
     </android.support.design.widget.NavigationView>
 

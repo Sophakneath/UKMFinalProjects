@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProfileActivity"
+    tools:context=".OtherProfileActivity"
     android:background="@color/whitey">
 
     <android.support.design.widget.AppBarLayout
@@ -25,8 +25,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                app:layout_collapseMode="parallax"
-                >
+                app:layout_collapseMode="parallax">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -85,15 +84,6 @@
                             />
                     </RelativeLayout>
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/setting"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginRight="20dp"
-                        android:layout_alignParentEnd="true"
-                        android:id="@+id/setting"/>
-
                 </RelativeLayout>
 
                 <TextView
@@ -118,131 +108,14 @@
                     android:layout_marginTop="2dp"
                     android:id="@+id/workplace"/>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_weight="1">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="0"
-                            android:textSize="20dp"
-                            android:textColor="@color/mainTextColor"
-                            android:layout_gravity="center_horizontal"
-                            android:id="@+id/countPosts"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Posts"
-                            android:textSize="13dp"
-                            android:textColor="@color/whitey"
-                            android:layout_gravity="center_horizontal"
-                            android:background="@drawable/button_login"
-                            android:paddingTop="5dp"
-                            android:paddingBottom="5dp"
-                            android:paddingRight="30dp"
-                            android:paddingLeft="30dp"
-                            android:layout_marginTop="3dp"
-                            android:id="@+id/posts"
-                            android:elevation="6dp"/>
-
-                        <View
-                            android:layout_width="1dp"
-                            android:layout_height="10dp"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_weight="1">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="0"
-                            android:textSize="20dp"
-                            android:textColor="@color/mainTextColor"
-                            android:layout_gravity="center_horizontal"
-                            android:id="@+id/countFav"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Favourites"
-                            android:textSize="13dp"
-                            android:textColor="@color/whitey"
-                            android:layout_gravity="center_horizontal"
-                            android:background="@drawable/button_login"
-                            android:paddingTop="5dp"
-                            android:paddingBottom="5dp"
-                            android:paddingRight="16dp"
-                            android:paddingLeft="16dp"
-                            android:layout_marginTop="3dp"
-                            android:id="@+id/fav"
-                            android:elevation="6dp"
-                            />
-
-                        <View
-                            android:layout_width="1dp"
-                            android:layout_height="10dp"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_weight="1">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/profile_add"
-                            android:layout_gravity="center_horizontal"
-                            android:id="@+id/addPosts"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Add Posts"
-                            android:textSize="13dp"
-                            android:textColor="@color/whitey"
-                            android:layout_gravity="center_horizontal"
-                            android:background="@drawable/button_login"
-                            android:paddingTop="5dp"
-                            android:paddingBottom="5dp"
-                            android:paddingRight="16dp"
-                            android:paddingLeft="16dp"
-                            android:layout_marginTop="1dp"
-                            android:id="@+id/posting"
-                            android:elevation="6dp"
-                            />
-
-                        <View
-                            android:layout_width="1dp"
-                            android:layout_height="10dp"/>
-                    </LinearLayout>
-                </LinearLayout>
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Yours Posts In Categories"
+                    android:text="Posts In Categories"
                     android:textSize="18dp"
                     android:textColor="@color/mainTextColor"
                     android:textStyle="bold"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="30dp"
                     android:layout_marginLeft="20dp"
                     />
 
@@ -537,82 +410,99 @@
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v4.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:background="@color/whitey"
-        >
-
-        <RelativeLayout
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:background="@color/whitey"
+            >
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Yours Posts"
-                android:textSize="18dp"
-                android:textColor="@color/mainTextColor"
-                android:textStyle="bold"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="10dp"
-                android:id="@+id/b"
-                />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="No Posts"
-                android:layout_centerHorizontal="true"
-                android:textSize="18dp"
-                android:textColor="@color/hintColor"
-                android:layout_marginTop="20dp"
-                android:layout_below="@+id/b"
-                android:id="@+id/noPosts"
-                android:visibility="gone"/>
-
-            <com.facebook.shimmer.ShimmerFrameLayout
-                android:id="@+id/shimmer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="vertical"
-                android:layout_marginTop="12dp"
-                android:layout_marginRight="13dp"
-                android:layout_marginLeft="13dp"
-                android:visibility="gone"
-                android:layout_below="@+id/b">
-
-                <!-- Adding 3 rows of placeholders -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <include layout="@layout/items_place_holder" />
-
-                    <include layout="@layout/items_place_holder" />
-
-                    <include layout="@layout/items_place_holder" />
-
-                </LinearLayout>
-
-            </com.facebook.shimmer.ShimmerFrameLayout>
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/mRecyclerView"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="13dp"
-                android:layout_marginLeft="13dp"
-                android:visibility="gone"
-                android:layout_below="@+id/b"/>
+                android:layout_height="match_parent">
 
-        </RelativeLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Other Posts"
+                    android:textSize="18dp"
+                    android:textColor="@color/mainTextColor"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/otherPosts"
+                    />
 
-    </android.support.v4.widget.NestedScrollView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0 Posts"
+                    android:textSize="13dp"
+                    android:textColor="@color/whitey"
+                    android:background="@drawable/button_login"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:paddingRight="20dp"
+                    android:paddingLeft="20dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginLeft="20dp"
+                    android:id="@+id/posts"
+                    android:elevation="6dp"
+                    android:layout_below="@+id/otherPosts"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="No Posts"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="18dp"
+                    android:textColor="@color/hintColor"
+                    android:layout_marginTop="20dp"
+                    android:layout_below="@+id/posts"
+                    android:id="@+id/noPosts"
+                    android:visibility="gone"/>
+
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/shimmer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="vertical"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginRight="13dp"
+                    android:layout_marginLeft="13dp"
+                    android:visibility="gone"
+                    android:layout_below="@+id/posts">
+
+                    <!-- Adding 3 rows of placeholders -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <include layout="@layout/items_place_holder" />
+
+                        <include layout="@layout/items_place_holder" />
+
+                        <include layout="@layout/items_place_holder" />
+
+                    </LinearLayout>
+
+                </com.facebook.shimmer.ShimmerFrameLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/mRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginRight="13dp"
+                    android:layout_marginLeft="13dp"
+                    android:visibility="gone"
+                    android:layout_below="@+id/posts"/>
+
+            </RelativeLayout>
+
+        </android.support.v4.widget.NestedScrollView>
 
 </android.support.design.widget.CoordinatorLayout>

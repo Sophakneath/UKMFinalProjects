@@ -16,9 +16,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
@@ -32,7 +30,6 @@ import com.example.phakneath.jobber.Model.Users;
 import com.example.phakneath.jobber.Model.saveESCCI;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -58,7 +55,7 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class ProfileActivity extends AppCompatActivity implements OnClickListener {
+public class OtherProfileActivity extends AppCompatActivity implements View.OnClickListener{
 
     FirebaseAuth mAuth;
     DatabaseReference mDatabase;
@@ -66,16 +63,17 @@ public class ProfileActivity extends AppCompatActivity implements OnClickListene
     StorageReference storageReference, ref;
 
     String uID;
-    ShimmerFrameLayout shimmer;
     CircleImageView profile;
-    TextView position, username, nationAndWork, countPosts, countFav, add, countCareer, countSch, countEvents, countCom, countInt, noPosts;
-    ImageView back, setting, addPosts;
+    TextView position, username, nationAndWork, countPosts, countCareer, countSch, countEvents, countCom, countInt, otherPosts, noPosts;
+    ImageView back;
     CardView career, scholarship, events, competition, internship;
-    LinearLayoutManager mManager;
     //SwipeRefreshLayout swipeRefreshLayout;
     RecyclerView recyclerView;
     FirebaseRecyclerPagingAdapter mAdapter;
     int count1=0, count2=0, count3=0, count4=0, count5=0;
+    String otherID;
+    ShimmerFrameLayout shimmer;
+    LinearLayoutManager mManager;
 
     Query query;
     PagedList.Config config;
@@ -84,113 +82,57 @@ public class ProfileActivity extends AppCompatActivity implements OnClickListene
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_profile);
+        setContentView(R.layout.activity_other_profile);
 
         initView();
         mAuth = FirebaseAuth.getInstance();
         uID = mAuth.getCurrentUser().getUid();
 
-        getUser();
+        Intent intent = getIntent();
+        otherID = intent.getStringExtra("id");
+        getUser(otherID);
+
         back.setOnClickListener(this::onClick);
-        setting.setOnClickListener(this::onClick);
-        add.setOnClickListener(this::onClick);
-        addPosts.setOnClickListener(this::onClick);
         career.setOnClickListener(this::onClick);
         scholarship.setOnClickListener(this::onClick);
         events.setOnClickListener(this::onClick);
         competition.setOnClickListener(this::onClick);
         internship.setOnClickListener(this::onClick);
-        countFav.setOnClickListener(this::onClick);
 
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Posting");
-        query = mDatabase.orderByChild("ownerID").equalTo(uID);
+        query = mDatabase.orderByChild("ownerID").equalTo(otherID);
+
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.getValue() != null)
-                {
+                if(dataSnapshot.hasChildren()) {
                     noPosts.setVisibility(View.GONE);
                     setPageList();
                     setPagination();
 
-                    mAdapter = new FirebaseRecyclerPagingAdapter<ESCCI, ProfileActivity.ESCCIViewHolder>(options) {
+                    mAdapter = new FirebaseRecyclerPagingAdapter<ESCCI, OtherProfileActivity.ESCCIViewHolder>(options) {
 
                         @NonNull
                         @Override
-                        public ProfileActivity.ESCCIViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                            return new ProfileActivity.ESCCIViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.items_showing_layout, parent,false));
+                        public OtherProfileActivity.ESCCIViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                            return new OtherProfileActivity.ESCCIViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.items_showing_layout, parent, false));
                         }
 
                         @Override
-                        protected void onBindViewHolder(@NonNull ProfileActivity.ESCCIViewHolder viewHolder, int position, @NonNull ESCCI model) {
-                            viewHolder.setItem(model, uID);
+                        protected void onBindViewHolder(@NonNull OtherProfileActivity.ESCCIViewHolder viewHolder, int position, @NonNull ESCCI model) {
+                            viewHolder.setItem(model);
 
-                            getImage(viewHolder.image, model.getImage(), ProfileActivity.this, "posting/");
+                            getImage(viewHolder.image, model.getImage(), OtherProfileActivity.this, "posting/");
 
                             viewHolder.fav.setTag("fav");
 
-                            viewHolder.edit.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    PopupMenu menu = new PopupMenu(ProfileActivity.this, v);
-                                    menu.inflate(R.menu.more_menu);
-                                    menu.setGravity(Gravity.RIGHT);
-                                    menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                                        @Override
-                                        public boolean onMenuItemClick(MenuItem item) {
-                                            switch (item.getItemId()) {
-                                                case R.id.edit:
-                                                    editPost(model);
-                                                    return true;
-
-                                                case R.id.delete:
-
-                                                    new FancyAlertDialog.Builder(ProfileActivity.this)
-                                                            .setTitle("Confirmation")
-                                                            .setBackgroundColor(Color.parseColor("#292E43"))  //Don't pass R.color.colorvalue
-                                                            .setMessage("Are you sure you want to delete this item?")
-                                                            .setPositiveBtnBackground(Color.parseColor("#2196F3"))  //Don't pass R.color.colorvalue
-                                                            .setPositiveBtnText("Yes")
-                                                            .setNegativeBtnText("Cancel")
-                                                            .setAnimation(Animation.SIDE)
-                                                            .isCancellable(false)
-                                                            .setIcon(R.drawable.infos_full, Icon.Visible)
-                                                            .OnPositiveClicked(new FancyAlertDialogListener() {
-                                                                @Override
-                                                                public void OnClick() {
-                                                                    shimmer.startShimmerAnimation();
-                                                                    shimmer.setVisibility(View.VISIBLE);
-                                                                    recyclerView.setVisibility(View.GONE);
-                                                                    delete(model);
-                                                                    mAdapter.notifyItemRemoved(position);
-
-                                                                }
-                                                            })
-                                                            .OnNegativeClicked(new FancyAlertDialogListener() {
-                                                                @Override
-                                                                public void OnClick() {
-                                                                }
-                                                            }).build();
-
-                                                    return true;
-
-                                                default:
-                                                    return false;
-                                            }
-
-                                        }
-                                    });
-
-                                    menu.show();
-                                }
-                            });
+                            viewHolder.edit.setVisibility(View.GONE);
 
                             viewHolder.container.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
                                     String f = (String) viewHolder.fav.getTag();
-                                    Intent intent = new Intent(ProfileActivity.this, DetailActivity.class);
+                                    Intent intent = new Intent(OtherProfileActivity.this, DetailActivity.class);
                                     Bundle bundle = new Bundle();
                                     bundle.putSerializable("data", model);
                                     bundle.putString("fav", f);
@@ -202,15 +144,12 @@ public class ProfileActivity extends AppCompatActivity implements OnClickListene
                             viewHolder.fav.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    if(v.getTag() == "fav")
-                                    {
-                                        viewHolder.fav.setImageDrawable(ProfileActivity.this.getResources().getDrawable(R.drawable.red_fav));
+                                    if (v.getTag() == "fav") {
+                                        viewHolder.fav.setImageDrawable(OtherProfileActivity.this.getResources().getDrawable(R.drawable.red_fav));
                                         v.setTag("unFav");
-                                        saveFavourite(model.getId(),model.getOwnerID(), System.currentTimeMillis());
-                                    }
-                                    else
-                                    {
-                                        viewHolder.fav.setImageDrawable(ProfileActivity.this.getResources().getDrawable(R.drawable.favorite));
+                                        saveFavourite(model.getId(), model.getOwnerID(), System.currentTimeMillis());
+                                    } else {
+                                        viewHolder.fav.setImageDrawable(OtherProfileActivity.this.getResources().getDrawable(R.drawable.favorite));
                                         v.setTag("fav");
                                         unSaveFavourite(model.getId());
                                     }
@@ -256,17 +195,17 @@ public class ProfileActivity extends AppCompatActivity implements OnClickListene
 
                         @Override
                         protected void onError(@NonNull DatabaseError databaseError) {
-                            //swipeRefreshLayout.setRefreshing(false);
                             shimmer.stopShimmerAnimation();
                             shimmer.setVisibility(View.GONE);
                             recyclerView.setVisibility(View.VISIBLE);
+                            //swipeRefreshLayout.setRefreshing(false);
                             databaseError.toException().printStackTrace();
                             retry();
                         }
 
                     };
 
-                    mManager = new LinearLayoutManager(ProfileActivity.this);
+                    mManager = new LinearLayoutManager(OtherProfileActivity.this);
                     recyclerView.setHasFixedSize(true);
                     recyclerView.setLayoutManager(mManager);
                     recyclerView.setAdapter(mAdapter);
@@ -282,6 +221,8 @@ public class ProfileActivity extends AppCompatActivity implements OnClickListene
             }
         });
 
+
+
         /*swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -289,18 +230,15 @@ public class ProfileActivity extends AppCompatActivity implements OnClickListene
             }
         });*/
 
+
     }
 
     public void initView() {
         profile = findViewById(R.id.profile);
         username = findViewById(R.id.username);
         nationAndWork = findViewById(R.id.workplace);
-        countPosts = findViewById(R.id.countPosts);
-        countFav = findViewById(R.id.countFav);
-        addPosts = findViewById(R.id.addPosts);
-        add = findViewById(R.id.posting);
+        countPosts = findViewById(R.id.posts);
         back = findViewById(R.id.back);
-        setting = findViewById(R.id.setting);
         career = findViewById(R.id.career);
         scholarship = findViewById(R.id.scholarship);
         events = findViewById(R.id.events);
@@ -314,10 +252,10 @@ public class ProfileActivity extends AppCompatActivity implements OnClickListene
         countCom = findViewById(R.id.countCom);
         countInt = findViewById(R.id.countInt);
         position = findViewById(R.id.position);
+        otherPosts = findViewById(R.id.otherPosts);
         shimmer = findViewById(R.id.shimmer);
-        //mainScreen = findViewById(R.id.mainScreen);
         noPosts = findViewById(R.id.noPosts);
-        }
+    }
 
     @Override
     protected void onStart() {
@@ -334,12 +272,12 @@ public class ProfileActivity extends AppCompatActivity implements OnClickListene
         if(mAdapter != null) mAdapter.stopListening();
     }
 
-    public void getUser()
+    public void getUser(String otherID)
     {
         List<MyESCCI> myESCCIS = new ArrayList<>();
         List<saveESCCI> saveESCCIS = new ArrayList<>();
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("Users").child(uID).addValueEventListener(new ValueEventListener() {
+        mDatabase.child("Users").child(otherID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String id = dataSnapshot.child("id").getValue(String.class);
@@ -354,14 +292,9 @@ public class ProfileActivity extends AppCompatActivity implements OnClickListene
                     myESCCIS.add(d.getValue(MyESCCI.class));
                 }
 
-                for(DataSnapshot d: dataSnapshot.child("favourite").getChildren())
-                {
-                    saveESCCIS.add(d.getValue(saveESCCI.class));
-                }
-
                 Users users = new Users(id,email,username,nationality,workPlace,position,image,myESCCIS, saveESCCIS);
                 updateUI(users);
-                if(users.getImage() != null) getImage(profile, users.getImage(), ProfileActivity.this, "profile/");
+                if(users.getImage() != null) getImage(profile, users.getImage(), OtherProfileActivity.this, "profile/");
             }
 
             @Override
@@ -394,6 +327,7 @@ public class ProfileActivity extends AppCompatActivity implements OnClickListene
 
     private void updateUI(Users users) {
 
+        otherPosts.setText(users.getUsername() + "'s Posts");
         username.setText(users.getUsername());
         if(users.getPosition() != null) position.setText(users.getPosition());
         if(users.getNationality() != null && users.getWorkplace() != null) nationAndWork.setText(users.getNationality() + ", " + users.getWorkplace());
@@ -403,7 +337,7 @@ public class ProfileActivity extends AppCompatActivity implements OnClickListene
 
         if(users.getRandomThings() != null)
         {
-            countPosts.setText(users.getRandomThings().size() + "");
+            countPosts.setText(users.getRandomThings().size() + " Posts");
             for(MyESCCI myESCCI : users.getRandomThings())
             {
                 switch(myESCCI.getMode())
@@ -420,10 +354,6 @@ public class ProfileActivity extends AppCompatActivity implements OnClickListene
             countCom.setText(count3+ " Posts");
             countInt.setText(count4+" Posts");
             countSch.setText(count5+ " Posts");
-        }
-        if(users.getFavourite() != null)
-        {
-            countFav.setText(users.getFavourite().size()+"");
         }
     }
 
@@ -444,57 +374,6 @@ public class ProfileActivity extends AppCompatActivity implements OnClickListene
                 .build();
     }
 
-    public void delete(ESCCI escci)
-    {
-        String id = escci.getId();
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("Posting").child(id).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-
-                mDatabase.child("Users").child(uID).child("randomThings").child(id).removeValue();
-
-                deleteImage(escci);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(ProfileActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    public void deleteImage(ESCCI escci) {
-
-        storageReference = FirebaseStorage.getInstance().getReference();
-        String p = escci.getImage();
-        if(p != null) {
-            ref = storageReference.child("posting/").child(p);
-            ref.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    Toast.makeText(ProfileActivity.this, "Delete Successful", Toast.LENGTH_SHORT).show();
-                    //swipeRefreshLayout.setRefreshing(false);
-                    shimmer.stopShimmerAnimation();
-                    shimmer.setVisibility(View.GONE);
-                    recyclerView.setVisibility(View.VISIBLE);
-                    mAdapter.refresh();
-                }
-            });
-        }
-    }
-
-
-    public void editPost(ESCCI escci)
-    {
-        Intent intent = new Intent(ProfileActivity.this, EditPostsActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("posts", escci);
-        intent.putExtras(bundle);
-        startActivity(intent);
-
-    }
-
     public void saveFavourite(String id, String ownerID, long saveTime)
     {
         saveESCCI s = new saveESCCI(id, ownerID, saveTime);
@@ -503,7 +382,7 @@ public class ProfileActivity extends AppCompatActivity implements OnClickListene
         mDatabase.child("Users").child(uID).child("favourite").child(id).setValue(s).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                Toast.makeText(ProfileActivity.this, "Saved", Toast.LENGTH_SHORT).show();
+                Toast.makeText(OtherProfileActivity.this, "Saved", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -514,7 +393,7 @@ public class ProfileActivity extends AppCompatActivity implements OnClickListene
         mDatabase.child("Users").child(uID).child("favourite").child(id).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                Toast.makeText(ProfileActivity.this, "Unsaved", Toast.LENGTH_SHORT).show();
+                Toast.makeText(OtherProfileActivity.this, "Unsaved", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -527,12 +406,12 @@ public class ProfileActivity extends AppCompatActivity implements OnClickListene
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()) {
-                    fav.setImageDrawable(ProfileActivity.this.getResources().getDrawable(R.drawable.red_fav));
+                    fav.setImageDrawable(OtherProfileActivity.this.getResources().getDrawable(R.drawable.red_fav));
                     fav.setTag("unFav");
                 }
                 else
                 {
-                    fav.setImageDrawable(ProfileActivity.this.getResources().getDrawable(R.drawable.favorite));
+                    fav.setImageDrawable(OtherProfileActivity.this.getResources().getDrawable(R.drawable.favorite));
                     fav.setTag("fav");
                 }
             }
@@ -542,6 +421,43 @@ public class ProfileActivity extends AppCompatActivity implements OnClickListene
 
             }
         });
+    }
+
+    public void openMyCategories(String mode, int count)
+    {
+        Intent intent = new Intent(this, MyCategoriesActivity.class);
+        intent.putExtra("mode", mode);
+        intent.putExtra("count", count);
+        intent.putExtra("id", otherID);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(v == back)
+        {
+            finish();
+        }
+        else if(v == career)
+        {
+            openMyCategories("Career", count2);
+        }
+        else if(v == scholarship)
+        {
+            openMyCategories("Scholarship", count5);
+        }
+        else if(v == events)
+        {
+            openMyCategories("Events", count1);
+        }
+        else if(v == competition)
+        {
+            openMyCategories("Competition", count3);
+        }
+        else if(v == internship)
+        {
+            openMyCategories("Internship", count4);
+        }
     }
 
     public static class ESCCIViewHolder extends RecyclerView.ViewHolder
@@ -565,14 +481,10 @@ public class ProfileActivity extends AppCompatActivity implements OnClickListene
             container = itemView.findViewById(R.id.container);
         }
 
-        public void setItem(ESCCI obj, String uid)
+        public void setItem(ESCCI obj)
         {
             name.setText(obj.getName());
             modes.setText(obj.getMode());
-            if(obj.getOwnerID().equals(uid) == true)
-                edit.setVisibility(View.VISIBLE);
-            else
-                edit.setVisibility(View.GONE);
             switch(obj.getMode())
             {
                 case "Career":
@@ -609,56 +521,6 @@ public class ProfileActivity extends AppCompatActivity implements OnClickListene
                     location.setText(e[2] + " " + e[1] + " " + e[3]);
                     break;
             }
-        }
-    }
-
-    public void openMyCategories(String mode, int count)
-    {
-        Intent intent = new Intent(this, MyCategoriesActivity.class);
-        intent.putExtra("mode", mode);
-        intent.putExtra("count", count);
-        intent.putExtra("id", uID);
-        startActivity(intent);
-    }
-
-    @Override
-    public void onClick(View v) {
-
-        if(v == back)
-        {
-            finish();
-        }
-        else if(v == add || v== addPosts)
-        {
-            startActivity(new Intent(this, AddPostActivity.class));
-        }
-        else if(v == career)
-        {
-            openMyCategories("Career", count2);
-        }
-        else if(v == scholarship)
-        {
-            openMyCategories("Scholarship", count5);
-        }
-        else if(v == events)
-        {
-            openMyCategories("Events", count1);
-        }
-        else if(v == competition)
-        {
-            openMyCategories("Competition", count3);
-        }
-        else if(v == internship)
-        {
-            openMyCategories("Internship", count4);
-        }
-        else if(v == setting)
-        {
-            startActivity(new Intent(this, SettingActivity.class));
-        }
-        else if(v == countFav)
-        {
-            startActivity(new Intent(this, FavouriteActivity.class));
         }
     }
 }

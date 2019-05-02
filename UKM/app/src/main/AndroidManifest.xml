@@ -69,7 +69,14 @@
         <activity android:name=".FavouriteActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".MyCategoriesActivity" />
-        <activity android:name=".SettingActivity"></activity>
+        <activity android:name=".SettingActivity" />
+        <activity android:name=".OtherProfileActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

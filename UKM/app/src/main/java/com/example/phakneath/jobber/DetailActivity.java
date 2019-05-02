@@ -77,6 +77,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         back.setOnClickListener(this::onClick);
         edit.setOnClickListener(this::onClick);
         fav.setOnClickListener(this::onClick);
+        profile.setOnClickListener(this::onClick);
 
         supportMapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.googlemap);
         supportMapFragment.getMapAsync(this);
@@ -341,6 +342,20 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
                 heartFav.setTag("fav");
                 unSaveFavourite(escci.getId());
             }
+        }
+        else if(v == profile)
+        {
+            Intent intent;
+            if(escci.getOwnerID().equals(uid))
+            {
+                intent = new Intent(this, ProfileActivity.class);
+            }
+            else
+            {
+                intent = new Intent(this, OtherProfileActivity.class);
+                intent.putExtra("id", escci.getOwnerID());
+            }
+            startActivity(intent);
         }
     }
 }

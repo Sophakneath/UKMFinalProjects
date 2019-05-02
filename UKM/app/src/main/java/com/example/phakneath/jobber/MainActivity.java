@@ -34,6 +34,7 @@ import com.example.phakneath.jobber.Dialog.LoadingDialog;
 import com.example.phakneath.jobber.Model.ESCCI;
 import com.example.phakneath.jobber.Model.saveESCCI;
 import com.example.phakneath.jobber.sharePreferences.UserPreferences;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -66,13 +67,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ImageView menu;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
-    SwipeRefreshLayout swipeRefreshLayout;
+    //SwipeRefreshLayout swipeRefreshLayout;
     RecyclerView recyclerView;
     DatabaseReference mDatabase;
     FirebaseRecyclerPagingAdapter mAdapter;
     FirebaseAuth mAuth;
     FirebaseStorage storage;
     StorageReference storageReference,ref;
+    ShimmerFrameLayout shimmer;
+    LinearLayoutManager mManager;
 
     PagedList.Config config;
     DatabasePagingOptions<ESCCI> options;
@@ -82,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     LoadingDialog dialog;
     CircleImageView profile;
     TextView username;
-    TextView viewProfile;
+    TextView viewProfile, noPosts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,161 +101,190 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         navigationView.setNavigationItemSelectedListener(this::onNavigationItemSelected);
 
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Posting");
-
         query = mDatabase.orderByChild("postingTime");
 
-        setPageList();
-        setPagination();
-
-        mAdapter = new FirebaseRecyclerPagingAdapter<ESCCI, ESCCIViewHolder>(options) {
-
-            @NonNull
+        query.addValueEventListener(new ValueEventListener() {
             @Override
-            public ESCCIViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                return new ESCCIViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.items_showing_layout, parent,false));
-            }
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.hasChildren())
+                {
+                    noPosts.setVisibility(View.GONE);
+                    setPageList();
+                    setPagination();
 
-            @Override
-            protected void onBindViewHolder(@NonNull ESCCIViewHolder viewHolder, int position, @NonNull ESCCI model) {
-                viewHolder.setItem(model, uid);
+                    mAdapter = new FirebaseRecyclerPagingAdapter<ESCCI, ESCCIViewHolder>(options) {
 
-                getImage(viewHolder.image, model.getImage(), MainActivity.this, "posting/");
-
-                viewHolder.fav.setTag("fav");
-
-                viewHolder.edit.setOnClickListener(new View.OnClickListener() {
+                        @NonNull
                         @Override
-                        public void onClick(View v) {
-                            PopupMenu menu = new PopupMenu(MainActivity.this, v);
-                            menu.inflate(R.menu.more_menu);
-                            menu.setGravity(Gravity.RIGHT);
-                            menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        public ESCCIViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                            return new ESCCIViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.items_showing_layout, parent,false));
+                        }
+
+                        @Override
+                        protected void onBindViewHolder(@NonNull ESCCIViewHolder viewHolder, int position, @NonNull ESCCI model) {
+                            viewHolder.setItem(model, uid);
+
+                            getImage(viewHolder.image, model.getImage(), MainActivity.this, "posting/");
+
+                            viewHolder.fav.setTag("fav");
+
+                            viewHolder.edit.setOnClickListener(new View.OnClickListener() {
                                 @Override
-                                public boolean onMenuItemClick(MenuItem item) {
-                                    switch (item.getItemId()) {
-                                        case R.id.edit:
-                                            editPost(model);
-                                            return true;
+                                public void onClick(View v) {
+                                    PopupMenu menu = new PopupMenu(MainActivity.this, v);
+                                    menu.inflate(R.menu.more_menu);
+                                    menu.setGravity(Gravity.RIGHT);
+                                    menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                                        @Override
+                                        public boolean onMenuItemClick(MenuItem item) {
+                                            switch (item.getItemId()) {
+                                                case R.id.edit:
+                                                    editPost(model);
+                                                    return true;
 
-                                        case R.id.delete:
+                                                case R.id.delete:
 
-                                            new FancyAlertDialog.Builder(MainActivity.this)
-                                                    .setTitle("Confirmation")
-                                                    .setBackgroundColor(Color.parseColor("#292E43"))  //Don't pass R.color.colorvalue
-                                                    .setMessage("Are you sure you want to delete this item?")
-                                                    .setPositiveBtnBackground(Color.parseColor("#2196F3"))  //Don't pass R.color.colorvalue
-                                                    .setPositiveBtnText("Yes")
-                                                    .setNegativeBtnText("Cancel")
-                                                    .setAnimation(Animation.SIDE)
-                                                    .isCancellable(false)
-                                                    .setIcon(R.drawable.infos_full, Icon.Visible)
-                                                    .OnPositiveClicked(new FancyAlertDialogListener() {
-                                                        @Override
-                                                        public void OnClick() {
-                                                            swipeRefreshLayout.setRefreshing(true);
-                                                            delete(model);
-                                                            mAdapter.notifyItemRemoved(position);
+                                                    new FancyAlertDialog.Builder(MainActivity.this)
+                                                            .setTitle("Confirmation")
+                                                            .setBackgroundColor(Color.parseColor("#292E43"))  //Don't pass R.color.colorvalue
+                                                            .setMessage("Are you sure you want to delete this item?")
+                                                            .setPositiveBtnBackground(Color.parseColor("#2196F3"))  //Don't pass R.color.colorvalue
+                                                            .setPositiveBtnText("Yes")
+                                                            .setNegativeBtnText("Cancel")
+                                                            .setAnimation(Animation.SIDE)
+                                                            .isCancellable(false)
+                                                            .setIcon(R.drawable.infos_full, Icon.Visible)
+                                                            .OnPositiveClicked(new FancyAlertDialogListener() {
+                                                                @Override
+                                                                public void OnClick() {
+                                                                    //swipeRefreshLayout.setRefreshing(true);
+                                                                    shimmer.startShimmerAnimation();
+                                                                    shimmer.setVisibility(View.VISIBLE);
+                                                                    recyclerView.setVisibility(View.GONE);
+                                                                    delete(model);
+                                                                    mAdapter.notifyItemRemoved(position);
 
-                                                        }
-                                                    })
-                                                    .OnNegativeClicked(new FancyAlertDialogListener() {
-                                                        @Override
-                                                        public void OnClick() {
-                                                        }
-                                                    }).build();
+                                                                }
+                                                            })
+                                                            .OnNegativeClicked(new FancyAlertDialogListener() {
+                                                                @Override
+                                                                public void OnClick() {
+                                                                }
+                                                            }).build();
 
-                                            return true;
+                                                    return true;
 
-                                        default:
-                                            return false;
-                                    }
+                                                default:
+                                                    return false;
+                                            }
 
+                                        }
+                                    });
+
+                                    menu.show();
                                 }
                             });
 
-                            menu.show();
+                            viewHolder.container.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    String f = (String) viewHolder.fav.getTag();
+                                    Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+                                    Bundle bundle = new Bundle();
+                                    bundle.putSerializable("data", model);
+                                    bundle.putString("fav", f);
+                                    intent.putExtras(bundle);
+                                    startActivity(intent);
+                                }
+                            });
+
+                            viewHolder.fav.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    if(v.getTag() == "fav")
+                                    {
+                                        viewHolder.fav.setImageDrawable(MainActivity.this.getResources().getDrawable(R.drawable.red_fav));
+                                        v.setTag("unFav");
+                                        saveFavourite(model.getId(),model.getOwnerID(), System.currentTimeMillis());
+                                    }
+                                    else
+                                    {
+                                        viewHolder.fav.setImageDrawable(MainActivity.this.getResources().getDrawable(R.drawable.favorite));
+                                        v.setTag("fav");
+                                        unSaveFavourite(model.getId());
+                                    }
+                                }
+                            });
+
+                            getSaveFavourite(model.getId(), viewHolder.fav);
                         }
-                    });
 
-                viewHolder.container.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        String f = (String) viewHolder.fav.getTag();
-                        Intent intent = new Intent(MainActivity.this, DetailActivity.class);
-                        Bundle bundle = new Bundle();
-                        bundle.putSerializable("data", model);
-                        bundle.putString("fav", f);
-                        intent.putExtras(bundle);
-                        startActivity(intent);
-                    }
-                });
+                        @Override
+                        protected void onLoadingStateChanged(@NonNull LoadingState state) {
+                            switch (state) {
+                                case LOADING_INITIAL:
+                                case LOADING_MORE:
+                                    // Do your loading animation
+                                    //swipeRefreshLayout.setRefreshing(true);
+                                    shimmer.startShimmerAnimation();
+                                    shimmer.setVisibility(View.VISIBLE);
+                                    recyclerView.setVisibility(View.GONE);
+                                    break;
 
-                viewHolder.fav.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if(v.getTag() == "fav")
-                        {
-                            viewHolder.fav.setImageDrawable(MainActivity.this.getResources().getDrawable(R.drawable.red_fav));
-                            v.setTag("unFav");
-                            saveFavourite(model.getId(),model.getOwnerID(), System.currentTimeMillis());
+                                case LOADED:
+                                    // Stop Animation
+                                    //swipeRefreshLayout.setRefreshing(false);
+                                    shimmer.startShimmerAnimation();
+                                    shimmer.setVisibility(View.GONE);
+                                    recyclerView.setVisibility(View.VISIBLE);
+                                    break;
+
+                                case FINISHED:
+                                    //Reached end of Data set
+                                    //swipeRefreshLayout.setRefreshing(false);
+                                    shimmer.startShimmerAnimation();
+                                    shimmer.setVisibility(View.GONE);
+                                    recyclerView.setVisibility(View.VISIBLE);
+                                    break;
+
+                                case ERROR:
+                                    retry();
+                                    break;
+                            }
                         }
-                        else
-                        {
-                            viewHolder.fav.setImageDrawable(MainActivity.this.getResources().getDrawable(R.drawable.favorite));
-                            v.setTag("fav");
-                            unSaveFavourite(model.getId());
+
+                        @Override
+                        protected void onError(@NonNull DatabaseError databaseError) {
+                            //swipeRefreshLayout.setRefreshing(false);
+                            shimmer.startShimmerAnimation();
+                            shimmer.setVisibility(View.GONE);
+                            recyclerView.setVisibility(View.VISIBLE);
+                            databaseError.toException().printStackTrace();
+                            retry();
                         }
-                    }
-                });
 
-                getSaveFavourite(model.getId(), viewHolder.fav);
-            }
-
-            @Override
-            protected void onLoadingStateChanged(@NonNull LoadingState state) {
-                switch (state) {
-                    case LOADING_INITIAL:
-                    case LOADING_MORE:
-                        // Do your loading animation
-                        swipeRefreshLayout.setRefreshing(true);
-                        break;
-
-                    case LOADED:
-                        // Stop Animation
-                        swipeRefreshLayout.setRefreshing(false);
-                        break;
-
-                    case FINISHED:
-                        //Reached end of Data set
-                        swipeRefreshLayout.setRefreshing(false);
-                        break;
-
-                    case ERROR:
-                        retry();
-                        break;
+                    };
+                    mManager = new LinearLayoutManager(MainActivity.this);
+                    recyclerView.setHasFixedSize(true);
+                    recyclerView.setLayoutManager(mManager);
+                    recyclerView.setAdapter(mAdapter);
                 }
+                else noPosts.setVisibility(View.VISIBLE);
             }
 
             @Override
-            protected void onError(@NonNull DatabaseError databaseError) {
-                swipeRefreshLayout.setRefreshing(false);
-                databaseError.toException().printStackTrace();
-                retry();
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
             }
+        });
 
-        };
 
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        /*swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 mAdapter.refresh();
             }
-        });
-
-        LinearLayoutManager mManager = new LinearLayoutManager(this);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(mManager);
-        recyclerView.setAdapter(mAdapter);
+        });*/
 
         viewProfile.setOnClickListener(this::onClick);
         profile.setOnClickListener(this::onClick);
@@ -263,14 +295,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onStart() {
         super.onStart();
-        mAdapter.refresh();
-        mAdapter.startListening();
+        if(mAdapter != null) {
+            mAdapter.refresh();
+            mAdapter.startListening();
+        }
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        mAdapter.stopListening();
+        if(mAdapter != null) mAdapter.stopListening();
     }
 
     public void initView()
@@ -278,13 +312,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         menu = findViewById(R.id.menu);
         drawerLayout = findViewById(R.id.drawerLayout);
         navigationView = findViewById(R.id.nav);
-        swipeRefreshLayout = findViewById(R.id.swipeRefresh);
+        //swipeRefreshLayout = findViewById(R.id.swipeRefresh);
         recyclerView = findViewById(R.id.mRecyclerView);
 
         View headerView = navigationView.getHeaderView(0);
         profile = headerView.findViewById(R.id.users);
         username = headerView.findViewById(R.id.username);
         viewProfile = headerView.findViewById(R.id.views);
+        shimmer = findViewById(R.id.shimmer);
+        noPosts = findViewById(R.id.noPosts);
     }
 
 
@@ -448,7 +484,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     Toast.makeText(MainActivity.this, "Delete Successful", Toast.LENGTH_SHORT).show();
-                    swipeRefreshLayout.setRefreshing(false);
+                    shimmer.startShimmerAnimation();
+                    shimmer.setVisibility(View.GONE);
+                    recyclerView.setVisibility(View.VISIBLE);
+                    //swipeRefreshLayout.setRefreshing(false);
                     mAdapter.refresh();
                 }
             });
