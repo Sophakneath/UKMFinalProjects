@@ -2,14 +2,18 @@ package com.example.phakneath.jobber;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,6 +21,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,8 +32,15 @@ import android.widget.Toast;
 import com.example.phakneath.jobber.Adapter.PlaceAutoCompleteAdapter;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResolvableApiException;
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsResponse;
+import com.google.android.gms.location.SettingsClient;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -39,6 +51,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
 import java.io.IOException;
@@ -64,11 +78,19 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
     //vars
     private Boolean mLocationPermissionsGranted = false;
     private GoogleMap mMap;
-    private FusedLocationProviderClient mFusedLocationProviderClient;
     private GoogleApiClient mGoogleApiClient;
+
+    private FusedLocationProviderClient mFusedLocationProviderClient;
     private PlaceAutoCompleteAdapter mPlaceAutocompleteAdapter;
-    private static final LatLngBounds LAT_LNG_BOUNDS = new LatLngBounds(
-            new LatLng(-40, -168), new LatLng(71, 136));
+    private LocationRequest locationRequest;
+
+    LocationSettingsRequest.Builder locationSettingBuilder;
+    SettingsClient settingsClient;
+    Task<LocationSettingsResponse> task;
+
+    LocationCallback locationCallback;
+
+    private static final LatLngBounds LAT_LNG_BOUNDS = new LatLngBounds(new LatLng(-40, -168), new LatLng(71, 136));
 
 
     @Override
@@ -79,7 +101,117 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
         initView();
         choose.setOnClickListener(this::onClick);
 
-        getLocationPermission();
+        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        locationCallback = new LocationCallback()
+        {
+            @Override
+            public void onLocationResult(LocationResult locationResult) {
+                if(locationResult == null)
+                {
+                    return;
+                }
+                else
+                {
+                    //Log.d("oooooo", "\n" + "Latitude : " + locationResult.getLastLocation().getLatitude() + " Longitude : " + locationResult.getLastLocation().getLongitude());
+                    moveCamera(new LatLng(locationResult.getLastLocation().getLatitude(), locationResult.getLastLocation().getLongitude()), DEFAULT_ZOOM,
+                            locationResult.getLocations().get(0).toString());
+                }
+            }
+        };
+
+        setLocationRequestSetting();
+        //getLocationPermission();
+    }
+
+    private void setLocationRequestSetting() {
+        locationRequest = LocationRequest.create();
+        //locationRequest.setInterval(3000);
+        //locationRequest.setFastestInterval(1000);
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //startLocationUpdate();
+        requestLocationUpdate();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(mFusedLocationProviderClient != null)
+        {
+            mFusedLocationProviderClient.removeLocationUpdates(locationCallback);
+            Toast.makeText(this, "Listener is removed", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void requestLocationUpdate()
+    {
+        locationSettingBuilder = new LocationSettingsRequest.Builder().addLocationRequest(locationRequest);
+        settingsClient = LocationServices.getSettingsClient(this);
+        task = settingsClient.checkLocationSettings(locationSettingBuilder.build());
+
+        task.addOnSuccessListener(this,new OnSuccessListener<LocationSettingsResponse>() {
+            @Override
+            public void onSuccess(LocationSettingsResponse locationSettingsResponse) {
+                startLocationUpdate();
+            }
+        });
+
+        Task<LocationSettingsResponse> locationSettingsResponseTask = task.addOnFailureListener(this, new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                if (e instanceof ResolvableApiException) {
+                    try {
+
+                        ResolvableApiException resolvableApiException = (ResolvableApiException) e;
+
+                        resolvableApiException.startResolutionForResult(GoogleMapActivity.this, GoogleMapActivity.this.LOCATION_PERMISSION_REQUEST_CODE);
+
+
+                    } catch (IntentSender.SendIntentException sendEx) {
+
+                    }
+                }
+            }
+        });
+    }
+
+    public void startLocationUpdate()
+    {
+        // Here, thisActivity is the current activity
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Permission is not granted
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.ACCESS_FINE_LOCATION)) {
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+
+                showExplaination();
+            } else {
+                // No explanation needed, we can request the permission.
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        0);
+
+                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                // app-defined int constant. The callback method gets the
+                // result of the request.
+            }
+        } else {
+            // Permission has already been granted
+            initMap();
+            mFusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, null);
+
+            //Toast.makeText(this, "Location Permission was granted", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void initView()
@@ -89,13 +221,37 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
         choose = findViewById(R.id.choose);
     }
 
+    private void showExplaination() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Require location permission");
+        builder.setMessage("This app need location permisssion to get the location information");
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                ActivityCompat.requestPermissions(GoogleMapActivity.this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        0);
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(GoogleMapActivity.this, "Sorry, this fuction cannot be worked until the permission is granted", Toast.LENGTH_SHORT).show();
+            }
+        }).create();
+
+        builder.show();
+    }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        init();
 
-        if (mLocationPermissionsGranted) {
-            getDeviceLocation();
+        /*if (mLocationPermissionsGranted) {
+            //getDeviceLocation();
+            requestLocationUpdate();
+            Toast.makeText(this, "map enter", Toast.LENGTH_SHORT).show();
 
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                     != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
@@ -104,9 +260,7 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
             }
             mMap.setMyLocationEnabled(true);
             mMap.getUiSettings().setMyLocationButtonEnabled(false);
-
-            init();
-        }
+        }*/
 
     }
 
@@ -125,7 +279,6 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
 
         mSearchText.setAdapter(mPlaceAutocompleteAdapter);
 
-
         mSearchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
@@ -135,7 +288,12 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
                         || keyEvent.getAction() == KeyEvent.KEYCODE_ENTER){
 
                     //execute our method for searching
-                    geoLocate();
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            geoLocate();
+                        }
+                    }).start();
                 }
 
                 return false;
@@ -146,11 +304,12 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "onClick: clicked gps icon");
-                getDeviceLocation();
+                requestLocationUpdate();
+                //getDeviceLocation();
             }
         });
 
-        hideSoftKeyboard();
+        hideSoftKeyboard(mSearchText);
     }
 
     private void geoLocate(){
@@ -178,12 +337,17 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
 
             //Toast.makeText(this, lat + " , " + longit, Toast.LENGTH_SHORT).show();
 
-            moveCamera(new LatLng(address.getLatitude(), address.getLongitude()), DEFAULT_ZOOM,
-                    address.getAddressLine(0));
+            GoogleMapActivity.this.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    moveCamera(new LatLng(address.getLatitude(), address.getLongitude()), DEFAULT_ZOOM,
+                            address.getAddressLine(0));
+                }
+            });
         }
     }
 
-    private void getDeviceLocation(){
+    /*private void getDeviceLocation(){
         Log.d(TAG, "getDeviceLocation: getting the devices current location");
 
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
@@ -209,11 +373,29 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
                         }
                     }
                 });
+
+                locationCallback = new LocationCallback()
+                {
+                    @Override
+                    public void onLocationResult(LocationResult locationResult) {
+                        if(locationResult == null)
+                        {
+                            Toast.makeText(GoogleMapActivity.this, "unable to get current location", Toast.LENGTH_SHORT).show();
+                        }
+                        else
+                        {
+                            moveCamera(new LatLng(locationResult.getLastLocation().getLatitude(), locationResult.getLastLocation().getLongitude()),
+                                    DEFAULT_ZOOM, "My Location");
+                        }
+                    }
+                };
+
             }
         }catch (SecurityException e){
             Log.e(TAG, "getDeviceLocation: SecurityException: " + e.getMessage() );
         }
-    }
+    }*/
+
 
     private void moveCamera(LatLng latLng, float zoom, String title){
         Log.d(TAG, "moveCamera: moving the camera to: lat: " + latLng.latitude + ", lng: " + latLng.longitude );
@@ -226,7 +408,7 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
             mMap.addMarker(options);
         }
 
-        hideSoftKeyboard();
+        hideSoftKeyboard(mSearchText);
     }
 
     private void initMap(){
@@ -236,28 +418,32 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
         mapFragment.getMapAsync(GoogleMapActivity.this);
     }
 
-    private void getLocationPermission(){
+    /*private void getLocationPermission(){
         Log.d(TAG, "getLocationPermission: getting location permissions");
         String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.ACCESS_COARSE_LOCATION};
 
-        if(ContextCompat.checkSelfPermission(this.getApplicationContext(),
-                FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
-            if(ContextCompat.checkSelfPermission(this.getApplicationContext(),
-                    COURSE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+        if(ContextCompat.checkSelfPermission(this.getApplicationContext(), FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+
+            if(ContextCompat.checkSelfPermission(this.getApplicationContext(), COURSE_LOCATION) == PackageManager.PERMISSION_GRANTED){
                 mLocationPermissionsGranted = true;
+
                 initMap();
+                locationRequest = LocationRequest.create();
+                locationRequest.setInterval(3000);
+                locationRequest.setFastestInterval(1000);
+                locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+                mFusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, null);
+
             }else{
-                ActivityCompat.requestPermissions(this,
-                        permissions,
-                        LOCATION_PERMISSION_REQUEST_CODE);
+
+                ActivityCompat.requestPermissions(this, permissions, LOCATION_PERMISSION_REQUEST_CODE);
             }
         }else{
-            ActivityCompat.requestPermissions(this,
-                    permissions,
-                    LOCATION_PERMISSION_REQUEST_CODE);
+
+            ActivityCompat.requestPermissions(this, permissions, LOCATION_PERMISSION_REQUEST_CODE);
         }
-    }
+    }*/
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -283,8 +469,27 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
         }
     }
 
-    private void hideSoftKeyboard(){
-        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        switch(requestCode)
+        {
+            case LOCATION_PERMISSION_REQUEST_CODE:
+                switch(resultCode)
+                {
+                    case Activity.RESULT_OK:
+                        Toast.makeText(this, "Location setting has turned on", Toast.LENGTH_SHORT).show();
+                        break;
+                    case Activity.RESULT_CANCELED:
+                        Toast.makeText(this, "Location setting has not turned on", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+                break;
+        }
+    }
+
+    private void hideSoftKeyboard(View view){
+        InputMethodManager imm = (InputMethodManager) this.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
 

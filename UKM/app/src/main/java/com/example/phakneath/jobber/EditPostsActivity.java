@@ -71,7 +71,7 @@ public class EditPostsActivity extends AppCompatActivity implements View.OnClick
     ImageView picture, plus, back;
     ProgressBar progressBar;
     ScrollView scroll;
-    double lat, longit;
+    double lat=0, longit=0;
     String add;
 
     float fee;
@@ -438,7 +438,7 @@ public class EditPostsActivity extends AppCompatActivity implements View.OnClick
             about = etCAbout.getText().toString();
             link = etCLink.getText().toString();
 
-            myPost = new ESCCI(id, uID, name,mode,organizer,randomText,date,link,about,postingTime,image, uID+"_"+mode);
+            myPost = new ESCCI(id, uID, name,mode,organizer,randomText,date,link,about,postingTime,image, uID+"_"+mode, mode+"_"+name);
         }
         return myPost;
     }
@@ -486,8 +486,12 @@ public class EditPostsActivity extends AppCompatActivity implements View.OnClick
             address = etEAddress.getText().toString();
             about = etEAbout.getText().toString();
             link = etELink.getText().toString();
+            if(longit == 0 || lat == 0) {
+                longit = this.myPost.getLongitute();
+                lat = this.myPost.getLatitute();
+            }
 
-            myPost = new ESCCI(id,uID,name,mode,organizer,date,from,until,where,address,link,admission,fee,about,postingTime, image, longit,lat, uID+"_"+mode);
+            myPost = new ESCCI(id,uID,name,mode,organizer,date,from,until,where,address,link,admission,fee,about,postingTime, image, longit,lat, uID+"_"+mode, mode+"_"+name);
         }
         return myPost;
     }
@@ -513,7 +517,7 @@ public class EditPostsActivity extends AppCompatActivity implements View.OnClick
             about = etIAbout.getText().toString();
             link = etILink.getText().toString();
 
-            myPost = new ESCCI(id,uID,name,mode,organizer,from,until,date,link,about,postingTime, image, uID+"_"+mode);
+            myPost = new ESCCI(id,uID,name,mode,organizer,from,until,date,link,about,postingTime, image, uID+"_"+mode, mode+"_"+name);
         }
 
         return myPost;
@@ -555,7 +559,7 @@ public class EditPostsActivity extends AppCompatActivity implements View.OnClick
             about = etSAbout.getText().toString();
             link = etSLink.getText().toString();
 
-            myPost = new ESCCI(id, uID, name,mode,organizer,degree,date,link,about,postingTime, image, uID+"_"+mode);
+            myPost = new ESCCI(id, uID, name,mode,organizer,degree,date,link,about,postingTime, image, uID+"_"+mode, mode+"_"+name);
         }
 
         return myPost;

@@ -113,6 +113,22 @@ public class PlaceAutoCompleteAdapter extends ArrayAdapter<AutocompletePredictio
         return new Filter() {
             @Override
             protected FilterResults performFiltering(CharSequence constraint) {
+
+                /*try{
+                    FilterResults results = new FilterResults();
+                    if(constraint == null || constraint.length() == 0)
+                    {
+                        results.values = new ArrayList<AutocompleteFilter>();
+                        results.count = 0;
+                    }
+                    else
+                    {
+
+                    }
+                }catch(Exception e)
+                {
+                    return null;
+                }*/
                 FilterResults results = new FilterResults();
 
                 // We need a separate list to store the results, since

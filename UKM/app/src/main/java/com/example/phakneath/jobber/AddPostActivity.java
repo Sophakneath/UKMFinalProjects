@@ -343,7 +343,7 @@ public class AddPostActivity extends AppCompatActivity implements View.OnClickLi
             about = etCAbout.getText().toString();
             link = etCLink.getText().toString();
 
-            myPost = new ESCCI(id, uID, name,mode,organizer,randomText,date,link,about,postingTime,image, uID+"_"+mode);
+            myPost = new ESCCI(id, uID, name,mode,organizer,randomText,date,link,about,postingTime,image, uID+"_"+mode, mode+"_"+name);
         }
         return myPost;
     }
@@ -392,7 +392,7 @@ public class AddPostActivity extends AppCompatActivity implements View.OnClickLi
             about = etEAbout.getText().toString();
             link = etELink.getText().toString();
 
-            myPost = new ESCCI(id,uID,name,mode,organizer,date,from,until,where,address,link,admission,fee,about,postingTime, image, longit, lat, uID+"_"+mode);
+            myPost = new ESCCI(id,uID,name,mode,organizer,date,from,until,where,address,link,admission,fee,about,postingTime, image, longit, lat, uID+"_"+mode, mode+"_"+name);
         }
         return myPost;
     }
@@ -418,7 +418,7 @@ public class AddPostActivity extends AppCompatActivity implements View.OnClickLi
             about = etIAbout.getText().toString();
             link = etILink.getText().toString();
 
-            myPost = new ESCCI(id,uID,name,mode,organizer,from,until,date,link,about,postingTime, image, uID+"_"+mode);
+            myPost = new ESCCI(id,uID,name,mode,organizer,from,until,date,link,about,postingTime, image, uID+"_"+mode, mode+"_"+name);
         }
 
         return myPost;
@@ -460,7 +460,7 @@ public class AddPostActivity extends AppCompatActivity implements View.OnClickLi
             about = etSAbout.getText().toString();
             link = etSLink.getText().toString();
 
-            myPost = new ESCCI(id, uID, name,mode,organizer,degree,date,link,about,postingTime, image, uID+"_"+mode);
+            myPost = new ESCCI(id, uID, name,mode,organizer,degree,date,link,about,postingTime, image, uID+"_"+mode, mode+"_"+name);
         }
 
         return myPost;

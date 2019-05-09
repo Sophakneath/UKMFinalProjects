@@ -8,10 +8,14 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Layout;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -48,6 +52,8 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     TextView name, mode, by, text1, text2, text3, text4, text5, text6, text7, text8, about, readmore, username, position;
     ESCCI escci;
     String previousImage = null, f;
+    LinearLayout detail;
+    ProgressBar progressBar;
 
     DatabaseReference mDatabase;
     FirebaseAuth mAuth;
@@ -116,16 +122,29 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         position = findViewById(R.id.position);
         loc = findViewById(R.id.loc);
         heartFav = findViewById(R.id.heart);
+        progressBar = findViewById(R.id.progress);
+        detail = findViewById(R.id.detail);
     }
 
     public void updateUI() {
+        progressBar.setVisibility(View.VISIBLE);
+        detail.setVisibility(View.GONE);
+
         name.setText(escci.getName());
         by.setText("By " + escci.getOrganizer());
         mode.setText(escci.getMode());
 
         about.setText(escci.getAbout());
+        Toast.makeText(this, ""+about.getLineCount(), Toast.LENGTH_SHORT).show();
+
         if (!escci.getImage().equals(previousImage))
             getImagePosting(picture, escci.getImage(), this);
+        else
+        {
+            progressBar.setVisibility(View.GONE);
+            detail.setVisibility(View.VISIBLE);
+        }
+
         loc.setVisibility(View.GONE);
 
         if (escci.getOwnerID().equals(uid) == true)
@@ -264,6 +283,8 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
                 public void onSuccess(Uri uri) {
                     try {
                         Glide.with(context).load(uri).into(img);
+                        progressBar.setVisibility(View.GONE);
+                        detail.setVisibility(View.VISIBLE);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -280,6 +301,8 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         if (requestCode == 1) {
             if (resultCode == Activity.RESULT_OK) {
                 escci = (ESCCI) data.getSerializableExtra("result");
+                LatLng latLng = new LatLng(escci.getLatitute(), escci.getLongitute());
+                moveCamera(latLng);
                 updateUI();
             }
             if (resultCode == Activity.RESULT_CANCELED) {
@@ -292,17 +315,22 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
         LatLng latLng = new LatLng(escci.getLatitute(), escci.getLongitute());
+        moveCamera(latLng);
+    }
+
+    private void moveCamera(LatLng latLng)
+    {
+        latLng = new LatLng(escci.getLatitute(), escci.getLongitute());
         marker = new MarkerOptions().position(latLng).title(escci.geteLocation()).draggable(false);
         map.addMarker(marker);
         CameraUpdate camera = CameraUpdateFactory.newLatLngZoom(latLng, 10f);
         map.moveCamera(camera);
     }
 
-    public void saveFavourite(String id, String ownerID, long saveTime) {
-        saveESCCI s = new saveESCCI(id, ownerID, saveTime);
+    public void saveFavourite(ESCCI escci) {
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("Users").child(uid).child("favourite").child(id).setValue(s).addOnCompleteListener(new OnCompleteListener<Void>() {
+        mDatabase.child("Users").child(uid).child("favourite").child(escci.getId()).setValue(escci).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 Toast.makeText(DetailActivity.this, "Saved", Toast.LENGTH_SHORT).show();
@@ -336,7 +364,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
             if (v.getTag() == "fav") {
                 heartFav.setImageDrawable(this.getResources().getDrawable(R.drawable.red_fav));
                 heartFav.setTag("unFav");
-                saveFavourite(escci.getId(), escci.getOwnerID(), System.currentTimeMillis());
+                saveFavourite(escci);
             } else {
                 heartFav.setImageDrawable(this.getResources().getDrawable(R.drawable.favorite));
                 heartFav.setTag("fav");

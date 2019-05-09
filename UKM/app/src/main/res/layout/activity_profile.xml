@@ -582,7 +582,7 @@
                 android:layout_marginTop="12dp"
                 android:layout_marginRight="13dp"
                 android:layout_marginLeft="13dp"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:layout_below="@+id/b">
 
                 <!-- Adding 3 rows of placeholders -->

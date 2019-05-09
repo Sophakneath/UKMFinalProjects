@@ -87,6 +87,8 @@ public class MyCategoriesActivity extends AppCompatActivity implements View.OnCl
 
         updateUI();
         back.setOnClickListener(this::onClick);
+        shimmer.startShimmerAnimation();
+
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Posting");
 
         query = mDatabase.orderByChild("owner_mode").equalTo(id+"_"+modes);
@@ -192,7 +194,7 @@ public class MyCategoriesActivity extends AppCompatActivity implements View.OnCl
                                     {
                                         viewHolder.fav.setImageDrawable(MyCategoriesActivity.this.getResources().getDrawable(R.drawable.red_fav));
                                         v.setTag("unFav");
-                                        saveFavourite(model.getId(),model.getOwnerID(), System.currentTimeMillis());
+                                        saveFavourite(model);
                                     }
                                     else
                                     {
@@ -256,7 +258,12 @@ public class MyCategoriesActivity extends AppCompatActivity implements View.OnCl
                     recyclerView.setLayoutManager(mManager);
                     recyclerView.setAdapter(mAdapter);
                 }
-                else noPosts.setVisibility(View.VISIBLE);
+                else
+                {
+                    noPosts.setVisibility(View.VISIBLE);
+                    shimmer.stopShimmerAnimation();
+                    shimmer.setVisibility(View.GONE);
+                }
             }
 
             @Override
@@ -427,12 +434,10 @@ public class MyCategoriesActivity extends AppCompatActivity implements View.OnCl
 
     }
 
-    public void saveFavourite(String id, String ownerID, long saveTime)
+    public void saveFavourite(ESCCI escci)
     {
-        saveESCCI s = new saveESCCI(id, ownerID, saveTime);
-
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("Users").child(uID).child("favourite").child(id).setValue(s).addOnCompleteListener(new OnCompleteListener<Void>() {
+        mDatabase.child("Users").child(uID).child("favourite").child(escci.getId()).setValue(escci).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 Toast.makeText(MyCategoriesActivity.this, "Saved", Toast.LENGTH_SHORT).show();

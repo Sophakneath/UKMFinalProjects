@@ -99,6 +99,8 @@ public class OtherProfileActivity extends AppCompatActivity implements View.OnCl
         competition.setOnClickListener(this::onClick);
         internship.setOnClickListener(this::onClick);
 
+        shimmer.startShimmerAnimation();
+
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Posting");
         query = mDatabase.orderByChild("ownerID").equalTo(otherID);
 
@@ -147,7 +149,7 @@ public class OtherProfileActivity extends AppCompatActivity implements View.OnCl
                                     if (v.getTag() == "fav") {
                                         viewHolder.fav.setImageDrawable(OtherProfileActivity.this.getResources().getDrawable(R.drawable.red_fav));
                                         v.setTag("unFav");
-                                        saveFavourite(model.getId(), model.getOwnerID(), System.currentTimeMillis());
+                                        saveFavourite(model);
                                     } else {
                                         viewHolder.fav.setImageDrawable(OtherProfileActivity.this.getResources().getDrawable(R.drawable.favorite));
                                         v.setTag("fav");
@@ -212,7 +214,12 @@ public class OtherProfileActivity extends AppCompatActivity implements View.OnCl
                     recyclerView.setNestedScrollingEnabled(false);
                     mManager.setAutoMeasureEnabled(true);
                 }
-                else noPosts.setVisibility(View.VISIBLE);
+                else
+                {
+                    noPosts.setVisibility(View.VISIBLE);
+                    shimmer.stopShimmerAnimation();
+                    shimmer.setVisibility(View.GONE);
+                }
             }
 
             @Override
@@ -374,12 +381,10 @@ public class OtherProfileActivity extends AppCompatActivity implements View.OnCl
                 .build();
     }
 
-    public void saveFavourite(String id, String ownerID, long saveTime)
+    public void saveFavourite(ESCCI escci)
     {
-        saveESCCI s = new saveESCCI(id, ownerID, saveTime);
-
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("Users").child(uID).child("favourite").child(id).setValue(s).addOnCompleteListener(new OnCompleteListener<Void>() {
+        mDatabase.child("Users").child(uID).child("favourite").child(escci.getId()).setValue(escci).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 Toast.makeText(OtherProfileActivity.this, "Saved", Toast.LENGTH_SHORT).show();

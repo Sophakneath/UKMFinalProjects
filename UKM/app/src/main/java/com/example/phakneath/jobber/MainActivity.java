@@ -96,6 +96,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         dialog = new LoadingDialog();
         mAuth = FirebaseAuth.getInstance();
         uid = mAuth.getCurrentUser().getUid();
+        shimmer.startShimmerAnimation();
 
         menu.setOnClickListener(this::onClick);
         navigationView.setNavigationItemSelectedListener(this::onNavigationItemSelected);
@@ -205,7 +206,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                     {
                                         viewHolder.fav.setImageDrawable(MainActivity.this.getResources().getDrawable(R.drawable.red_fav));
                                         v.setTag("unFav");
-                                        saveFavourite(model.getId(),model.getOwnerID(), System.currentTimeMillis());
+                                        saveFavourite(model);
                                     }
                                     else
                                     {
@@ -269,7 +270,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     recyclerView.setLayoutManager(mManager);
                     recyclerView.setAdapter(mAdapter);
                 }
-                else noPosts.setVisibility(View.VISIBLE);
+                else
+                {
+                    noPosts.setVisibility(View.VISIBLE);
+                    shimmer.stopShimmerAnimation();
+                    shimmer.setVisibility(View.GONE);
+                }
             }
 
             @Override
@@ -331,7 +337,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         {
             case R.id.home: drawerLayout.closeDrawer(Gravity.LEFT);
                 break;
-            case R.id.fav: startActivity(new Intent(this, FavouriteActivity.class));
+            case R.id.fav: drawerLayout.closeDrawer(Gravity.LEFT); startActivity(new Intent(this, FavouriteActivity.class));
                 break;
             case R.id.add:
                 drawerLayout.closeDrawer(Gravity.LEFT);
@@ -527,12 +533,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    public void saveFavourite(String id, String ownerID, long saveTime)
+    public void saveFavourite(ESCCI escci)
     {
-        saveESCCI s = new saveESCCI(id, ownerID, saveTime);
-
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("Users").child(uid).child("favourite").child(id).setValue(s).addOnCompleteListener(new OnCompleteListener<Void>() {
+        mDatabase.child("Users").child(uid).child("favourite").child(escci.getId()).setValue(escci).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 Toast.makeText(MainActivity.this, "Saved", Toast.LENGTH_SHORT).show();
