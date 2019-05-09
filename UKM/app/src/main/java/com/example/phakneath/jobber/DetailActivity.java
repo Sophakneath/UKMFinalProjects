@@ -1,7 +1,6 @@
 package com.example.phakneath.jobber;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -9,17 +8,14 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
 import com.example.phakneath.jobber.Model.ESCCI;
-import com.example.phakneath.jobber.Model.Users;
 import com.example.phakneath.jobber.Model.saveESCCI;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -39,7 +35,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.shreyaspatil.firebase.recyclerpagination.FirebaseRecyclerPagingAdapter;
 
 public class DetailActivity extends AppCompatActivity implements View.OnClickListener, OnMapReadyCallback {
 
@@ -95,7 +90,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         icon2 = findViewById(R.id.icon2);
         icon3 = findViewById(R.id.icon3);
         icon4 = findViewById(R.id.icon4);
-        back = findViewById(R.id.back);
+        back = findViewById(R.id.label);
         share = findViewById(R.id.share);
         fav = findViewById(R.id.fav);
         edit = findViewById(R.id.edit);

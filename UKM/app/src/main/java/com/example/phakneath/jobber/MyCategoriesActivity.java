@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.support.annotation.NonNull;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -17,8 +16,6 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -313,7 +310,7 @@ public class MyCategoriesActivity extends AppCompatActivity implements View.OnCl
     private void initView() {
         countPosts = findViewById(R.id.countPosts);
         title = findViewById(R.id.title);
-        back = findViewById(R.id.back);
+        back = findViewById(R.id.label);
         mode = findViewById(R.id.cat);
         //swipeRefreshLayout = findViewById(R.id.swipeRefresh);
         recyclerView = findViewById(R.id.mRecyclerView);

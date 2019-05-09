@@ -8,14 +8,12 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -220,7 +218,7 @@ public class AddPostActivity extends AppCompatActivity implements View.OnClickLi
         btnPost = findViewById(R.id.posts);
         picture = findViewById(R.id.picture);
         plus = findViewById(R.id.plus);
-        back = findViewById(R.id.back);
+        back = findViewById(R.id.label);
         progressBar = findViewById(R.id.progressBar);
         scroll = findViewById(R.id.scroll);
     }
