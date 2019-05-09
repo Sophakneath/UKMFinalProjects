@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.support.annotation.NonNull;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -24,7 +23,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.phakneath.jobber.Dialog.LoadingDialog;
 import com.example.phakneath.jobber.Model.ESCCI;
 import com.example.phakneath.jobber.Model.saveESCCI;
 import com.facebook.shimmer.ShimmerFrameLayout;
@@ -105,7 +103,7 @@ public class FavouriteActivity extends AppCompatActivity implements View.OnClick
     }
     public void initView()
     {
-        back = findViewById(R.id.back);
+        back = findViewById(R.id.label);
         //swipeRefreshLayout = findViewById(R.id.swipeRefresh);
         recyclerView = findViewById(R.id.mRecyclerView);
         shimmer = findViewById(R.id.shimmer);

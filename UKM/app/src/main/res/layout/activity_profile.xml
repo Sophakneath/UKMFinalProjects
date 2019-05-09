@@ -38,7 +38,7 @@
                         android:src="@drawable/back_33dp"
                         android:layout_marginTop="16dp"
                         android:layout_marginLeft="20dp"
-                        android:id="@+id/back"/>
+                        android:id="@+id/label"/>
 
                     <RelativeLayout
                         android:layout_width="match_parent"

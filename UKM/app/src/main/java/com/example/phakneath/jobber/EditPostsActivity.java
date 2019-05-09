@@ -228,7 +228,7 @@ public class EditPostsActivity extends AppCompatActivity implements View.OnClick
         btnPost = findViewById(R.id.posts);
         picture = findViewById(R.id.picture);
         plus = findViewById(R.id.plus);
-        back = findViewById(R.id.back);
+        back = findViewById(R.id.label);
         progressBar = findViewById(R.id.progressBar);
         scroll = findViewById(R.id.scroll);
     }

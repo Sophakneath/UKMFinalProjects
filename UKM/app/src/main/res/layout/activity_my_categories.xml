@@ -32,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/back"
                 android:layout_marginLeft="10dp"
-                android:id="@+id/back"
+                android:id="@+id/label"
                 />
 
             <TextView

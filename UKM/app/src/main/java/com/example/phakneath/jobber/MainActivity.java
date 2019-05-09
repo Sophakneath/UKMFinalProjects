@@ -7,25 +7,20 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,7 +30,6 @@ import com.example.phakneath.jobber.Model.ESCCI;
 import com.example.phakneath.jobber.Model.saveESCCI;
 import com.example.phakneath.jobber.sharePreferences.UserPreferences;
 import com.facebook.shimmer.ShimmerFrameLayout;
-import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -48,9 +42,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.shashank.sony.fancydialoglib.Animation;
 import com.shashank.sony.fancydialoglib.FancyAlertDialog;
@@ -64,7 +56,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener{
 
-    ImageView menu;
+    ImageView menu,search;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     //SwipeRefreshLayout swipeRefreshLayout;
@@ -87,6 +79,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     TextView username;
     TextView viewProfile, noPosts;
 
+    CardView cat_work_card,cat_intern_card,cat_compete_card,cat_event_card, cat_scholar_card;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,7 +93,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         shimmer.startShimmerAnimation();
 
         menu.setOnClickListener(this::onClick);
+        search.setOnClickListener(this::onClick);
         navigationView.setNavigationItemSelectedListener(this::onNavigationItemSelected);
+
+        cat_event_card.setOnClickListener(this::onClick);
+        cat_intern_card.setOnClickListener(this::onClick);
+        cat_scholar_card.setOnClickListener(this::onClick);
+        cat_work_card.setOnClickListener(this::onClick);
+        cat_compete_card.setOnClickListener(this::onClick);
 
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Posting");
         query = mDatabase.orderByChild("postingTime");
@@ -316,6 +317,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void initView()
     {
         menu = findViewById(R.id.menu);
+        search = findViewById(R.id.searchView);
         drawerLayout = findViewById(R.id.drawerLayout);
         navigationView = findViewById(R.id.nav);
         //swipeRefreshLayout = findViewById(R.id.swipeRefresh);
@@ -327,6 +329,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         viewProfile = headerView.findViewById(R.id.views);
         shimmer = findViewById(R.id.shimmer);
         noPosts = findViewById(R.id.noPosts);
+
+        cat_compete_card = findViewById(R.id.main_compete_card);
+        cat_event_card = findViewById(R.id.main_event_card);
+        cat_intern_card = findViewById(R.id.main_intern_card);
+        cat_scholar_card =findViewById(R.id.main_scholar_card);
+        cat_work_card = findViewById(R.id.main_career_card);
     }
 
 
@@ -610,6 +618,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             drawerLayout.closeDrawer(Gravity.LEFT);
             startActivity(new Intent(this, ProfileActivity.class));
         }
+        if(v==search)
+        {
+            Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+            startActivity(intent);
+        }
+
+        if(v==cat_compete_card||v==cat_work_card||v==cat_scholar_card||v==cat_intern_card||v==cat_event_card)
+        {
+            String category="";
+            if(v==cat_compete_card) category = "Competitions";
+            if(v==cat_event_card) category = "Events";
+            if(v==cat_intern_card) category = "Internships";
+            if(v==cat_scholar_card) category = "Scholarhips";
+            if(v==cat_work_card) category = "Work";
+            Bundle catBundle = new Bundle();
+            catBundle.putString("Category", category);
+
+            Intent intent = new Intent(MainActivity.this, CategoryActivity.class);
+            intent.putExtras(catBundle);
+            startActivity(intent);
+        }
+
     }
 
 }

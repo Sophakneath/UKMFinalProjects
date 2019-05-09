@@ -21,10 +21,7 @@ import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.phakneath.jobber.Model.ESCCI;
-import com.example.phakneath.jobber.Model.MyESCCI;
 import com.example.phakneath.jobber.Model.Users;
-import com.example.phakneath.jobber.Model.saveESCCI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -43,8 +40,6 @@ import com.google.firebase.storage.UploadTask;
 import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -86,7 +81,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
     private void initView() {
         profile = findViewById(R.id.profile);
         editProfile = findViewById(R.id.edit);
-        back = findViewById(R.id.back);
+        back = findViewById(R.id.label);
         check = findViewById(R.id.check);
         username = findViewById(R.id.users);
         email = findViewById(R.id.email);
