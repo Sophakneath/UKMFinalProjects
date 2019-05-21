@@ -92,7 +92,6 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
 
     private static final LatLngBounds LAT_LNG_BOUNDS = new LatLngBounds(new LatLng(-40, -168), new LatLng(71, 136));
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -145,6 +144,10 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
             mFusedLocationProviderClient.removeLocationUpdates(locationCallback);
             Toast.makeText(this, "Listener is removed", Toast.LENGTH_SHORT).show();
         }
+        //if(mGoogleApiClient != null) {
+            mGoogleApiClient.stopAutoManage(this);
+            mGoogleApiClient.disconnect();
+        //}
     }
 
     private void requestLocationUpdate()
@@ -270,8 +273,7 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
         mGoogleApiClient = new GoogleApiClient
                 .Builder(this)
                 .addApi(Places.GEO_DATA_API)
-                .addApi(Places.PLACE_DETECTION_API)
-                .enableAutoManage(this, this)
+                .enableAutoManage(this, 0,this)
                 .build();
 
         mPlaceAutocompleteAdapter = new PlaceAutoCompleteAdapter(this, mGoogleApiClient,

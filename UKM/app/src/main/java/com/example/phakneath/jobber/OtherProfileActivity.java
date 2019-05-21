@@ -91,7 +91,7 @@ public class OtherProfileActivity extends AppCompatActivity implements View.OnCl
 
         shimmer.startShimmerAnimation();
 
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("Posting");
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("Posting").child("AllPosts");
         query = mDatabase.orderByChild("ownerID").equalTo(otherID);
 
         query.addValueEventListener(new ValueEventListener() {
@@ -139,7 +139,7 @@ public class OtherProfileActivity extends AppCompatActivity implements View.OnCl
                                     if (v.getTag() == "fav") {
                                         viewHolder.fav.setImageDrawable(OtherProfileActivity.this.getResources().getDrawable(R.drawable.red_fav));
                                         v.setTag("unFav");
-                                        saveFavourite(model);
+                                        saveFavourite(model.getId(), model.getOwnerID());
                                     } else {
                                         viewHolder.fav.setImageDrawable(OtherProfileActivity.this.getResources().getDrawable(R.drawable.favorite));
                                         v.setTag("fav");
@@ -149,6 +149,13 @@ public class OtherProfileActivity extends AppCompatActivity implements View.OnCl
                             });
 
                             getSaveFavourite(model.getId(), viewHolder.fav);
+
+                            viewHolder.share.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    shareContent(model);
+                                }
+                            });
                         }
 
                         @Override
@@ -197,7 +204,8 @@ public class OtherProfileActivity extends AppCompatActivity implements View.OnCl
 
                     };
 
-                    mManager = new LinearLayoutManager(OtherProfileActivity.this);
+                    mManager = new LinearLayoutManager(OtherProfileActivity.this, LinearLayoutManager.VERTICAL, true);
+                    mManager.setStackFromEnd(true);
                     recyclerView.setHasFixedSize(true);
                     recyclerView.setLayoutManager(mManager);
                     recyclerView.setAdapter(mAdapter);
@@ -282,15 +290,15 @@ public class OtherProfileActivity extends AppCompatActivity implements View.OnCl
                 String username = dataSnapshot.child("username").getValue(String.class);
                 String nationality = dataSnapshot.child("nationality").getValue(String.class);
                 String workPlace = dataSnapshot.child("workplace").getValue(String.class);
-                String position = dataSnapshot.child("position").getValue(String.class);
+                String position = dataSnapshot.child("position_30dp").getValue(String.class);
                 String image = dataSnapshot.child("image").getValue(String.class);
                 for(DataSnapshot d: dataSnapshot.child("randomThings").getChildren())
                 {
                     myESCCIS.add(d.getValue(MyESCCI.class));
                 }
 
-                Users users = new Users(id,email,username,nationality,workPlace,position,image,myESCCIS, saveESCCIS);
-                updateUI(users);
+                Users users = new Users(id,email,username,nationality,workPlace,position,image);
+                updateUI(users, myESCCIS);
                 if(users.getImage() != null) getImage(profile, users.getImage(), OtherProfileActivity.this, "profile/");
             }
 
@@ -322,7 +330,7 @@ public class OtherProfileActivity extends AppCompatActivity implements View.OnCl
         }
     }
 
-    private void updateUI(Users users) {
+    private void updateUI(Users users, List<MyESCCI> myESCCIs) {
 
         otherPosts.setText(users.getUsername() + "'s Posts");
         username.setText(users.getUsername());
@@ -332,10 +340,10 @@ public class OtherProfileActivity extends AppCompatActivity implements View.OnCl
         else if(users.getNationality() == null && users.getWorkplace() != null) nationAndWork.setText(users.getWorkplace());
         else nationAndWork.setText("No data provided");
 
-        if(users.getRandomThings() != null)
+        if(myESCCIs != null)
         {
-            countPosts.setText(users.getRandomThings().size() + " Posts");
-            for(MyESCCI myESCCI : users.getRandomThings())
+            countPosts.setText(myESCCIs.size() + " Posts");
+            for(MyESCCI myESCCI : myESCCIs)
             {
                 switch(myESCCI.getMode())
                 {
@@ -371,10 +379,12 @@ public class OtherProfileActivity extends AppCompatActivity implements View.OnCl
                 .build();
     }
 
-    public void saveFavourite(ESCCI escci)
+    public void saveFavourite(String id, String ownerID)
     {
+        saveESCCI s = new saveESCCI(id, ownerID);
+
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("Users").child(uID).child("favourite").child(escci.getId()).setValue(escci).addOnCompleteListener(new OnCompleteListener<Void>() {
+        mDatabase.child("Users").child(uID).child("favourite").child(id).setValue(s).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 Toast.makeText(OtherProfileActivity.this, "Saved", Toast.LENGTH_SHORT).show();
@@ -518,4 +528,18 @@ public class OtherProfileActivity extends AppCompatActivity implements View.OnCl
             }
         }
     }
+
+    public void shareContent(ESCCI escci)
+    {
+        //Intent receiver = new Intent(DetailActivity.this, MyReceiver.class);
+        //PendingIntent pendingIntent = PendingIntent.getBroadcast(DetailActivity.this, 0, receiver, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        //intent.setType("image/*");
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_SUBJECT, "  ***Resource from Kairos mobile application\n Download our app to explore the best opportunities");
+        intent.putExtra(Intent.EXTRA_TEXT, "https://" + escci.getLink());
+        startActivity(Intent.createChooser(intent, "Share using"));//, pendingIntent.getIntentSender()));
+    }
+
 }

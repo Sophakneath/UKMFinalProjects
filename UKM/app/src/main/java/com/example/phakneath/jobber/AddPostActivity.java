@@ -112,7 +112,7 @@ public class AddPostActivity extends AppCompatActivity implements View.OnClickLi
 
         btnPost.setOnClickListener(this::onClick);
 
-        dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list);
+        dataAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item, list);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         categories.setAdapter(dataAdapter);
 
@@ -231,27 +231,6 @@ public class AddPostActivity extends AppCompatActivity implements View.OnClickLi
         d.setVisibility(View.GONE);
     }
 
-    public int getStatusBarHeight() {
-        int result = 0;
-        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
-        if (resourceId > 0) {
-            result = getResources().getDimensionPixelSize(resourceId);
-        }
-        return result;
-    }
-
-    public int getActionBarHeight()
-    {
-        int actionBarHeight=0;
-        TypedValue tv = new TypedValue();
-        if (getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true))
-        {
-            actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data,getResources().getDisplayMetrics());
-        }
-
-        return actionBarHeight;
-    }
-
     public void postExecute()
     {
         ESCCI myPost=null;
@@ -326,11 +305,12 @@ public class AddPostActivity extends AppCompatActivity implements View.OnClickLi
     public ESCCI checkEmptyCareerAndCompetition()
     {
         ESCCI myPost=null;
-        if(TextUtils.isEmpty(etCRandom.getText().toString()) || TextUtils.isEmpty(etCDate.getText().toString()) || TextUtils.isEmpty(etCAbout.getText().toString()))
+        if(TextUtils.isEmpty(etCRandom.getText().toString()) || TextUtils.isEmpty(etCDate.getText().toString()) || TextUtils.isEmpty(etCAbout.getText().toString()) || TextUtils.isEmpty(etCLink.getText().toString()))
         {
             etCRandom.setError("Cannot Empty");
             etCDate.setError("Cannot Empty");
             etCAbout.setError("Cannot Empty");
+            etCLink.setError("Cannot Empty");
         }
         else
         {
@@ -341,7 +321,7 @@ public class AddPostActivity extends AppCompatActivity implements View.OnClickLi
             about = etCAbout.getText().toString();
             link = etCLink.getText().toString();
 
-            myPost = new ESCCI(id, uID, name,mode,organizer,randomText,date,link,about,postingTime,image, uID+"_"+mode, mode+"_"+name);
+            myPost = new ESCCI(id, uID, name,mode,organizer,randomText,date,link,about,postingTime,image);
         }
         return myPost;
     }
@@ -369,7 +349,7 @@ public class AddPostActivity extends AppCompatActivity implements View.OnClickLi
             chFree.setError("Please choose");
         }
 
-        if(TextUtils.isEmpty(etEWhen.getText().toString()) || TextUtils.isEmpty(etEFrom.getText().toString()) || TextUtils.isEmpty(etEUntil.getText().toString()) || TextUtils.isEmpty(etEWhere.getText().toString()) || TextUtils.isEmpty(etEAddress.getText().toString()) || TextUtils.isEmpty(etEAbout.getText().toString()))
+        if(TextUtils.isEmpty(etEWhen.getText().toString()) || TextUtils.isEmpty(etEFrom.getText().toString()) || TextUtils.isEmpty(etEUntil.getText().toString()) || TextUtils.isEmpty(etEWhere.getText().toString()) || TextUtils.isEmpty(etEAddress.getText().toString()) || TextUtils.isEmpty(etEAbout.getText().toString()) || TextUtils.isEmpty(etELink.getText().toString()))
         {
             etEWhen.setError("Cannot Empty");
             etEFrom.setError("Cannot Empty");
@@ -377,6 +357,7 @@ public class AddPostActivity extends AppCompatActivity implements View.OnClickLi
             etEWhere.setError("Cannot Empty");
             etEAddress.setError("Cannot Empty");
             etEAbout.setError("Cannot Empty");
+            etELink.setError("Canoot Empty");
         }
         else
         {
@@ -390,7 +371,7 @@ public class AddPostActivity extends AppCompatActivity implements View.OnClickLi
             about = etEAbout.getText().toString();
             link = etELink.getText().toString();
 
-            myPost = new ESCCI(id,uID,name,mode,organizer,date,from,until,where,address,link,admission,fee,about,postingTime, image, longit, lat, uID+"_"+mode, mode+"_"+name);
+            myPost = new ESCCI(id,uID,name,mode,organizer,date,from,until,where,address,link,admission,fee,about,postingTime, image, longit, lat);
         }
         return myPost;
     }
@@ -399,12 +380,13 @@ public class AddPostActivity extends AppCompatActivity implements View.OnClickLi
     {
         ESCCI myPost=null;
 
-        if(TextUtils.isEmpty(etIFrom.getText().toString()) || TextUtils.isEmpty(etITo.getText().toString()) || TextUtils.isEmpty(etIDate.getText().toString()) || TextUtils.isEmpty(etIAbout.getText().toString()))
+        if(TextUtils.isEmpty(etIFrom.getText().toString()) || TextUtils.isEmpty(etITo.getText().toString()) || TextUtils.isEmpty(etIDate.getText().toString()) || TextUtils.isEmpty(etIAbout.getText().toString()) || TextUtils.isEmpty(etILink.getText().toString()))
         {
             etIFrom.setError("Cannot Empty");
             etITo.setError("Cannot Empty");
             etIDate.setError("Cannot Empty");
             etIAbout.setError("Cannot Empty");
+            etILink.setError("Cannot Empty");
         }
         else
         {
@@ -416,7 +398,7 @@ public class AddPostActivity extends AppCompatActivity implements View.OnClickLi
             about = etIAbout.getText().toString();
             link = etILink.getText().toString();
 
-            myPost = new ESCCI(id,uID,name,mode,organizer,from,until,date,link,about,postingTime, image, uID+"_"+mode, mode+"_"+name);
+            myPost = new ESCCI(id,uID,name,mode,organizer,from,until,date,link,about,postingTime, image);
         }
 
         return myPost;
@@ -445,10 +427,11 @@ public class AddPostActivity extends AppCompatActivity implements View.OnClickLi
             chPHD.setError("Please choose");
         }
 
-        if(TextUtils.isEmpty(etSDate.getText().toString()) || TextUtils.isEmpty(etSAbout.getText().toString()))
+        if(TextUtils.isEmpty(etSDate.getText().toString()) || TextUtils.isEmpty(etSAbout.getText().toString()) || TextUtils.isEmpty(etSLink.getText().toString()))
         {
             etSDate.setError("Cannot Empty");
             etSAbout.setError("Cannot Empty");
+            etSLink.setError("Cannot Empty");
         }
         else
         {
@@ -458,7 +441,7 @@ public class AddPostActivity extends AppCompatActivity implements View.OnClickLi
             about = etSAbout.getText().toString();
             link = etSLink.getText().toString();
 
-            myPost = new ESCCI(id, uID, name,mode,organizer,degree,date,link,about,postingTime, image, uID+"_"+mode, mode+"_"+name);
+            myPost = new ESCCI(id, uID, name,mode,organizer,degree,date,link,about,postingTime, image);
         }
 
         return myPost;
@@ -467,12 +450,12 @@ public class AddPostActivity extends AppCompatActivity implements View.OnClickLi
     public void saveToServer(ESCCI myPost)
     {
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("Posting").child(id).setValue(myPost).addOnCompleteListener(new OnCompleteListener<Void>() {
+        mDatabase.child("Posting").child(myPost.getMode()).child(id).setValue(myPost).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-
-                MyESCCI myESCCI = new MyESCCI(id, myPost.getMode(), myPost.getOwnerID());
+                MyESCCI myESCCI = new MyESCCI(myPost.getId(), myPost.getMode(), myPost.getOwnerID());
                 mDatabase.child("Users").child(uID).child("randomThings").child(id).setValue(myESCCI);
+                mDatabase.child("Posting").child("AllPosts").child(id).setValue(myPost);
                 progressBar.setVisibility(View.GONE);
                 Toast.makeText(AddPostActivity.this, "Add Successfully", Toast.LENGTH_SHORT).show();
                 finish();

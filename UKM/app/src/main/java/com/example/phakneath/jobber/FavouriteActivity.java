@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -48,7 +47,6 @@ import com.shreyaspatil.firebase.recyclerpagination.DatabasePagingOptions;
 import com.shreyaspatil.firebase.recyclerpagination.FirebaseRecyclerPagingAdapter;
 import com.shreyaspatil.firebase.recyclerpagination.LoadingState;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class FavouriteActivity extends AppCompatActivity implements View.OnClickListener{
@@ -56,7 +54,7 @@ public class FavouriteActivity extends AppCompatActivity implements View.OnClick
     ImageView back;
     //SwipeRefreshLayout swipeRefreshLayout;
     RecyclerView recyclerView;
-    DatabaseReference mDatabase;
+    DatabaseReference mDatabase, database;
     FirebaseRecyclerPagingAdapter mAdapter;
     FirebaseAuth mAuth;
     FirebaseStorage storage;
@@ -65,10 +63,11 @@ public class FavouriteActivity extends AppCompatActivity implements View.OnClick
     TextView noPost, countPosts;
 
     PagedList.Config config;
-    DatabasePagingOptions<ESCCI> options;
+    DatabasePagingOptions<saveESCCI> options;
     Query query;
 
     List<saveESCCI> a;
+    LinearLayoutManager mManager;
 
     String uid;
     @Override
@@ -185,6 +184,17 @@ public class FavouriteActivity extends AppCompatActivity implements View.OnClick
                     break;
             }
         }
+
+        public void setEmptyItems()
+        {
+            image.setBackgroundColor(R.color.mainColor);
+            name.setText("This item have been deleted by the owner");
+            time.setVisibility(View.GONE);
+            location.setVisibility(View.GONE);
+            modes.setVisibility(View.GONE);
+            share.setVisibility(View.GONE);
+            edit.setVisibility(View.GONE);
+        }
     }
 
     public void setPageList()
@@ -198,9 +208,9 @@ public class FavouriteActivity extends AppCompatActivity implements View.OnClick
 
     public void setPagination(Query query)
     {
-        options = new DatabasePagingOptions.Builder<ESCCI>()
+        options = new DatabasePagingOptions.Builder<saveESCCI>()
                 .setLifecycleOwner(this)
-                .setQuery(query, config, ESCCI.class)
+                .setQuery(query, config, saveESCCI.class)
                 .build();
     }
 
@@ -229,11 +239,12 @@ public class FavouriteActivity extends AppCompatActivity implements View.OnClick
     {
         String id = escci.getId();
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("Posting").child(id).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+        mDatabase.child("Posting").child(escci.getMode()).child(id).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
 
                 mDatabase.child("Users").child(uid).child("randomThings").child(id).removeValue();
+                mDatabase.child("Posting").child("AllPosts").child(id).removeValue();
 
                 deleteImage(escci);
             }
@@ -255,11 +266,10 @@ public class FavouriteActivity extends AppCompatActivity implements View.OnClick
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     Toast.makeText(FavouriteActivity.this, "Delete Successful", Toast.LENGTH_SHORT).show();
-                    shimmer.stopShimmerAnimation();
-                    shimmer.setVisibility(View.GONE);
-                    recyclerView.setVisibility(View.VISIBLE);
-                    //swipeRefreshLayout.setRefreshing(false);
-                    mAdapter.refresh();
+                    mAdapter=null;
+                    recyclerView.setAdapter(mAdapter);
+                    shimmer.startShimmerAnimation();
+                    getDataFavouriteFromServer(uid);
                 }
             });
         }
@@ -276,9 +286,9 @@ public class FavouriteActivity extends AppCompatActivity implements View.OnClick
 
     }
 
-    public void saveFavourite(String id, String ownerID, long saveTime)
+    public void saveFavourite(String id, String ownerID)
     {
-        saveESCCI s = new saveESCCI(id, ownerID, saveTime);
+        saveESCCI s = new saveESCCI(id, ownerID);
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("Users").child(uid).child("favourite").child(id).setValue(s).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -296,6 +306,10 @@ public class FavouriteActivity extends AppCompatActivity implements View.OnClick
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 Toast.makeText(FavouriteActivity.this, "Unsaved", Toast.LENGTH_SHORT).show();
+                mAdapter=null;
+                recyclerView.setAdapter(mAdapter);
+                shimmer.startShimmerAnimation();
+                getDataFavouriteFromServer(uid);
             }
         });
     }
@@ -307,13 +321,13 @@ public class FavouriteActivity extends AppCompatActivity implements View.OnClick
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.hasChildren())
+                if(dataSnapshot.getValue() != null)
                 {
                     countPosts.setText(dataSnapshot.getChildrenCount()+ " Posts");
                     noPost.setVisibility(View.GONE);
                     setPageList();
                     setPagination(query);
-                    mAdapter = new FirebaseRecyclerPagingAdapter<ESCCI, FavouriteActivity.ESCCIViewHolder>(options) {
+                    mAdapter = new FirebaseRecyclerPagingAdapter<saveESCCI, FavouriteActivity.ESCCIViewHolder>(options) {
 
                         @NonNull
                         @Override
@@ -322,99 +336,124 @@ public class FavouriteActivity extends AppCompatActivity implements View.OnClick
                         }
 
                         @Override
-                        protected void onBindViewHolder(@NonNull FavouriteActivity.ESCCIViewHolder viewHolder, int position, @NonNull ESCCI model) {
-                            viewHolder.setItem(model, uid);
+                        protected void onBindViewHolder(@NonNull FavouriteActivity.ESCCIViewHolder viewHolder, int position, @NonNull saveESCCI m) {
 
-                            getImage(viewHolder.image, model.getImage(), FavouriteActivity.this);
-
-                            viewHolder.fav.setImageDrawable(FavouriteActivity.this.getResources().getDrawable(R.drawable.red_fav));
-                            viewHolder.fav.setTag("unFav");
-
-                            viewHolder.edit.setOnClickListener(new View.OnClickListener() {
+                            database = FirebaseDatabase.getInstance().getReference();
+                            database.child("Posting").child("AllPosts").child(m.getId()).addValueEventListener(new ValueEventListener() {
                                 @Override
-                                public void onClick(View v) {
-                                    PopupMenu menu = new PopupMenu(FavouriteActivity.this, v);
-                                    menu.inflate(R.menu.more_menu);
-                                    menu.setGravity(Gravity.RIGHT);
-                                    menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                                        @Override
-                                        public boolean onMenuItemClick(MenuItem item) {
-                                            switch (item.getItemId()) {
-                                                case R.id.edit:
-                                                    editPost(model);
-                                                    return true;
-
-                                                case R.id.delete:
-
-                                                    new FancyAlertDialog.Builder(FavouriteActivity.this)
-                                                            .setTitle("Confirmation")
-                                                            .setBackgroundColor(Color.parseColor("#292E43"))  //Don't pass R.color.colorvalue
-                                                            .setMessage("Are you sure you want to delete this item?")
-                                                            .setPositiveBtnBackground(Color.parseColor("#2196F3"))  //Don't pass R.color.colorvalue
-                                                            .setPositiveBtnText("Yes")
-                                                            .setNegativeBtnText("Cancel")
-                                                            .setAnimation(Animation.SIDE)
-                                                            .isCancellable(false)
-                                                            .setIcon(R.drawable.infos_full, Icon.Visible)
-                                                            .OnPositiveClicked(new FancyAlertDialogListener() {
-                                                                @Override
-                                                                public void OnClick() {
-                                                                    shimmer.startShimmerAnimation();
-                                                                    shimmer.setVisibility(View.VISIBLE);
-                                                                    recyclerView.setVisibility(View.GONE);
-                                                                    //swipeRefreshLayout.setRefreshing(true);
-                                                                    delete(model);
-                                                                    mAdapter.notifyItemRemoved(position);
-
-                                                                }
-                                                            })
-                                                            .OnNegativeClicked(new FancyAlertDialogListener() {
-                                                                @Override
-                                                                public void OnClick() {
-                                                                }
-                                                            }).build();
-
-                                                    return true;
-
-                                                default:
-                                                    return false;
-                                            }
-
-                                        }
-                                    });
-
-                                    menu.show();
-                                }
-                            });
-
-                            viewHolder.container.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    String f = (String) viewHolder.fav.getTag();
-                                    Intent intent = new Intent(FavouriteActivity.this, DetailActivity.class);
-                                    Bundle bundle = new Bundle();
-                                    bundle.putSerializable("data", model);
-                                    bundle.putString("fav", f);
-                                    intent.putExtras(bundle);
-                                    startActivity(intent);
-                                }
-                            });
-
-                            viewHolder.fav.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    if(v.getTag() == "fav")
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    if(dataSnapshot.hasChildren())
                                     {
-                                        viewHolder.fav.setImageDrawable(FavouriteActivity.this.getResources().getDrawable(R.drawable.red_fav));
-                                        v.setTag("unFav");
-                                        saveFavourite(model.getId(),model.getOwnerID(), System.currentTimeMillis());
+                                        ESCCI model = dataSnapshot.getValue(ESCCI.class);
+                                        viewHolder.setItem(model, uid);
+
+                                        getImage(viewHolder.image, model.getImage(), FavouriteActivity.this);
+
+                                        viewHolder.edit.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                PopupMenu menu = new PopupMenu(FavouriteActivity.this, v);
+                                                menu.inflate(R.menu.more_menu);
+                                                menu.setGravity(Gravity.RIGHT);
+                                                menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                                                    @Override
+                                                    public boolean onMenuItemClick(MenuItem item) {
+                                                        switch (item.getItemId()) {
+                                                            case R.id.edit:
+                                                                editPost(model);
+                                                                return true;
+
+                                                            case R.id.delete:
+
+                                                                new FancyAlertDialog.Builder(FavouriteActivity.this)
+                                                                        .setTitle("Confirmation")
+                                                                        .setBackgroundColor(Color.parseColor("#292E43"))  //Don't pass R.color.colorvalue
+                                                                        .setMessage("Are you sure you want to delete this item?")
+                                                                        .setPositiveBtnBackground(Color.parseColor("#2196F3"))  //Don't pass R.color.colorvalue
+                                                                        .setPositiveBtnText("Yes")
+                                                                        .setNegativeBtnText("Cancel")
+                                                                        .setAnimation(Animation.SIDE)
+                                                                        .isCancellable(false)
+                                                                        .setIcon(R.drawable.infos_50dp, Icon.Visible)
+                                                                        .OnPositiveClicked(new FancyAlertDialogListener() {
+                                                                            @Override
+                                                                            public void OnClick() {
+                                                                                shimmer.startShimmerAnimation();
+                                                                                shimmer.setVisibility(View.VISIBLE);
+                                                                                recyclerView.setVisibility(View.GONE);
+                                                                                //swipeRefreshLayout.setRefreshing(true);
+                                                                                delete(model);
+                                                                            }
+                                                                        })
+                                                                        .OnNegativeClicked(new FancyAlertDialogListener() {
+                                                                            @Override
+                                                                            public void OnClick() {
+                                                                            }
+                                                                        }).build();
+
+                                                                return true;
+
+                                                            default:
+                                                                return false;
+                                                        }
+
+                                                    }
+                                                });
+
+                                                menu.show();
+                                            }
+                                        });
+
+                                        viewHolder.container.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                String f = (String) viewHolder.fav.getTag();
+                                                Intent intent = new Intent(FavouriteActivity.this, DetailActivity.class);
+                                                Bundle bundle = new Bundle();
+                                                bundle.putSerializable("data", model);
+                                                bundle.putString("fav", f);
+                                                intent.putExtras(bundle);
+                                                startActivity(intent);
+                                            }
+                                        });
+
+                                        viewHolder.share.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                shareContent(model);
+                                            }
+                                        });
                                     }
                                     else
                                     {
-                                        viewHolder.fav.setImageDrawable(FavouriteActivity.this.getResources().getDrawable(R.drawable.favorite));
-                                        v.setTag("fav");
-                                        unSaveFavourite(model.getId());
+                                        viewHolder.setEmptyItems();
+                                        viewHolder.container.setClickable(false);
                                     }
+
+                                    viewHolder.fav.setImageDrawable(FavouriteActivity.this.getResources().getDrawable(R.drawable.red_fav));
+                                    viewHolder.fav.setTag("unFav");
+                                    viewHolder.fav.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            if(v.getTag() == "fav")
+                                            {
+                                                viewHolder.fav.setImageDrawable(FavouriteActivity.this.getResources().getDrawable(R.drawable.red_fav));
+                                                v.setTag("unFav");
+                                                saveFavourite(m.getId(),m.getOwnerID());
+                                            }
+                                            else
+                                            {
+                                                viewHolder.fav.setImageDrawable(FavouriteActivity.this.getResources().getDrawable(R.drawable.favorite));
+                                                v.setTag("fav");
+                                                unSaveFavourite(m.getId());
+                                            }
+                                        }
+                                    });
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
                                 }
                             });
                         }
@@ -465,7 +504,8 @@ public class FavouriteActivity extends AppCompatActivity implements View.OnClick
 
                     };
 
-                    LinearLayoutManager mManager = new LinearLayoutManager(FavouriteActivity.this);
+                    mManager = new LinearLayoutManager(FavouriteActivity.this, LinearLayoutManager.VERTICAL, true);
+                    mManager.setStackFromEnd(true);
                     recyclerView.setHasFixedSize(true);
                     recyclerView.setLayoutManager(mManager);
                     recyclerView.setAdapter(mAdapter);
@@ -483,13 +523,19 @@ public class FavouriteActivity extends AppCompatActivity implements View.OnClick
 
             }
         });
-
-
-        /*swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                mAdapter.refresh();
-            }
-        });*/
     }
+
+    public void shareContent(ESCCI escci)
+    {
+        //Intent receiver = new Intent(DetailActivity.this, MyReceiver.class);
+        //PendingIntent pendingIntent = PendingIntent.getBroadcast(DetailActivity.this, 0, receiver, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        //intent.setType("image/*");
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_SUBJECT, "  ***Resource from Kairos mobile application\n Download our app to explore the best opportunities");
+        intent.putExtra(Intent.EXTRA_TEXT, "https://" + escci.getLink());
+        startActivity(Intent.createChooser(intent, "Share using"));//, pendingIntent.getIntentSender()));
+    }
+
 }

@@ -28,6 +28,7 @@ import com.example.phakneath.jobber.Model.ESCCI;
 import com.example.phakneath.jobber.Model.MyESCCI;
 import com.example.phakneath.jobber.Model.Users;
 import com.example.phakneath.jobber.Model.saveESCCI;
+import com.facebook.Profile;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -66,7 +67,7 @@ public class ProfileActivity extends AppCompatActivity implements OnClickListene
     String uID;
     ShimmerFrameLayout shimmer;
     CircleImageView profile;
-    TextView position, username, nationAndWork, countPosts, countFav, add, countCareer, countSch, countEvents, countCom, countInt, noPosts;
+    TextView position, username, nationAndWork, countPosts, countFav, add, countCareer, countSch, countEvents, countCom, countInt, noPosts, fav;
     ImageView back, setting, addPosts;
     CardView career, scholarship, events, competition, internship;
     LinearLayoutManager mManager;
@@ -100,10 +101,16 @@ public class ProfileActivity extends AppCompatActivity implements OnClickListene
         competition.setOnClickListener(this::onClick);
         internship.setOnClickListener(this::onClick);
         countFav.setOnClickListener(this::onClick);
+        fav.setOnClickListener(this::onClick);
 
         shimmer.startShimmerAnimation();
 
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("Posting");
+        getData();
+    }
+
+    private void getData()
+    {
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("Posting").child("AllPosts");
         query = mDatabase.orderByChild("ownerID").equalTo(uID);
         query.addValueEventListener(new ValueEventListener() {
             @Override
@@ -155,7 +162,7 @@ public class ProfileActivity extends AppCompatActivity implements OnClickListene
                                                             .setNegativeBtnText("Cancel")
                                                             .setAnimation(Animation.SIDE)
                                                             .isCancellable(false)
-                                                            .setIcon(R.drawable.infos_full, Icon.Visible)
+                                                            .setIcon(R.drawable.infos_50dp, Icon.Visible)
                                                             .OnPositiveClicked(new FancyAlertDialogListener() {
                                                                 @Override
                                                                 public void OnClick() {
@@ -163,8 +170,6 @@ public class ProfileActivity extends AppCompatActivity implements OnClickListene
                                                                     shimmer.setVisibility(View.VISIBLE);
                                                                     recyclerView.setVisibility(View.GONE);
                                                                     delete(model);
-                                                                    mAdapter.notifyItemRemoved(position);
-
                                                                 }
                                                             })
                                                             .OnNegativeClicked(new FancyAlertDialogListener() {
@@ -206,7 +211,7 @@ public class ProfileActivity extends AppCompatActivity implements OnClickListene
                                     {
                                         viewHolder.fav.setImageDrawable(ProfileActivity.this.getResources().getDrawable(R.drawable.red_fav));
                                         v.setTag("unFav");
-                                        saveFavourite(model);
+                                        saveFavourite(model.getId(), model.getOwnerID());
                                     }
                                     else
                                     {
@@ -218,6 +223,13 @@ public class ProfileActivity extends AppCompatActivity implements OnClickListene
                             });
 
                             getSaveFavourite(model.getId(), viewHolder.fav);
+
+                            viewHolder.share.setOnClickListener(new OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    shareContent(model);
+                                }
+                            });
                         }
 
                         @Override
@@ -266,7 +278,8 @@ public class ProfileActivity extends AppCompatActivity implements OnClickListene
 
                     };
 
-                    mManager = new LinearLayoutManager(ProfileActivity.this);
+                    mManager = new LinearLayoutManager(ProfileActivity.this, LinearLayoutManager.VERTICAL, true);
+                    mManager.setStackFromEnd(true);
                     recyclerView.setHasFixedSize(true);
                     recyclerView.setLayoutManager(mManager);
                     recyclerView.setAdapter(mAdapter);
@@ -286,14 +299,6 @@ public class ProfileActivity extends AppCompatActivity implements OnClickListene
 
             }
         });
-
-        /*swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                mAdapter.refresh();
-            }
-        });*/
-
     }
 
     public void initView() {
@@ -322,6 +327,7 @@ public class ProfileActivity extends AppCompatActivity implements OnClickListene
         shimmer = findViewById(R.id.shimmer);
         //mainScreen = findViewById(R.id.mainScreen);
         noPosts = findViewById(R.id.noPosts);
+        fav = findViewById(R.id.myFav);
         }
 
     @Override
@@ -342,7 +348,7 @@ public class ProfileActivity extends AppCompatActivity implements OnClickListene
     public void getUser()
     {
         List<MyESCCI> myESCCIS = new ArrayList<>();
-        List<saveESCCI> saveESCCIS = new ArrayList<>();
+        List<ESCCI> saveESCCIS = new ArrayList<>();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("Users").child(uID).addValueEventListener(new ValueEventListener() {
             @Override
@@ -352,7 +358,7 @@ public class ProfileActivity extends AppCompatActivity implements OnClickListene
                 String username = dataSnapshot.child("username").getValue(String.class);
                 String nationality = dataSnapshot.child("nationality").getValue(String.class);
                 String workPlace = dataSnapshot.child("workplace").getValue(String.class);
-                String position = dataSnapshot.child("position").getValue(String.class);
+                String position = dataSnapshot.child("position_30dp").getValue(String.class);
                 String image = dataSnapshot.child("image").getValue(String.class);
                 for(DataSnapshot d: dataSnapshot.child("randomThings").getChildren())
                 {
@@ -361,11 +367,11 @@ public class ProfileActivity extends AppCompatActivity implements OnClickListene
 
                 for(DataSnapshot d: dataSnapshot.child("favourite").getChildren())
                 {
-                    saveESCCIS.add(d.getValue(saveESCCI.class));
+                    saveESCCIS.add(d.getValue(ESCCI.class));
                 }
 
-                Users users = new Users(id,email,username,nationality,workPlace,position,image,myESCCIS, saveESCCIS);
-                updateUI(users);
+                Users users = new Users(id,email,username,nationality,workPlace,position,image);
+                updateUI(users, saveESCCIS, myESCCIS);
                 if(users.getImage() != null) getImage(profile, users.getImage(), ProfileActivity.this, "profile/");
             }
 
@@ -397,7 +403,7 @@ public class ProfileActivity extends AppCompatActivity implements OnClickListene
         }
     }
 
-    private void updateUI(Users users) {
+    private void updateUI(Users users, List<ESCCI> saves, List<MyESCCI> myESCCIS ) {
 
         username.setText(users.getUsername());
         if(users.getPosition() != null) position.setText(users.getPosition());
@@ -406,10 +412,10 @@ public class ProfileActivity extends AppCompatActivity implements OnClickListene
         else if(users.getNationality() == null && users.getWorkplace() != null) nationAndWork.setText(users.getWorkplace());
         else nationAndWork.setText("No data provided");
 
-        if(users.getRandomThings() != null)
+        if(myESCCIS != null)
         {
-            countPosts.setText(users.getRandomThings().size() + "");
-            for(MyESCCI myESCCI : users.getRandomThings())
+            countPosts.setText(myESCCIS.size() + "");
+            for(MyESCCI myESCCI : myESCCIS)
             {
                 switch(myESCCI.getMode())
                 {
@@ -426,9 +432,9 @@ public class ProfileActivity extends AppCompatActivity implements OnClickListene
             countInt.setText(count4+" Posts");
             countSch.setText(count5+ " Posts");
         }
-        if(users.getFavourite() != null)
+        if(saves != null)
         {
-            countFav.setText(users.getFavourite().size()+"");
+            countFav.setText(saves.size()+"");
         }
     }
 
@@ -453,11 +459,12 @@ public class ProfileActivity extends AppCompatActivity implements OnClickListene
     {
         String id = escci.getId();
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("Posting").child(id).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+        mDatabase.child("Posting").child(escci.getMode()).child(id).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
 
                 mDatabase.child("Users").child(uID).child("randomThings").child(id).removeValue();
+                mDatabase.child("Posting").child("AllPosts").child(id).removeValue();
 
                 deleteImage(escci);
             }
@@ -479,11 +486,10 @@ public class ProfileActivity extends AppCompatActivity implements OnClickListene
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     Toast.makeText(ProfileActivity.this, "Delete Successful", Toast.LENGTH_SHORT).show();
-                    //swipeRefreshLayout.setRefreshing(false);
-                    shimmer.stopShimmerAnimation();
-                    shimmer.setVisibility(View.GONE);
-                    recyclerView.setVisibility(View.VISIBLE);
-                    mAdapter.refresh();
+                    mAdapter=null;
+                    recyclerView.setAdapter(mAdapter);
+                    shimmer.startShimmerAnimation();
+                    getData();
                 }
             });
         }
@@ -500,10 +506,12 @@ public class ProfileActivity extends AppCompatActivity implements OnClickListene
 
     }
 
-    public void saveFavourite(ESCCI escci)
+    public void saveFavourite(String id, String ownerID)
     {
+        saveESCCI s = new saveESCCI(id, ownerID);
+
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("Users").child(uID).child("favourite").child(escci.getId()).setValue(escci).addOnCompleteListener(new OnCompleteListener<Void>() {
+        mDatabase.child("Users").child(uID).child("favourite").child(id).setValue(s).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 Toast.makeText(ProfileActivity.this, "Saved", Toast.LENGTH_SHORT).show();
@@ -624,6 +632,20 @@ public class ProfileActivity extends AppCompatActivity implements OnClickListene
         startActivity(intent);
     }
 
+    public void shareContent(ESCCI escci)
+    {
+        //Intent receiver = new Intent(DetailActivity.this, MyReceiver.class);
+        //PendingIntent pendingIntent = PendingIntent.getBroadcast(DetailActivity.this, 0, receiver, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        //intent.setType("image/*");
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_SUBJECT, "  ***Resource from Kairos mobile application\n Download our app to explore the best opportunities");
+        intent.putExtra(Intent.EXTRA_TEXT, "https://" + escci.getLink());
+        startActivity(Intent.createChooser(intent, "Share using"));//, pendingIntent.getIntentSender()));
+    }
+
+
     @Override
     public void onClick(View v) {
 
@@ -659,7 +681,7 @@ public class ProfileActivity extends AppCompatActivity implements OnClickListene
         {
             startActivity(new Intent(this, SettingActivity.class));
         }
-        else if(v == countFav)
+        else if(v == countFav || v == fav)
         {
             startActivity(new Intent(this, FavouriteActivity.class));
         }

@@ -11,10 +11,10 @@ public class ESCCI implements Serializable{
     String organizer;
     String eTimeStart;
     String eTimeEnd;
-    String random; //can be position(for career), age(for competition), date(for events), degree(for scholarship);
-    String startDate; //for internship;
-    String endDate; //for internship
-    String date; //when for event, deadline application for scholarship, career, internship
+    String random; //can be position_30dp(for career), age(for competition_70dp), date(for events), degree(for scholarship);
+    String startDate; //for internship_70dp;
+    String endDate; //for internship_70dp
+    String date; //when for event_70dp, deadline application for scholarship, career, internship_70dp
     String eLocation;
     String eAddress;
     boolean eAdmission;
@@ -25,8 +25,6 @@ public class ESCCI implements Serializable{
     String image;
     double longitute;
     double latitute;
-    String owner_mode;
-    String mode_name;
 
     public ESCCI()
     {
@@ -54,7 +52,7 @@ public class ESCCI implements Serializable{
         this.postingTime = postingTime;
     }
 
-    public ESCCI(String id, String ownerID, String name, String mode, String organizer, String date, String eTimeStart, String eTimeEnd, String eLocation, String eAddress, String link, Boolean admission, float fee, String about, long postingTime, String image, double longitute, double latitute, String owner_mode, String mode_name) {
+    public ESCCI(String id, String ownerID, String name, String mode, String organizer, String date, String eTimeStart, String eTimeEnd, String eLocation, String eAddress, String link, Boolean admission, float fee, String about, long postingTime, String image, double longitute, double latitute) {
         this.id = id;
         this.ownerID = ownerID;
         this.name = name;
@@ -73,11 +71,9 @@ public class ESCCI implements Serializable{
         this.image = image;
         this.longitute = longitute;
         this.latitute = latitute;
-        this.owner_mode = owner_mode;
-        this.mode_name = mode_name;
     }
 
-    public ESCCI(String id, String ownerID, String name, String mode, String organizer, String random, String date, String link, String about, long postingTime, String image, String owner_mode, String mode_name) {
+    public ESCCI(String id, String ownerID, String name, String mode, String organizer, String random, String date, String link, String about, long postingTime, String image) {
         this.id = id;
         this.ownerID = ownerID;
         this.name = name;
@@ -89,11 +85,9 @@ public class ESCCI implements Serializable{
         this.about = about;
         this.postingTime = postingTime;
         this.image = image;
-        this.owner_mode = owner_mode;
-        this.mode_name = mode_name;
     }
 
-    public ESCCI(String id, String ownerID, String name, String mode, String organizer, String from, String to, String date, String link, String about, long postingTime, String image, String owner_mode, String mode_name) {
+    public ESCCI(String id, String ownerID, String name, String mode, String organizer, String from, String to, String date, String link, String about, long postingTime, String image) {
         this.id = id;
         this.ownerID = ownerID;
         this.name = name;
@@ -106,8 +100,6 @@ public class ESCCI implements Serializable{
         this.about = about;
         this.postingTime = postingTime;
         this.image = image;
-        this.owner_mode = owner_mode;
-        this.mode_name = mode_name;
     }
 
     public String getId() {
@@ -286,11 +278,4 @@ public class ESCCI implements Serializable{
         this.latitute = latitute;
     }
 
-    public String getOwner_mode() {
-        return owner_mode;
-    }
-
-    public void setOwner_mode(String owner_mode) {
-        this.owner_mode = owner_mode;
-    }
 }

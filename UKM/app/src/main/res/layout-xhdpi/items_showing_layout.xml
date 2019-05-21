@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="7dp"
+        app:cardCornerRadius="7dp"
+        app:cardUseCompatPadding="true"
+        app:cardElevation="6dp"
+        app:cardPreventCornerOverlap="false"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="0.0px"
+        android:clipToPadding="false"
+        android:clipChildren="false"
+        android:id="@+id/container"
+        android:layout_marginBottom="2dp"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            >
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:layout_width="177dp"
+                android:layout_height="160dp"
+                android:id="@+id/imageView"
+                android:src="@color/mainColor"
+                android:scaleType="centerCrop"
+                app:riv_corner_radius="5dip"
+                android:layout_margin="8dp"
+                />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="AIMS: Free tree Society AIMS: Free tree SocietyAIMS: Free tree SocietyAIMS: Free tree Society "
+                    android:textSize="18dp"
+                    android:textColor="@color/mainTextColor"
+                    android:textStyle="bold"
+                    android:layout_marginTop="13dp"
+                    android:id="@+id/title"
+                    android:maxLines="2"
+                    android:ellipsize = "end"
+                    android:layout_marginRight="60dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="April 16 - 6:30 AM GMT +8"
+                    android:textSize="16dp"
+                    android:textColor="@color/primaryTextColor"
+                    android:layout_marginTop="8dp"
+                    android:id="@+id/dateTime"
+                    android:layout_below="@+id/title"
+                    android:maxLines="1"
+                    android:ellipsize = "end"
+                    android:layout_marginRight="40dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Putrajaya Marriott Hotel"
+                    android:textSize="16dp"
+                    android:textColor="@color/primaryTextColor"
+                    android:layout_marginTop="8dp"
+                    android:id="@+id/location"
+                    android:layout_below="@+id/dateTime"
+                    android:maxLines="1"
+                    android:ellipsize = "end"
+                    android:layout_marginRight="40dp"/>
+                
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Events"
+                    android:background="@drawable/button_login"
+                    android:paddingTop="3dp"
+                    android:paddingBottom="3dp"
+                    android:paddingRight="10dp"
+                    android:paddingLeft="10dp"
+                    android:textColor="@color/whitey"
+                    android:textSize="16dp"
+                    android:elevation="3dp"
+                    android:layout_below="@+id/location"
+                    android:layout_marginTop="13dp"
+                    android:id="@+id/modes"/>
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/edit"
+                    android:layout_marginTop="10dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="8dp"
+                    android:id="@+id/edit"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_below="@+id/location"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/share"
+                        android:layout_gravity="bottom"
+                        android:id="@+id/share"/>
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/favorite"
+                        android:layout_marginLeft="30dp"
+                        android:layout_gravity="bottom"
+                        android:id="@+id/fav"
+                        android:tag="fav"
+                        android:layout_marginRight="8dp"/>
+                </LinearLayout>
+
+            </RelativeLayout>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+</LinearLayout>

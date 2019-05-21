@@ -4,14 +4,12 @@ public class saveESCCI {
 
     String id;
     String ownerID;
-    long saveTime;
 
     public saveESCCI(){}
 
-    public saveESCCI(String id, String ownerID, long saveTime) {
+    public saveESCCI(String id, String ownerID) {
         this.id = id;
         this.ownerID = ownerID;
-        this.saveTime = saveTime;
     }
 
     public String getId() {
@@ -28,13 +26,5 @@ public class saveESCCI {
 
     public void setOwnerID(String ownerID) {
         this.ownerID = ownerID;
-    }
-
-    public long getSaveTime() {
-        return saveTime;
-    }
-
-    public void setSaveTime(long saveTime) {
-        this.saveTime = saveTime;
     }
 }

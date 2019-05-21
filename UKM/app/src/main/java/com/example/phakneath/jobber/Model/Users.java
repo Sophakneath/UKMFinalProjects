@@ -1,8 +1,9 @@
 package com.example.phakneath.jobber.Model;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Users {
+public class Users implements Serializable {
 
     String id;
     String email;
@@ -11,24 +12,12 @@ public class Users {
     String workplace;
     String position;
     String image;
-    List<MyESCCI> randomThings;
-    List<saveESCCI> favourite;
+    //List<MyESCCI> randomThings;
+    //List<saveESCCI> favourite;
 
     public Users()
     {
 
-    }
-
-    public Users(String id, String email, String username, String nationality, String workplace, String position, String image, List<MyESCCI> randomThings, List<saveESCCI> favourite) {
-        this.id = id;
-        this.email = email;
-        this.username = username;
-        this.nationality = nationality;
-        this.workplace = workplace;
-        this.position = position;
-        this.image = image;
-        this.randomThings = randomThings;
-        this.favourite = favourite;
     }
 
     public Users(String id, String email, String username) {
@@ -54,8 +43,8 @@ public class Users {
         this.nationality = nationality;
         this.workplace = workplace;
         this.position = position;
-        this.randomThings = randomThings;
-        this.favourite = favourite;
+        //this.randomThings = randomThings;
+        //this.favourite = favourite;
     }
 
     public String getId() {
@@ -106,7 +95,7 @@ public class Users {
         this.position = position;
     }
 
-    public List<MyESCCI> getRandomThings() {
+   /* public List<MyESCCI> getRandomThings() {
         return randomThings;
     }
 
@@ -120,7 +109,7 @@ public class Users {
 
     public void setFavourite(List<saveESCCI> favourite) {
         this.favourite = favourite;
-    }
+    }*/
 
     public String getImage() {
         return image;

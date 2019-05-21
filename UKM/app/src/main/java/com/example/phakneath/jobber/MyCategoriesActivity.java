@@ -86,9 +86,14 @@ public class MyCategoriesActivity extends AppCompatActivity implements View.OnCl
         back.setOnClickListener(this::onClick);
         shimmer.startShimmerAnimation();
 
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("Posting");
+        getData();
+    }
 
-        query = mDatabase.orderByChild("owner_mode").equalTo(id+"_"+modes);
+    private void getData()
+    {
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("Posting").child(modes);
+
+        query = mDatabase.orderByChild("ownerID").equalTo(id);
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -139,7 +144,7 @@ public class MyCategoriesActivity extends AppCompatActivity implements View.OnCl
                                                             .setNegativeBtnText("Cancel")
                                                             .setAnimation(Animation.SIDE)
                                                             .isCancellable(false)
-                                                            .setIcon(R.drawable.infos_full, Icon.Visible)
+                                                            .setIcon(R.drawable.infos_50dp, Icon.Visible)
                                                             .OnPositiveClicked(new FancyAlertDialogListener() {
                                                                 @Override
                                                                 public void OnClick() {
@@ -148,8 +153,6 @@ public class MyCategoriesActivity extends AppCompatActivity implements View.OnCl
                                                                     shimmer.setVisibility(View.VISIBLE);
                                                                     recyclerView.setVisibility(View.GONE);
                                                                     delete(model);
-                                                                    mAdapter.notifyItemRemoved(position);
-
                                                                 }
                                                             })
                                                             .OnNegativeClicked(new FancyAlertDialogListener() {
@@ -191,7 +194,7 @@ public class MyCategoriesActivity extends AppCompatActivity implements View.OnCl
                                     {
                                         viewHolder.fav.setImageDrawable(MyCategoriesActivity.this.getResources().getDrawable(R.drawable.red_fav));
                                         v.setTag("unFav");
-                                        saveFavourite(model);
+                                        saveFavourite(model.getId(), model.getOwnerID());
                                     }
                                     else
                                     {
@@ -203,6 +206,13 @@ public class MyCategoriesActivity extends AppCompatActivity implements View.OnCl
                             });
 
                             getSaveFavourite(model.getId(), viewHolder.fav);
+
+                            viewHolder.share.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    shareContent(model);
+                                }
+                            });
                         }
 
                         @Override
@@ -250,7 +260,8 @@ public class MyCategoriesActivity extends AppCompatActivity implements View.OnCl
                         }
 
                     };
-                    mManager = new LinearLayoutManager(MyCategoriesActivity.this);
+                    mManager = new LinearLayoutManager(MyCategoriesActivity.this, LinearLayoutManager.VERTICAL, true);
+                    mManager.setStackFromEnd(true);
                     recyclerView.setHasFixedSize(true);
                     recyclerView.setLayoutManager(mManager);
                     recyclerView.setAdapter(mAdapter);
@@ -268,14 +279,6 @@ public class MyCategoriesActivity extends AppCompatActivity implements View.OnCl
 
             }
         });
-
-        /*swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                mAdapter.refresh();
-            }
-        });*/
-
     }
 
     private void updateUI() {
@@ -289,11 +292,11 @@ public class MyCategoriesActivity extends AppCompatActivity implements View.OnCl
 
         switch(modes)
         {
-            case "Career": mode.setImageDrawable(this.getResources().getDrawable(R.drawable.work_30dp)); break;
-            case "Competition": mode.setImageDrawable(this.getResources().getDrawable(R.drawable.competition_45dp)); break;
-            case "Events": mode.setImageDrawable(this.getResources().getDrawable(R.drawable.event_45dp)); break;
-            case "Internship": mode.setImageDrawable(this.getResources().getDrawable(R.drawable.internship_45dp)); break;
-            case "Scholarship": mode.setImageDrawable(this.getResources().getDrawable(R.drawable.study_45dp)); break;
+            case "Career": mode.setImageDrawable(this.getResources().getDrawable(R.drawable.work_100dp)); break;
+            case "Competition": mode.setImageDrawable(this.getResources().getDrawable(R.drawable.competition)); break;
+            case "Events": mode.setImageDrawable(this.getResources().getDrawable(R.drawable.event)); break;
+            case "Internship": mode.setImageDrawable(this.getResources().getDrawable(R.drawable.internship)); break;
+            case "Scholarship": mode.setImageDrawable(this.getResources().getDrawable(R.drawable.study)); break;
         }
 
     }
@@ -364,11 +367,12 @@ public class MyCategoriesActivity extends AppCompatActivity implements View.OnCl
     {
         String id = escci.getId();
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("Posting").child(id).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+        mDatabase.child("Posting").child(escci.getMode()).child(id).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
 
                 mDatabase.child("Users").child(uID).child("randomThings").child(id).removeValue();
+                mDatabase.child("Posting").child("AllPosts").child(id).removeValue();
 
                 deleteImage(escci);
             }
@@ -390,11 +394,10 @@ public class MyCategoriesActivity extends AppCompatActivity implements View.OnCl
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     Toast.makeText(MyCategoriesActivity.this, "Delete Successful", Toast.LENGTH_SHORT).show();
-                    shimmer.stopShimmerAnimation();
-                    shimmer.setVisibility(View.GONE);
-                    recyclerView.setVisibility(View.VISIBLE);
-                    //swipeRefreshLayout.setRefreshing(false);
-                    mAdapter.refresh();
+                    mAdapter=null;
+                    recyclerView.setAdapter(mAdapter);
+                    shimmer.startShimmerAnimation();
+                    getData();
                 }
             });
         }
@@ -431,10 +434,12 @@ public class MyCategoriesActivity extends AppCompatActivity implements View.OnCl
 
     }
 
-    public void saveFavourite(ESCCI escci)
+    public void saveFavourite(String id, String ownerID)
     {
+        saveESCCI s = new saveESCCI(id, ownerID);
+
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("Users").child(uID).child("favourite").child(escci.getId()).setValue(escci).addOnCompleteListener(new OnCompleteListener<Void>() {
+        mDatabase.child("Users").child(uID).child("favourite").child(id).setValue(s).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 Toast.makeText(MyCategoriesActivity.this, "Saved", Toast.LENGTH_SHORT).show();
@@ -546,7 +551,6 @@ public class MyCategoriesActivity extends AppCompatActivity implements View.OnCl
         }
     }
 
-
     @Override
     public void onClick(View v) {
         if(v == back)
@@ -554,4 +558,18 @@ public class MyCategoriesActivity extends AppCompatActivity implements View.OnCl
             finish();
         }
     }
+
+    public void shareContent(ESCCI escci)
+    {
+        //Intent receiver = new Intent(DetailActivity.this, MyReceiver.class);
+        //PendingIntent pendingIntent = PendingIntent.getBroadcast(DetailActivity.this, 0, receiver, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        //intent.setType("image/*");
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_SUBJECT, "  ***Resource from Kairos mobile application\n Download our app to explore the best opportunities");
+        intent.putExtra(Intent.EXTRA_TEXT, "https://" + escci.getLink());
+        startActivity(Intent.createChooser(intent, "Share using"));//, pendingIntent.getIntentSender()));
+    }
+
 }

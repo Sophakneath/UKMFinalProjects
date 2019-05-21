@@ -2,7 +2,6 @@ package com.example.phakneath.jobber;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.UserHandle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,7 +12,6 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,9 +27,6 @@ import com.shashank.sony.fancydialoglib.Animation;
 import com.shashank.sony.fancydialoglib.FancyAlertDialog;
 import com.shashank.sony.fancydialoglib.FancyAlertDialogListener;
 import com.shashank.sony.fancydialoglib.Icon;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -69,15 +64,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         progress = findViewById(R.id.blurr);
     }
 
-    public void createNewUser(String email, String password)
+    public void createNewUser(String e, String p)
     {
-        mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+        mAuth.createUserWithEmailAndPassword(e,p).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
                     progress.setVisibility(View.GONE);
-                    //receiveToken = mAuth.getCurrentUser().getIdToken(true).toString();
-                    //receiveEmail = mAuth.getCurrentUser().getEmail().toString();
                     Toast.makeText(RegisterActivity.this,"Register successfull", Toast.LENGTH_SHORT).show();
                     Log.d("Register", mAuth.getCurrentUser().getIdToken(true).toString());
                     Log.d("Register", mAuth.getCurrentUser().getUid());
@@ -93,7 +86,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                             .setNegativeBtnText("Cancel")
                             .setAnimation(Animation.SIDE)
                             .isCancellable(false)
-                            .setIcon(R.drawable.infos_full, Icon.Visible)
+                            .setIcon(R.drawable.infos_50dp, Icon.Visible)
                             .OnPositiveClicked(new FancyAlertDialogListener() {
                                 @Override
                                 public void OnClick() {
@@ -119,10 +112,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                 }
                             }).build();
                 }else{
-                    //progressBar.setVisibility(View.GONE);
+                    progress.setVisibility(View.GONE);
                     Log.d("error",task.getException().toString());
                     Toast.makeText(RegisterActivity.this,task.getException().toString(), Toast.LENGTH_SHORT).show();
                 }
+                email.setEnabled(true);
+                username.setEnabled(true);
+                password.setEnabled(true);
             }
         });
     }
@@ -143,12 +139,19 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View v) {
         if(v == signup)
         {
+            email.setEnabled(false);
+            username.setEnabled(false);
+            password.setEnabled(false);
             InputMethodManager imm = (InputMethodManager) getSystemService(this.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(signup.getWindowToken(), 0);
             if (TextUtils.isEmpty(email.getText()) || TextUtils.isEmpty(username.getText()) || TextUtils.isEmpty(password.getText())) {
                 email.setError("Cannot empty");
                 username.setError("Cannot empty");
                 password.setError("Cannot empty");
+
+                email.setEnabled(true);
+                username.setEnabled(true);
+                password.setEnabled(true);
             } else {
                 progress.setVisibility(View.VISIBLE);
                 createNewUser(email.getText().toString().trim(), password.getText().toString().trim());

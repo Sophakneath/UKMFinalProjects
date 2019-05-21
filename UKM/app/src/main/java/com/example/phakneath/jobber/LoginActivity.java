@@ -13,7 +13,6 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -63,16 +62,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         progress = findViewById(R.id.blurr);
     }
 
-    public void loginUser(String email, String password)
+    public void loginUser(String e, String p)
     {
-        mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+        mAuth.signInWithEmailAndPassword(e,p).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful())
                 {
                     progress.setVisibility(View.GONE);
                     if(mAuth.getCurrentUser().isEmailVerified()) {
-                        UserPreferences.save(LoginActivity.this, password);
+                        UserPreferences.save(LoginActivity.this, p);
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         intent.putExtra("email", mAuth.getCurrentUser().getEmail());
                         startActivity(intent);
@@ -89,7 +88,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 .setNegativeBtnText("Cancel")
                                 .setAnimation(Animation.SIDE)
                                 .isCancellable(false)
-                                .setIcon(R.drawable.infos_full, Icon.Visible)
+                                .setIcon(R.drawable.infos_50dp, Icon.Visible)
                                 .OnPositiveClicked(new FancyAlertDialogListener() {
                                     @Override
                                     public void OnClick() {
@@ -123,6 +122,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     String message = task.getException().getMessage();
                     Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
                 }
+                email.setEnabled(true);
+                password.setEnabled(true);
 
             }
         });
@@ -182,11 +183,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
         else if(v == login)
         {
+            email.setEnabled(false);
+            password.setEnabled(false);
             InputMethodManager imm = (InputMethodManager)getSystemService(this.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(login.getWindowToken(), 0);
             if (TextUtils.isEmpty(email.getText()) || TextUtils.isEmpty(password.getText())) {
                 email.setError("Cannot Empty");
                 password.setError("Cannot Empty");
+                email.setEnabled(true);
+                password.setEnabled(true);
             } else {
                 progress.setVisibility(View.VISIBLE);
                 loginUser(email.getText().toString().trim(), password.getText().toString().trim());

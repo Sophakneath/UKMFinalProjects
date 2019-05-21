@@ -8,4 +8,9 @@
         <item name="colorAccent">@color/mainTextColor</item>
     </style>
 
+    <style name="Drawer" >
+        <item name="android:textSize">18dp</item>
+        <item name="android:layout_marginBottom">5dp</item>
+    </style>
+
 </resources>

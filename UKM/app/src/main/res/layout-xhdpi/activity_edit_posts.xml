@@ -1,0 +1,976 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddPostActivity"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:gravity="center"
+        android:id="@+id/top"
+        android:background="@color/mainColor">
+
+        <ImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/back_xhdpi"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/label"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edit Post"
+            android:textSize="30dp"
+            android:textColor="@color/primaryColor"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:fontFamily="sans-serif-smallcaps"
+            android:layout_marginRight="43dp"/>
+
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:visibility="gone"
+        />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/whitey"
+        android:id="@+id/scroll">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                android:id="@+id/first">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:layout_marginLeft="28dp"
+                    android:layout_marginRight="28dp"
+                    android:layout_marginTop="28dp"
+                    android:layout_marginBottom="20dp"
+                    android:scaleType="centerCrop"
+                    android:background="@color/mainColor"
+                    android:id="@+id/picture"/>
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/add"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:id="@+id/plus"/>
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Categories"
+                android:textColor="@color/titleColor"
+                android:layout_marginLeft="20dp"
+                android:textSize="20dp" />
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                android:visibility="visible"
+                android:id="@+id/categories"
+                android:textAlignment="textStart"
+                ></Spinner>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="18dp"
+                    android:text="Name"
+                    android:textColor="@color/titleColor"
+                    android:textSize="20dp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="17dp"
+                    android:layout_marginRight="17dp"
+                    android:hint="Jobber"
+                    android:backgroundTint="@color/titleColor"
+                    android:textColorHint="@color/hintColor"
+                    android:backgroundTintMode="src_over"
+                    android:paddingBottom="16dp"
+                    android:textColor="@color/mainTextColor"
+                    android:textSize="20dp"
+                    android:id="@+id/name"
+                    android:maxLines="1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Organizer"
+                    android:textSize="20dp"
+                    android:textColor="@color/titleColor"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="35dp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="17dp"
+                    android:layout_marginRight="17dp"
+                    android:hint="Jobber Acedemy"
+                    android:backgroundTint="@color/titleColor"
+                    android:textColorHint="@color/hintColor"
+                    android:backgroundTintMode="src_over"
+                    android:paddingBottom="16dp"
+                    android:textColor="@color/mainTextColor"
+                    android:textSize="20dp"
+                    android:id="@+id/organzier"
+                    android:maxLines="1"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:id="@+id/eventsContainer"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="When"
+                    android:textSize="20dp"
+                    android:textColor="@color/titleColor"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="35dp"/>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:hint="Pick a date"
+                        android:textColorHint="@color/hintColor"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:background="@drawable/retangle_edittext"
+                        android:textColor="@color/mainTextColor"
+                        android:textSize="20dp"
+                        android:id="@+id/date"
+                        android:clickable="true"
+                        android:editable="false"
+                        android:focusable="false"
+                        android:maxLines="1"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/dropdown"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginRight="30dp"
+                        />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Time"
+                        android:textSize="20dp"
+                        android:textColor="@color/titleColor"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="35dp"
+                        android:layout_weight="1"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Time"
+                        android:textSize="20dp"
+                        android:textColor="@color/titleColor"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="35dp"
+                        android:layout_weight="1"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp">
+
+                        <EditText
+                            android:layout_width="wrap_content"
+                            android:layout_height="50dp"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="16dp"
+                            android:hint="11:00 am"
+                            android:textColorHint="@color/hintColor"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="30dp"
+                            android:background="@drawable/retangle_edittext"
+                            android:textColor="@color/mainTextColor"
+                            android:textSize="20dp"
+                            android:id="@+id/from"
+                            android:clickable="true"
+                            android:editable="false"
+                            android:focusable="false"
+                            android:maxLines="1"/>
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/dropdown"
+                            android:layout_centerVertical="true"
+                            android:layout_alignEnd="@+id/from"
+                            android:layout_marginRight="2dp"
+                            />
+                    </RelativeLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="To"
+                        android:textSize="20dp"
+                        android:textColor="@color/titleColor"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_gravity="center_vertical"/>
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp">
+
+                        <EditText
+                            android:layout_width="wrap_content"
+                            android:layout_height="50dp"
+                            android:layout_marginLeft="16dp"
+                            android:hint="11:00 am"
+                            android:textColorHint="@color/hintColor"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="30dp"
+                            android:background="@drawable/retangle_edittext"
+                            android:textColor="@color/mainTextColor"
+                            android:textSize="20dp"
+                            android:id="@+id/until"
+                            android:clickable="true"
+                            android:editable="false"
+                            android:focusable="false"
+                            android:maxLines="1"/>
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/dropdown"
+                            android:layout_centerVertical="true"
+                            android:layout_alignEnd="@+id/until"
+                            android:layout_marginRight="2dp"
+                            />
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Where"
+                    android:textSize="20dp"
+                    android:textColor="@color/titleColor"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="35dp"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="17dp"
+                    android:layout_marginRight="17dp"
+                    android:hint="Jobber building @Cam"
+                    android:backgroundTint="@color/titleColor"
+                    android:textColorHint="@color/hintColor"
+                    android:backgroundTintMode="src_over"
+                    android:paddingBottom="16dp"
+                    android:textColor="@color/mainTextColor"
+                    android:textSize="20dp"
+                    android:id="@+id/where"
+                    android:maxLines="1"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Address"
+                    android:textSize="20dp"
+                    android:textColor="@color/titleColor"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="35dp"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:hint="Add an address"
+                    android:textColorHint="@color/hintColor"
+                    android:gravity="start"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:background="@drawable/retangle_edittext"
+                    android:textColor="@color/mainTextColor"
+                    android:textSize="20dp"
+                    android:id="@+id/address"
+                    android:clickable="true"
+                    android:editable="false"
+                    android:focusable="false"
+                    android:maxLines="3"
+                    android:layout_marginTop="20dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Link for detail"
+                    android:textSize="20dp"
+                    android:textColor="@color/titleColor"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="35dp"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="17dp"
+                    android:layout_marginRight="17dp"
+                    android:hint="www.jobber.com"
+                    android:backgroundTint="@color/titleColor"
+                    android:textColorHint="@color/hintColor"
+                    android:backgroundTintMode="src_over"
+                    android:paddingBottom="16dp"
+                    android:textColor="@color/mainTextColor"
+                    android:textSize="20dp"
+                    android:id="@+id/eLink"
+                    android:maxLines="1"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Admission"
+                    android:textSize="20dp"
+                    android:textColor="@color/titleColor"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="35dp"/>
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="   Free of Charge"
+                    android:textColor="@color/mainTextColor"
+                    android:layout_marginLeft="13dp"
+                    android:textSize="20dp"
+                    android:layout_marginTop="15dp"
+                    android:id="@+id/free"
+                    android:checked="true"
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="   Fee"
+                        android:textColor="@color/mainTextColor"
+                        android:layout_marginLeft="13dp"
+                        android:textSize="20dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_weight="1"
+                        android:id="@+id/fee"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="How much ?"
+                        android:textSize="20dp"
+                        android:textColor="@color/titleColor"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="15dp"
+                        />
+
+                    <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="17dp"
+                        android:layout_marginRight="17dp"
+                        android:hint=" 0 "
+                        android:backgroundTint="@color/titleColor"
+                        android:textColorHint="@color/hintColor"
+                        android:backgroundTintMode="src_over"
+                        android:paddingBottom="10dp"
+                        android:paddingRight="50dp"
+                        android:textColor="@color/mainTextColor"
+                        android:textSize="20dp"
+                        android:id="@+id/amountFee"
+                        android:maxLines="1"/>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="About"
+                    android:textSize="20dp"
+                    android:textColor="@color/titleColor"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="43dp"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="10dp"
+                    android:hint="Tell us more about that !"
+                    android:textColorHint="@color/hintColor"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="6dp"
+                    android:paddingBottom="6dp"
+                    android:background="@drawable/retangle_edittext"
+                    android:textColor="@color/mainTextColor"
+                    android:textSize="20dp"
+                    android:id="@+id/about"
+                    android:inputType="textMultiLine"
+                    android:gravity="top|left"
+                    android:scrollbars="vertical" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:id="@+id/scholarshipContainer"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Scholarship Degree"
+                    android:textSize="20dp"
+                    android:textColor="@color/titleColor"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="35dp"/>
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="   Bachelor Degree"
+                    android:textColor="@color/mainTextColor"
+                    android:layout_marginLeft="13dp"
+                    android:textSize="18dp"
+                    android:layout_marginTop="15dp"
+                    android:id="@+id/bachelor"
+                    android:checked="true"
+                    />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="   Master Degree"
+                    android:textColor="@color/mainTextColor"
+                    android:layout_marginLeft="13dp"
+                    android:textSize="18dp"
+                    android:layout_marginTop="15dp"
+                    android:id="@+id/master"
+                    />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="   PHD"
+                    android:textColor="@color/mainTextColor"
+                    android:layout_marginLeft="13dp"
+                    android:textSize="18dp"
+                    android:layout_marginTop="15dp"
+                    android:id="@+id/phd"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Deadline of Submission"
+                    android:textSize="20dp"
+                    android:textColor="@color/titleColor"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="35dp"/>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:hint="Pick a date"
+                        android:textColorHint="@color/hintColor"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:background="@drawable/retangle_edittext"
+                        android:textColor="@color/mainTextColor"
+                        android:textSize="20dp"
+                        android:id="@+id/sDate"
+                        android:clickable="true"
+                        android:editable="false"
+                        android:focusable="false"
+                        android:maxLines="1"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/dropdown"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginRight="30dp"
+                        />
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Link for deatil"
+                    android:textSize="20dp"
+                    android:textColor="@color/titleColor"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="35dp"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="17dp"
+                    android:layout_marginRight="17dp"
+                    android:hint="www.jobber.com"
+                    android:backgroundTint="@color/titleColor"
+                    android:textColorHint="@color/hintColor"
+                    android:backgroundTintMode="src_over"
+                    android:paddingBottom="16dp"
+                    android:textColor="@color/mainTextColor"
+                    android:textSize="20dp"
+                    android:id="@+id/sLink"
+                    android:maxLines="1"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="About"
+                    android:textSize="20dp"
+                    android:textColor="@color/titleColor"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="35dp"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="10dp"
+                    android:hint="Tell us more about that !"
+                    android:textColorHint="@color/hintColor"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="6dp"
+                    android:paddingBottom="6dp"
+                    android:background="@drawable/retangle_edittext"
+                    android:textColor="@color/mainTextColor"
+                    android:textSize="20dp"
+                    android:id="@+id/sAbout"
+                    android:inputType="textMultiLine"
+                    android:gravity="top|left"
+                    android:scrollbars="vertical" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:id="@+id/ccContainer"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Offered Position"
+                    android:textSize="20dp"
+                    android:textColor="@color/titleColor"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="35dp"
+                    android:id="@+id/random"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="17dp"
+                    android:layout_marginRight="17dp"
+                    android:hint="Manager"
+                    android:backgroundTint="@color/titleColor"
+                    android:textColorHint="@color/hintColor"
+                    android:backgroundTintMode="src_over"
+                    android:paddingBottom="16dp"
+                    android:textColor="@color/mainTextColor"
+                    android:textSize="20dp"
+                    android:id="@+id/cposition"
+                    android:maxLines="1"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Deadline of Application"
+                    android:textSize="20dp"
+                    android:textColor="@color/titleColor"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="35dp"/>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:hint="Pick a date"
+                        android:textColorHint="@color/hintColor"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:background="@drawable/retangle_edittext"
+                        android:textColor="@color/mainTextColor"
+                        android:textSize="20dp"
+                        android:id="@+id/cDate"
+                        android:clickable="true"
+                        android:editable="false"
+                        android:focusable="false" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/dropdown"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginRight="30dp"
+                        />
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Link for deatil"
+                    android:textSize="20dp"
+                    android:textColor="@color/titleColor"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="35dp"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="17dp"
+                    android:layout_marginRight="17dp"
+                    android:hint="www.jobber.com"
+                    android:backgroundTint="@color/titleColor"
+                    android:textColorHint="@color/hintColor"
+                    android:backgroundTintMode="src_over"
+                    android:paddingBottom="16dp"
+                    android:textColor="@color/mainTextColor"
+                    android:textSize="20dp"
+                    android:id="@+id/cLink"
+                    android:maxLines="1"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="About"
+                    android:textSize="22dp"
+                    android:textColor="@color/titleColor"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="35dp"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="20dp"
+                    android:hint="Tell us more about that !"
+                    android:textColorHint="@color/hintColor"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="6dp"
+                    android:paddingBottom="6dp"
+                    android:background="@drawable/retangle_edittext"
+                    android:textColor="@color/mainTextColor"
+                    android:textSize="20dp"
+                    android:id="@+id/cAbout"
+                    android:inputType="textMultiLine"
+                    android:gravity="top|left"
+                    android:scrollbars="vertical"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:id="@+id/internshipContainer"
+                android:visibility="visible">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Intership Period"
+                    android:textSize="20dp"
+                    android:textColor="@color/titleColor"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="35dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="From"
+                    android:textSize="20dp"
+                    android:textColor="@color/titleColor"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="15dp"/>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:hint="Pick a date"
+                        android:textColorHint="@color/hintColor"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:background="@drawable/retangle_edittext"
+                        android:textColor="@color/mainTextColor"
+                        android:textSize="20dp"
+                        android:id="@+id/iFrom"
+                        android:clickable="true"
+                        android:editable="false"
+                        android:focusable="false"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/dropdown"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginRight="30dp"
+                        />
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="To"
+                    android:textSize="20dp"
+                    android:textColor="@color/titleColor"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="35dp"/>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:hint="Pick a date"
+                        android:textColorHint="@color/hintColor"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:background="@drawable/retangle_edittext"
+                        android:textColor="@color/mainTextColor"
+                        android:textSize="20dp"
+                        android:id="@+id/iTo"
+                        android:clickable="true"
+                        android:editable="false"
+                        android:focusable="false"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/dropdown"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginRight="30dp"
+                        />
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Deadline of Submission"
+                    android:textSize="20dp"
+                    android:textColor="@color/titleColor"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="35dp"/>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:hint="Pick a date"
+                        android:textColorHint="@color/hintColor"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:background="@drawable/retangle_edittext"
+                        android:textColor="@color/mainTextColor"
+                        android:textSize="20dp"
+                        android:id="@+id/iDate"
+                        android:clickable="true"
+                        android:editable="false"
+                        android:focusable="false"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/dropdown"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginRight="30dp"
+                        />
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Link for deatil"
+                    android:textSize="20dp"
+                    android:textColor="@color/titleColor"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="35dp"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="17dp"
+                    android:layout_marginRight="17dp"
+                    android:hint="www.jobber.com"
+                    android:backgroundTint="@color/titleColor"
+                    android:textColorHint="@color/hintColor"
+                    android:backgroundTintMode="src_over"
+                    android:paddingBottom="16dp"
+                    android:textColor="@color/mainTextColor"
+                    android:textSize="20dp"
+                    android:id="@+id/iLink"
+                    android:maxLines="1"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="About"
+                    android:textSize="20dp"
+                    android:textColor="@color/titleColor"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="35dp"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="20dp"
+                    android:hint="Tell us more about that !"
+                    android:textColorHint="@color/hintColor"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="6dp"
+                    android:paddingBottom="6dp"
+                    android:background="@drawable/retangle_edittext"
+                    android:textColor="@color/mainTextColor"
+                    android:textSize="20dp"
+                    android:id="@+id/iAbout"
+                    android:inputType="textMultiLine"
+                    android:gravity="top|left"
+                    android:scrollbars="vertical"/>
+
+            </LinearLayout>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Edit Post"
+                android:layout_marginLeft="80dp"
+                android:layout_marginRight="80dp"
+                android:layout_marginTop="35dp"
+                android:background="@drawable/button_login"
+                android:textColor="@color/whitey"
+                android:textSize="20dp"
+                android:id="@+id/posts"
+                android:layout_marginBottom="25dp"
+                android:elevation="60dp"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

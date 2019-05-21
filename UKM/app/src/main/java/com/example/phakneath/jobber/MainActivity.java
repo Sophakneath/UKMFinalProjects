@@ -3,6 +3,7 @@ package com.example.phakneath.jobber;
 import android.arch.paging.PagedList;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Handler;
@@ -59,7 +60,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ImageView menu,search;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
-    //SwipeRefreshLayout swipeRefreshLayout;
     RecyclerView recyclerView;
     DatabaseReference mDatabase;
     FirebaseRecyclerPagingAdapter mAdapter;
@@ -78,7 +78,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     CircleImageView profile;
     TextView username;
     TextView viewProfile, noPosts;
-
     CardView cat_work_card,cat_intern_card,cat_compete_card,cat_event_card, cat_scholar_card;
 
     @Override
@@ -102,7 +101,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         cat_work_card.setOnClickListener(this::onClick);
         cat_compete_card.setOnClickListener(this::onClick);
 
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("Posting");
+        getData();
+
+        viewProfile.setOnClickListener(this::onClick);
+        profile.setOnClickListener(this::onClick);
+
+        getUser();
+    }
+
+    private void getData()
+    {
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("Posting").child("AllPosts");
         query = mDatabase.orderByChild("postingTime");
 
         query.addValueEventListener(new ValueEventListener() {
@@ -155,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                                             .setNegativeBtnText("Cancel")
                                                             .setAnimation(Animation.SIDE)
                                                             .isCancellable(false)
-                                                            .setIcon(R.drawable.infos_full, Icon.Visible)
+                                                            .setIcon(R.drawable.infos_50dp, Icon.Visible)
                                                             .OnPositiveClicked(new FancyAlertDialogListener() {
                                                                 @Override
                                                                 public void OnClick() {
@@ -164,8 +173,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                                                     shimmer.setVisibility(View.VISIBLE);
                                                                     recyclerView.setVisibility(View.GONE);
                                                                     delete(model);
-                                                                    mAdapter.notifyItemRemoved(position);
-
                                                                 }
                                                             })
                                                             .OnNegativeClicked(new FancyAlertDialogListener() {
@@ -207,7 +214,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                     {
                                         viewHolder.fav.setImageDrawable(MainActivity.this.getResources().getDrawable(R.drawable.red_fav));
                                         v.setTag("unFav");
-                                        saveFavourite(model);
+                                        saveFavourite(model.getId(), model.getOwnerID());
                                     }
                                     else
                                     {
@@ -219,6 +226,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             });
 
                             getSaveFavourite(model.getId(), viewHolder.fav);
+
+                            viewHolder.share.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    shareContent(model);
+                                }
+                            });
                         }
 
                         @Override
@@ -266,7 +280,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         }
 
                     };
-                    mManager = new LinearLayoutManager(MainActivity.this);
+                    mManager = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.VERTICAL, true);
+                    mManager.setStackFromEnd(true);
                     recyclerView.setHasFixedSize(true);
                     recyclerView.setLayoutManager(mManager);
                     recyclerView.setAdapter(mAdapter);
@@ -284,26 +299,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             }
         });
-
-
-        /*swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                mAdapter.refresh();
-            }
-        });*/
-
-        viewProfile.setOnClickListener(this::onClick);
-        profile.setOnClickListener(this::onClick);
-
-        getUser();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         if(mAdapter != null) {
-            mAdapter.refresh();
+            shimmer.startShimmerAnimation();
+            recyclerView.setAdapter(null);
+            getData();
             mAdapter.startListening();
         }
     }
@@ -352,9 +356,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(new Intent(this, AddPostActivity.class));
 
                 break;
-            case R.id.about: //startActivity(new Intent(this, SaveActivity.class));
+            case R.id.about: drawerLayout.closeDrawer(Gravity.LEFT); startActivity(new Intent(this, AboutActivity.class));
                 break;
-            case R.id.privacy: //startActivity(new Intent(this, PrivacyPolicyActivity.class));
+            case R.id.privacy: drawerLayout.closeDrawer(Gravity.LEFT); startActivity(new Intent(this, PolicyActivity.class));
                 break;
             case R.id.logout: drawerLayout.closeDrawer(Gravity.LEFT); logoutDialog(); signout();
                 break;
@@ -472,11 +476,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     {
         String id = escci.getId();
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("Posting").child(id).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+        mDatabase.child("Posting").child(escci.getMode()).child(id).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
 
                 mDatabase.child("Users").child(uid).child("randomThings").child(id).removeValue();
+                mDatabase.child("Posting").child("AllPosts").child(id).removeValue();
 
                 deleteImage(escci);
             }
@@ -498,11 +503,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     Toast.makeText(MainActivity.this, "Delete Successful", Toast.LENGTH_SHORT).show();
+                    mAdapter=null;
+                    recyclerView.setAdapter(mAdapter);
                     shimmer.startShimmerAnimation();
-                    shimmer.setVisibility(View.GONE);
-                    recyclerView.setVisibility(View.VISIBLE);
-                    //swipeRefreshLayout.setRefreshing(false);
-                    mAdapter.refresh();
+                    getData();
                 }
             });
         }
@@ -541,10 +545,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    public void saveFavourite(ESCCI escci)
+    public void saveFavourite(String id, String ownerID)
     {
+        saveESCCI s = new saveESCCI(id, ownerID);
+
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("Users").child(uid).child("favourite").child(escci.getId()).setValue(escci).addOnCompleteListener(new OnCompleteListener<Void>() {
+        mDatabase.child("Users").child(uid).child("favourite").child(id).setValue(s).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 Toast.makeText(MainActivity.this, "Saved", Toast.LENGTH_SHORT).show();
@@ -571,11 +577,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()) {
                     fav.setImageDrawable(MainActivity.this.getResources().getDrawable(R.drawable.red_fav));
+                    //fav.setImageDrawable(MainActivity.this.getResources().getDrawable(R.drawable.red_fav));
                     fav.setTag("unFav");
                 }
                 else
                 {
                     fav.setImageDrawable(MainActivity.this.getResources().getDrawable(R.drawable.favorite));
+                    //fav.setImageDrawable(MainActivity.this.getResources().getDrawable(R.drawable.favorite));
                     fav.setTag("fav");
                 }
             }
@@ -627,11 +635,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(v==cat_compete_card||v==cat_work_card||v==cat_scholar_card||v==cat_intern_card||v==cat_event_card)
         {
             String category="";
-            if(v==cat_compete_card) category = "Competitions";
+            if(v==cat_compete_card) category = "Competition";
             if(v==cat_event_card) category = "Events";
-            if(v==cat_intern_card) category = "Internships";
-            if(v==cat_scholar_card) category = "Scholarhips";
-            if(v==cat_work_card) category = "Work";
+            if(v==cat_intern_card) category = "Internship";
+            if(v==cat_scholar_card) category = "Scholarhip";
+            if(v==cat_work_card) category = "Career";
             Bundle catBundle = new Bundle();
             catBundle.putString("Category", category);
 
@@ -640,6 +648,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(intent);
         }
 
+    }
+
+    public void shareContent(ESCCI escci)
+    {
+        //Intent receiver = new Intent(DetailActivity.this, MyReceiver.class);
+        //PendingIntent pendingIntent = PendingIntent.getBroadcast(DetailActivity.this, 0, receiver, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        //intent.setType("image/*");
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_SUBJECT, "  ***Resource from Kairos mobile application\n Download our app to explore the best opportunities");
+        intent.putExtra(Intent.EXTRA_TEXT, "https://" + escci.getLink());
+        startActivity(Intent.createChooser(intent, "Share using"));//, pendingIntent.getIntentSender()));
     }
 
 }

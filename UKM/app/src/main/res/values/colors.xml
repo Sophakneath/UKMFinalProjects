@@ -10,8 +10,6 @@
     <color name="whiteBlurr">#6affffff</color>
     <color name="blurr">#64292E43</color>
     <color name="whiteIcons">#d2ffffff</color>
-
-
     <color name="colorPrimary">#d91248</color>
     <color name="colorPrimaryDark">#d91248</color>
     <color name="colorAccent">#3ad23e</color>
@@ -20,5 +18,5 @@
     <color name="description">#1a1a1a</color>
     <color name="chef">#777</color>
     <color name="timestamp">#777</color>
-
+    <color name="click">#D3EBFF</color>
 </resources>
