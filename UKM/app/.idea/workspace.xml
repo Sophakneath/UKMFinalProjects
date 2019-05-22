@@ -20,39 +20,7 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1be347e5-8b01-484c-94e3-1d438ee70487" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/ic_launcher-web.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/ic_launcher-web.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/AddPostActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/AddPostActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/CategoryActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/CategoryActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/EditPostsActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/EditPostsActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/FavouriteActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/FavouriteActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/GoogleMapActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/GoogleMapActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/MyCategoriesActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/MyCategoriesActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/ProfileActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/ProfileActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/SearchActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/SearchActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/SettingActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/SettingActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/haziq.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/drawable/haziq.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/sokdy.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/drawable/sokdy.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout-560dpi/activity_about.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout-560dpi/activity_about.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout-560dpi/activity_login.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout-560dpi/activity_login.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout-560dpi/activity_profile.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout-560dpi/activity_profile.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout-560dpi/activity_register.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout-560dpi/activity_register.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout-560dpi/filter_dialog.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout-560dpi/filter_dialog.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout-xhdpi/activity_add_post.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout-xhdpi/activity_add_post.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/mipmap-hdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/mipmap-hdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/mipmap-mdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/mipmap-mdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/mipmap-xhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/mipmap-xhdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/mipmap-xxhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/mipmap-xxhdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/mipmap-xxxhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/mipmap-xxxhdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/values/strings.xml" afterDir="false" />
-    </list>
+    <list default="true" id="1be347e5-8b01-484c-94e3-1d438ee70487" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
