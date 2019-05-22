@@ -724,7 +724,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Link for deatil"
+                    android:text="Link for detail"
                     android:textSize="20dp"
                     android:textColor="@color/titleColor"
                     android:layout_marginLeft="20dp"

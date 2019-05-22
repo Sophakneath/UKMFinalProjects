@@ -8,7 +8,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -74,7 +76,7 @@ public class EditPostsActivity extends AppCompatActivity implements View.OnClick
     double lat=0, longit=0;
     String add;
 
-    float fee;
+    String fee;
     boolean admission;
 
     FirebaseAuth mAuth;
@@ -109,7 +111,7 @@ public class EditPostsActivity extends AppCompatActivity implements View.OnClick
         list.add("Career");
         list.add("Competition");
         list.add("Events");
-        list.add("Intership");
+        list.add("Internship");
         list.add("Scholarship");
 
         dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list);
@@ -281,7 +283,7 @@ public class EditPostsActivity extends AppCompatActivity implements View.OnClick
         etCRandom.setText(myPost.getRandom());
         etCDate.setText(myPost.getDate());
         etCAbout.setText(myPost.getAbout());
-        if(myPost.getLink() != null) etCLink.setText(myPost.getLink());
+        etCLink.setText(myPost.getLink());
     }
 
     public void updateEvents()
@@ -292,7 +294,7 @@ public class EditPostsActivity extends AppCompatActivity implements View.OnClick
         etEWhere.setText(myPost.geteLocation());
         etEAddress.setText(myPost.geteAddress());
         etEAbout.setText(myPost.getAbout());
-        if(myPost.getLink() != null) etELink.setText(myPost.getLink());
+        etELink.setText(myPost.getLink());
 
         if(myPost.iseAdmission())
         {
@@ -313,7 +315,7 @@ public class EditPostsActivity extends AppCompatActivity implements View.OnClick
         etITo.setText(myPost.getEndDate());
         etIDate.setText(myPost.getDate());
         etIAbout.setText(myPost.getAbout());
-        if(myPost.getLink() != null) etELink.setText(myPost.getLink());
+        etILink.setText(myPost.getLink());
     }
 
     public void updateScholarship()
@@ -327,7 +329,7 @@ public class EditPostsActivity extends AppCompatActivity implements View.OnClick
 
         etSDate.setText(myPost.getDate());
         etSAbout.setText(myPost.getAbout());
-        if(myPost.getLink() != null) etELink.setText(myPost.getLink());
+        etSLink.setText(myPost.getLink());
     }
 
     public void getImage(ImageView img, String getImage, Context context)
@@ -455,7 +457,7 @@ public class EditPostsActivity extends AppCompatActivity implements View.OnClick
         else if(chFee.isChecked())
         {
             admission = true;
-            fee = Float.parseFloat(etEFee.getText().toString());
+            fee = etEFee.getText().toString();
         }
         else if(chFree.isChecked())
         {
@@ -676,7 +678,9 @@ public class EditPostsActivity extends AppCompatActivity implements View.OnClick
 
     public void onSelectImageClick(View view) {
         if (CropImage.isExplicitCameraPermissionRequired(this) || CropImage.isReadExternalStoragePermissionsRequired(this, null)) {
-            requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE}, CropImage.CAMERA_CAPTURE_PERMISSIONS_REQUEST_CODE);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE}, CropImage.CAMERA_CAPTURE_PERMISSIONS_REQUEST_CODE);
+            }
         } else {
             //CropImage.startPickImageActivity(this);
             startCropImageActivity();

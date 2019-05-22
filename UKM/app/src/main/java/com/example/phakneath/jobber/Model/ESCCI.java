@@ -18,7 +18,7 @@ public class ESCCI implements Serializable{
     String eLocation;
     String eAddress;
     boolean eAdmission;
-    float eFee;
+    String eFee;
     String link;
     String about;
     long postingTime;
@@ -31,7 +31,7 @@ public class ESCCI implements Serializable{
 
     }
 
-    public ESCCI(String id, String ownerID, String name, String mode, String organizer, String eTimeStart, String eTimeEnd, String random, String startDate, String endDate, String date, String eLocation, String eAddress, boolean eAdmission, float eFee, String link, String about, long postingTime) {
+    public ESCCI(String id, String ownerID, String name, String mode, String organizer, String eTimeStart, String eTimeEnd, String random, String startDate, String endDate, String date, String eLocation, String eAddress, boolean eAdmission, String eFee, String link, String about, long postingTime) {
         this.id = id;
         this.ownerID = ownerID;
         this.name = name;
@@ -52,7 +52,7 @@ public class ESCCI implements Serializable{
         this.postingTime = postingTime;
     }
 
-    public ESCCI(String id, String ownerID, String name, String mode, String organizer, String date, String eTimeStart, String eTimeEnd, String eLocation, String eAddress, String link, Boolean admission, float fee, String about, long postingTime, String image, double longitute, double latitute) {
+    public ESCCI(String id, String ownerID, String name, String mode, String organizer, String date, String eTimeStart, String eTimeEnd, String eLocation, String eAddress, String link, Boolean admission, String fee, String about, long postingTime, String image, double longitute, double latitute) {
         this.id = id;
         this.ownerID = ownerID;
         this.name = name;
@@ -214,11 +214,11 @@ public class ESCCI implements Serializable{
         this.eAdmission = eAdmission;
     }
 
-    public float geteFee() {
+    public String geteFee() {
         return eFee;
     }
 
-    public void seteFee(float eFee) {
+    public void seteFee(String eFee) {
         this.eFee = eFee;
     }
 

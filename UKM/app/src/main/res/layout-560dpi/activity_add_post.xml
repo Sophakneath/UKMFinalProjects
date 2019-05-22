@@ -216,12 +216,21 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Time"
+                        android:text="Time                "
                         android:textSize="18dp"
                         android:textColor="@color/titleColor"
                         android:layout_marginLeft="20dp"
-                        android:layout_marginTop="25dp"
-                        android:layout_weight="1"/>
+                        android:layout_marginTop="25dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="         "
+                        android:textSize="18dp"
+                        android:textColor="@color/titleColor"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_gravity="center_vertical"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -712,7 +721,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Link for deatil"
+                    android:text="Link for detail"
                     android:textSize="18dp"
                     android:textColor="@color/titleColor"
                     android:layout_marginLeft="20dp"

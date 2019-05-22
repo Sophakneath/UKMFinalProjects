@@ -279,12 +279,13 @@ public class OtherProfileActivity extends AppCompatActivity implements View.OnCl
 
     public void getUser(String otherID)
     {
-        List<MyESCCI> myESCCIS = new ArrayList<>();
-        List<saveESCCI> saveESCCIS = new ArrayList<>();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("Users").child(otherID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                List<MyESCCI> myESCCIS = new ArrayList<>();
+
                 String id = dataSnapshot.child("id").getValue(String.class);
                 String email = dataSnapshot.child("email").getValue(String.class);
                 String username = dataSnapshot.child("username").getValue(String.class);
@@ -332,6 +333,11 @@ public class OtherProfileActivity extends AppCompatActivity implements View.OnCl
 
     private void updateUI(Users users, List<MyESCCI> myESCCIs) {
 
+        count1 =0;
+        count2 = 0;
+        count3 = 0;
+        count4 = 0;
+        count5 = 0;
         otherPosts.setText(users.getUsername() + "'s Posts");
         username.setText(users.getUsername());
         if(users.getPosition() != null) position.setText(users.getPosition());

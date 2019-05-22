@@ -7,7 +7,9 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -71,7 +73,7 @@ public class AddPostActivity extends AppCompatActivity implements View.OnClickLi
     ProgressBar progressBar;
     ScrollView scroll;
 
-    float fee;
+    String fee;
     boolean admission;
 
     FirebaseAuth mAuth;
@@ -108,7 +110,7 @@ public class AddPostActivity extends AppCompatActivity implements View.OnClickLi
         list.add("Career");
         list.add("Competition");
         list.add("Events");
-        list.add("Intership");
+        list.add("Internship");
         list.add("Scholarship");
 
         btnPost.setOnClickListener(this::onClick);
@@ -338,7 +340,7 @@ public class AddPostActivity extends AppCompatActivity implements View.OnClickLi
         else if(chFee.isChecked())
         {
             admission = true;
-            fee = Float.parseFloat(etEFee.getText().toString());
+            fee = etEFee.getText().toString();
         }
         else if(chFree.isChecked())
         {
@@ -408,6 +410,7 @@ public class AddPostActivity extends AppCompatActivity implements View.OnClickLi
     public ESCCI checkEmptySchlarship()
     {
         ESCCI myPost=null;
+        degree = "";
 
         if(chBachelor.isChecked())
         {
@@ -549,7 +552,9 @@ public class AddPostActivity extends AppCompatActivity implements View.OnClickLi
 
     public void onSelectImageClick(View view) {
         if (CropImage.isExplicitCameraPermissionRequired(this) || CropImage.isReadExternalStoragePermissionsRequired(this, null)) {
-            requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE}, CropImage.CAMERA_CAPTURE_PERMISSIONS_REQUEST_CODE);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE}, CropImage.CAMERA_CAPTURE_PERMISSIONS_REQUEST_CODE);
+            }
         } else {
             //CropImage.startPickImageActivity(this);
             startCropImageActivity();

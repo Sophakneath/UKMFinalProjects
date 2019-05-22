@@ -355,7 +355,7 @@
     </LinearLayout>
 
     <android.support.design.widget.NavigationView
-        android:layout_width="520dp"
+        android:layout_width="500dp"
         android:layout_height="match_parent"
         android:background="@color/mainColor"
         app:itemTextColor="@color/whitey"

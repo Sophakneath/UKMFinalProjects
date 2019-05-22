@@ -319,7 +319,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:text="Admission"
+                            android:text="Link for Detail"
                             android:textSize="13dp"
                             android:textColor="@color/mainColor"
                             android:textStyle="bold"
@@ -329,11 +329,13 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:text="Free of Charge"
+                            android:text="www.kairos.com"
                             android:textSize="13dp"
                             android:textColor="@color/primaryTextColor"
                             android:layout_marginTop="5dp"
                             android:id="@+id/text6"
+                            android:autoLink="web"
+                            android:layout_marginRight="16dp"
                             />
                     </LinearLayout>
                 </LinearLayout>
@@ -364,7 +366,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:text="Link for detail"
+                            android:text="Admission"
                             android:textSize="13dp"
                             android:textColor="@color/mainColor"
                             android:textStyle="bold"
@@ -374,7 +376,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:text="www.abc.com"
+                            android:text="Free of Charge"
                             android:textSize="13dp"
                             android:textColor="@color/primaryTextColor"
                             android:layout_marginTop="5dp"

@@ -250,14 +250,14 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
 
         text3.setText(escci.geteLocation());
         text4.setText(escci.geteAddress());
-        text5.setText("Admission");
-        if (escci.iseAdmission()) text6.setText(escci.geteFee() + "");
-        else text6.setText("Free of Charge");
+        text7.setText("Admission");
+        if (escci.iseAdmission()) text8.setText(escci.geteFee() + "");
+        else text8.setText("Free of Charge");
 
-        text7.setText("Link for detail");
+        text5.setText("Link for detail");
         if (escci.getLink() != null) {
             eventsOnly.setVisibility(View.VISIBLE);
-            text8.setText(escci.getLink());
+            text6.setText(escci.getLink());
         }
         else {
             eventsOnly.setVisibility(View.GONE);

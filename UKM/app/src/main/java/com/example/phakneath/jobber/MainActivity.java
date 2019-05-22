@@ -638,7 +638,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if(v==cat_compete_card) category = "Competition";
             if(v==cat_event_card) category = "Events";
             if(v==cat_intern_card) category = "Internship";
-            if(v==cat_scholar_card) category = "Scholarhip";
+            if(v==cat_scholar_card) category = "Scholarship";
             if(v==cat_work_card) category = "Career";
             Bundle catBundle = new Bundle();
             catBundle.putString("Category", category);

@@ -347,12 +347,14 @@ public class ProfileActivity extends AppCompatActivity implements OnClickListene
 
     public void getUser()
     {
-        List<MyESCCI> myESCCIS = new ArrayList<>();
-        List<ESCCI> saveESCCIS = new ArrayList<>();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("Users").child(uID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                List<MyESCCI> myESCCIS = new ArrayList<>();
+                List<ESCCI> saveESCCIS = new ArrayList<>();
+
                 String id = dataSnapshot.child("id").getValue(String.class);
                 String email = dataSnapshot.child("email").getValue(String.class);
                 String username = dataSnapshot.child("username").getValue(String.class);
@@ -404,12 +406,16 @@ public class ProfileActivity extends AppCompatActivity implements OnClickListene
     }
 
     private void updateUI(Users users, List<ESCCI> saves, List<MyESCCI> myESCCIS ) {
-
+        count1 =0;
+        count2 = 0;
+        count3 = 0;
+        count4 = 0;
+        count5 = 0;
         username.setText(users.getUsername());
-        if(users.getPosition() != null) position.setText(users.getPosition());
-        if(users.getNationality() != null && users.getWorkplace() != null) nationAndWork.setText(users.getNationality() + ", " + users.getWorkplace());
-        else if(users.getNationality() != null && users.getWorkplace() == null) nationAndWork.setText(users.getNationality());
-        else if(users.getNationality() == null && users.getWorkplace() != null) nationAndWork.setText(users.getWorkplace());
+        if(users.getPosition() != null || users.getPosition() != "") position.setText(users.getPosition());
+        if(users.getNationality() != null && users.getWorkplace() != null || users.getNationality() != "" && users.getWorkplace() != "") nationAndWork.setText(users.getNationality() + ", " + users.getWorkplace());
+        else if(users.getNationality() != null && users.getWorkplace() == null || users.getNationality() != "" && users.getWorkplace() == "") nationAndWork.setText(users.getNationality());
+        else if(users.getNationality() == null && users.getWorkplace() != null || users.getNationality() == "" && users.getWorkplace() != "") nationAndWork.setText(users.getWorkplace());
         else nationAndWork.setText("No data provided");
 
         if(myESCCIS != null)

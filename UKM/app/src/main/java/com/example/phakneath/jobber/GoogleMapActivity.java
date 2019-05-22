@@ -16,6 +16,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -58,6 +59,7 @@ import com.google.android.gms.tasks.Task;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.OnConnectionFailedListener, View.OnClickListener{
 
@@ -83,6 +85,9 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private PlaceAutoCompleteAdapter mPlaceAutocompleteAdapter;
     private LocationRequest locationRequest;
+
+    Geocoder geocoder;
+    List<Address> addresses=null;
 
     LocationSettingsRequest.Builder locationSettingBuilder;
     SettingsClient settingsClient;
@@ -112,13 +117,24 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
                 else
                 {
                     //Log.d("oooooo", "\n" + "Latitude : " + locationResult.getLastLocation().getLatitude() + " Longitude : " + locationResult.getLastLocation().getLongitude());
-                    moveCamera(new LatLng(locationResult.getLastLocation().getLatitude(), locationResult.getLastLocation().getLongitude()), DEFAULT_ZOOM,
-                            locationResult.getLocations().get(0).toString());
+                    moveCamera(new LatLng(locationResult.getLastLocation().getLatitude(), locationResult.getLastLocation().getLongitude()), DEFAULT_ZOOM, locationResult.getLocations().get(0).toString());
+                    choose.setTag(locationResult.getLastLocation().getLatitude());
+                    mSearchText.setTag(locationResult.getLastLocation().getLongitude());
                 }
             }
         };
 
         setLocationRequestSetting();
+        requestLocationUpdate(1);
+        mGps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d(TAG, "onClick: clicked gps icon");
+                setLocationRequestSetting();
+                requestLocationUpdate(0);
+                //getDeviceLocation();
+            }
+        });
         //getLocationPermission();
     }
 
@@ -133,7 +149,7 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
     protected void onResume() {
         super.onResume();
         //startLocationUpdate();
-        requestLocationUpdate();
+        requestLocationUpdate(0);
     }
 
     @Override
@@ -150,7 +166,7 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
         //}
     }
 
-    private void requestLocationUpdate()
+    private void requestLocationUpdate(int count)
     {
         locationSettingBuilder = new LocationSettingsRequest.Builder().addLocationRequest(locationRequest);
         settingsClient = LocationServices.getSettingsClient(this);
@@ -159,7 +175,7 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
         task.addOnSuccessListener(this,new OnSuccessListener<LocationSettingsResponse>() {
             @Override
             public void onSuccess(LocationSettingsResponse locationSettingsResponse) {
-                startLocationUpdate();
+                startLocationUpdate(count);
             }
         });
 
@@ -182,7 +198,7 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
         });
     }
 
-    public void startLocationUpdate()
+    public void startLocationUpdate(int count)
     {
         // Here, thisActivity is the current activity
         if (ContextCompat.checkSelfPermission(this,
@@ -210,7 +226,7 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
             }
         } else {
             // Permission has already been granted
-            initMap();
+            if(count == 1) initMap();
             mFusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, null);
 
             //Toast.makeText(this, "Location Permission was granted", Toast.LENGTH_SHORT).show();
@@ -250,7 +266,6 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         init();
-
         /*if (mLocationPermissionsGranted) {
             //getDeviceLocation();
             requestLocationUpdate();
@@ -302,15 +317,6 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
             }
         });
 
-        mGps.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d(TAG, "onClick: clicked gps icon");
-                requestLocationUpdate();
-                //getDeviceLocation();
-            }
-        });
-
         hideSoftKeyboard(mSearchText);
     }
 
@@ -319,7 +325,7 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
 
         String searchString = mSearchText.getText().toString();
 
-        Geocoder geocoder = new Geocoder(GoogleMapActivity.this);
+        geocoder = new Geocoder(GoogleMapActivity.this);
         List<Address> list = new ArrayList<>();
         try{
             list = geocoder.getFromLocationName(searchString, 1);
@@ -401,13 +407,18 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
 
     private void moveCamera(LatLng latLng, float zoom, String title){
         Log.d(TAG, "moveCamera: moving the camera to: lat: " + latLng.latitude + ", lng: " + latLng.longitude );
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
+        try {
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
 
-        if(!title.equals("My Location")){
-            MarkerOptions options = new MarkerOptions()
-                    .position(latLng)
-                    .title(title);
-            mMap.addMarker(options);
+            if (!title.equals("My Location")) {
+                MarkerOptions options = new MarkerOptions()
+                        .position(latLng)
+                        .title(title);
+                mMap.addMarker(options);
+            }
+        }catch(Exception e)
+        {
+            Log.d(TAG, "moveCamera: "+e.getMessage());
         }
 
         hideSoftKeyboard(mSearchText);
@@ -504,6 +515,21 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
     public void onClick(View v) {
         if(v == choose)
         {
+            if(TextUtils.isEmpty(mSearchText.getText().toString()))
+            {
+                longit = (double) mSearchText.getTag();
+                lat = (double) choose.getTag();
+                geocoder = new Geocoder(this, Locale.getDefault());
+
+                try {
+                    addresses = geocoder.getFromLocation(lat, longit, 1);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                if(addresses != null) add = addresses.get(0).getAddressLine(0);
+            }
+
             Intent returnIntent = new Intent();
             returnIntent.putExtra("longtitute", longit);
             returnIntent.putExtra("latitute", lat);
