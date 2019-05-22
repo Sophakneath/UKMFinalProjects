@@ -122,9 +122,9 @@ public class MyCategoriesActivity extends AppCompatActivity implements View.OnCl
                             viewHolder.edit.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    PopupMenu menu = new PopupMenu(MyCategoriesActivity.this, v);
+                                    PopupMenu menu = new PopupMenu(MyCategoriesActivity.this, v, Gravity.RIGHT);
                                     menu.inflate(R.menu.more_menu);
-                                    menu.setGravity(Gravity.RIGHT);
+                                    //menu.setGravity(Gravity.RIGHT);
                                     menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                                         @Override
                                         public boolean onMenuItemClick(MenuItem item) {

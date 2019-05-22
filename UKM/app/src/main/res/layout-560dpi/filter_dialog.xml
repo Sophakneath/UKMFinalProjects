@@ -7,9 +7,9 @@
     android:background="@color/mainColor"
     android:gravity="center"
     android:orientation="vertical"
-    android:paddingLeft="20dp"
-    android:paddingTop="20dp"
-    android:paddingRight="20dp">
+    android:paddingLeft="10dp"
+    android:paddingTop="10dp"
+    android:paddingRight="10dp">
 
     <TextView
         android:id="@+id/textView5"
@@ -18,8 +18,7 @@
         android:text="Filter Your Results"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="8dp"/>
+        android:textStyle="bold" />
 
 
     <LinearLayout
@@ -52,8 +51,8 @@
                         android:id="@+id/iv_filter_work"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingLeft="33dp"
-                        android:paddingRight="33dp"
+                        android:paddingLeft="30dp"
+                        android:paddingRight="30dp"
                         app:srcCompat="@drawable/work_60dp" />
 
                     <TextView
@@ -86,8 +85,8 @@
                         android:id="@+id/iv_filter_internship"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingLeft="33dp"
-                        android:paddingRight="33dp"
+                        android:paddingLeft="30dp"
+                        android:paddingRight="30dp"
                         app:srcCompat="@drawable/internship_60dp" />
 
                     <TextView

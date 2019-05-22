@@ -142,11 +142,11 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
         if(mFusedLocationProviderClient != null)
         {
             mFusedLocationProviderClient.removeLocationUpdates(locationCallback);
-            Toast.makeText(this, "Listener is removed", Toast.LENGTH_SHORT).show();
+           // Toast.makeText(this, "Listener is removed", Toast.LENGTH_SHORT).show();
         }
         //if(mGoogleApiClient != null) {
-            mGoogleApiClient.stopAutoManage(this);
-            mGoogleApiClient.disconnect();
+//            mGoogleApiClient.stopAutoManage(this);
+  //          mGoogleApiClient.disconnect();
         //}
     }
 

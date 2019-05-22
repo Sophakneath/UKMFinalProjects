@@ -304,7 +304,7 @@
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="100 Posts"
+                                    android:text="0 Posts"
                                     android:textSize="13dp"
                                     android:textColor="@color/whitey"
                                     android:textStyle="bold"
@@ -358,7 +358,7 @@
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="100 Posts"
+                                    android:text="0 Posts"
                                     android:textSize="13dp"
                                     android:textColor="@color/whitey"
                                     android:textStyle="bold"
@@ -412,7 +412,7 @@
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="100 Posts"
+                                    android:text="0 Posts"
                                     android:textSize="13dp"
                                     android:textColor="@color/whitey"
                                     android:textStyle="bold"
@@ -466,7 +466,7 @@
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="100 Posts"
+                                    android:text="0 Posts"
                                     android:textSize="13dp"
                                     android:textColor="@color/whitey"
                                     android:textStyle="bold"
@@ -520,7 +520,7 @@
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="100 Posts"
+                                    android:text="0 Posts"
                                     android:textSize="13dp"
                                     android:textColor="@color/whitey"
                                     android:textStyle="bold"

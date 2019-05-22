@@ -255,8 +255,8 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     public void onSelectImageClick(View view) {
-        if (CropImage.isExplicitCameraPermissionRequired(this)) {
-            requestPermissions(new String[]{Manifest.permission.CAMERA}, CropImage.CAMERA_CAPTURE_PERMISSIONS_REQUEST_CODE);
+        if (CropImage.isExplicitCameraPermissionRequired(this) || CropImage.isReadExternalStoragePermissionsRequired(this, null)) {
+            requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE}, CropImage.CAMERA_CAPTURE_PERMISSIONS_REQUEST_CODE);
         } else {
             //CropImage.startPickImageActivity(this);
             startCropImageActivity();
