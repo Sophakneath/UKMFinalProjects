@@ -3,7 +3,6 @@ package com.example.phakneath.jobber;
 import android.arch.paging.PagedList;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Handler;

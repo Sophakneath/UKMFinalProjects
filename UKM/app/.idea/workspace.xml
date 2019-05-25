@@ -16,29 +16,198 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="o" />
+    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="MapActivity" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
+  </component>
+  <component name="AvailableLibraryUpdateStorage">
+    <library-updates>
+      <library-update>
+        <group-id>de.hdodenhof</group-id>
+        <name>circleimageview</name>
+        <version>3.0.0</version>
+        <repository>JCenter</repository>
+      </library-update>
+      <library-update>
+        <group-id>com.google.firebase</group-id>
+        <name>firebase-auth</name>
+        <version>17.0.0</version>
+        <repository>Google,Google Repository</repository>
+      </library-update>
+      <library-update>
+        <group-id>com.facebook.android</group-id>
+        <name>facebook-share</name>
+        <version>5.0.1</version>
+        <repository>JCenter</repository>
+      </library-update>
+      <library-update>
+        <group-id>com.facebook.shimmer</group-id>
+        <name>shimmer</name>
+        <version>0.4.0</version>
+        <repository>JCenter</repository>
+      </library-update>
+      <library-update>
+        <group-id>com.google.firebase</group-id>
+        <name>firebase-storage</name>
+        <version>17.0.0</version>
+        <repository>Google,Google Repository</repository>
+      </library-update>
+      <library-update>
+        <group-id>com.android.support.test</group-id>
+        <name>runner</name>
+        <version>1.0.2</version>
+        <repository>Google,Android Repository</repository>
+      </library-update>
+      <library-update>
+        <group-id>com.android.support.test.espresso</group-id>
+        <name>espresso-core</name>
+        <version>3.0.2</version>
+        <repository>Google,Android Repository</repository>
+      </library-update>
+      <library-update>
+        <group-id>com.google.android.libraries.places</group-id>
+        <name>places</name>
+        <version>1.1.0</version>
+        <repository>Google</repository>
+      </library-update>
+      <library-update>
+        <group-id>com.android.support</group-id>
+        <name>gridlayout-v7</name>
+        <version>28.0.0</version>
+        <repository>Google,Android Repository</repository>
+      </library-update>
+      <library-update>
+        <group-id>com.google.android.gms</group-id>
+        <name>play-services-location</name>
+        <version>16.0.0</version>
+        <repository>Google,Google Repository</repository>
+      </library-update>
+      <library-update>
+        <group-id>com.android.support</group-id>
+        <name>recyclerview-v7</name>
+        <version>28.0.0</version>
+        <repository>Google,Android Repository</repository>
+      </library-update>
+      <library-update>
+        <group-id>com.google.android.gms</group-id>
+        <name>play-services-maps</name>
+        <version>16.1.0</version>
+        <repository>Google,Google Repository</repository>
+      </library-update>
+      <library-update>
+        <group-id>com.android.support</group-id>
+        <name>appcompat-v7</name>
+        <version>28.0.0</version>
+        <repository>Google,Android Repository</repository>
+      </library-update>
+      <library-update>
+        <group-id>com.android.support</group-id>
+        <name>design</name>
+        <version>28.0.0</version>
+        <repository>Google,Android Repository</repository>
+      </library-update>
+      <library-update>
+        <group-id>com.google.firebase</group-id>
+        <name>firebase-core</name>
+        <version>16.0.9</version>
+        <repository>Google,Google Repository</repository>
+      </library-update>
+      <library-update>
+        <group-id>com.android.support</group-id>
+        <name>cardview-v7</name>
+        <version>28.0.0</version>
+        <repository>Google,Android Repository</repository>
+      </library-update>
+      <library-update>
+        <group-id>com.github.bumptech.glide</group-id>
+        <name>glide</name>
+        <version>4.9.0</version>
+        <repository>JCenter</repository>
+      </library-update>
+      <library-update>
+        <group-id>com.github.bumptech.glide</group-id>
+        <name>compiler</name>
+        <version>4.9.0</version>
+        <repository>JCenter</repository>
+      </library-update>
+      <library-update>
+        <group-id>com.google.android.gms</group-id>
+        <name>play-services-places</name>
+        <version>16.1.0</version>
+        <repository>Google,Google Repository</repository>
+      </library-update>
+      <library-update>
+        <group-id>com.android.support</group-id>
+        <name>support-v4</name>
+        <version>28.0.0</version>
+        <repository>Google,Android Repository</repository>
+      </library-update>
+      <library-update>
+        <group-id>com.android.support.constraint</group-id>
+        <name>constraint-layout</name>
+        <version>2.0.0-beta1</version>
+        <repository>Google</repository>
+      </library-update>
+      <library-update>
+        <group-id>com.google.firebase</group-id>
+        <name>firebase-database</name>
+        <version>17.0.0</version>
+        <repository>Google,Google Repository</repository>
+      </library-update>
+      <library-update>
+        <group-id>junit</group-id>
+        <name>junit</name>
+        <version>4.13-beta-3</version>
+        <repository>JCenter</repository>
+      </library-update>
+      <library-update>
+        <group-id>android.arch.paging</group-id>
+        <name>runtime</name>
+        <version>1.0.1</version>
+        <repository>Google</repository>
+      </library-update>
+    </library-updates>
+    <last-search-timestamp>1558547820697</last-search-timestamp>
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1be347e5-8b01-484c-94e3-1d438ee70487" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/google-services.json" beforeDir="false" afterPath="$PROJECT_DIR$/google-services.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/androidTest/java/com/example/phakneath/jobber/ExampleInstrumentedTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/androidTest/java/com/example/phakneath/jobber/ExampleInstrumentedTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/AboutActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/AboutActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/Adapter/PlaceAutoCompleteAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/Adapter/PlaceAutoCompleteAdapter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/AddPostActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/AddPostActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/CategoryActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/CategoryActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/DetailActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/DetailActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/Dialog/LoadingDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/Dialog/LoadingDialog.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/EditPostsActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/EditPostsActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/FavouriteActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/FavouriteActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/GoogleMapActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/GoogleMapActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/LoginActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/LoginActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/Main3Activity.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/MainActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/Model/ESCCI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/Model/ESCCI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/Model/MyESCCI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/Model/MyESCCI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/Model/Users.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/Model/Users.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/Model/saveESCCI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/Model/saveESCCI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/MyCategoriesActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/MyCategoriesActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/OtherProfileActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/OtherProfileActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/PolicyActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/PolicyActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/ProfileActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/ProfileActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/RegisterActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/RegisterActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/SearchActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/SearchActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/SettingActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/SettingActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout-560dpi/activity_about.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout-560dpi/activity_about.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout-560dpi/activity_add_post.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout-560dpi/activity_add_post.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout-560dpi/activity_detail.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout-560dpi/activity_detail.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout-xhdpi/activity_about.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout-xhdpi/activity_about.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout-xhdpi/activity_add_post.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout-xhdpi/activity_add_post.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout-xhdpi/activity_detail.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout-xhdpi/activity_detail.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout-xhdpi/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout-xhdpi/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/WelcomeActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/WelcomeActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/sharePreferences/AppSingleton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/sharePreferences/AppSingleton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/sharePreferences/UserPreferences.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/sharePreferences/UserPreferences.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout-560dpi/activity_google_map.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout-560dpi/activity_google_map.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout-xhdpi/activity_google_map.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout-xhdpi/activity_google_map.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_main3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/phakneath/jobber/ExampleUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/phakneath/jobber/ExampleUnitTest.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -76,106 +245,55 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/GoogleMapActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="609">
+              <caret line="371" column="21" selection-start-line="371" selection-start-column="21" selection-end-line="371" selection-end-column="21" />
+              <folding>
+                <element signature="e#5452#5453#0" expanded="true" />
+                <element signature="e#10302#10303#0" expanded="true" />
+                <element signature="e#10369#10370#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/AddPostActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1985">
-              <caret line="554" column="62" selection-start-line="554" selection-start-column="62" selection-end-line="554" selection-end-column="62" />
+            <state relative-caret-position="602">
+              <caret line="706" column="62" selection-start-line="706" selection-start-column="62" selection-end-line="706" selection-end-column="62" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/DetailActivity.java">
+        <entry file="file://$PROJECT_DIR$/src/main/res/layout-560dpi/activity_google_map.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="280">
-              <caret line="254" column="45" selection-start-line="254" selection-start-column="45" selection-end-line="254" selection-end-column="45" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/res/layout-560dpi/activity_detail.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="354">
-              <caret line="337" column="28" selection-start-line="337" selection-start-column="28" selection-end-line="337" selection-end-column="61" />
+            <state relative-caret-position="210">
+              <caret line="14" column="50" selection-start-line="14" selection-start-column="50" selection-end-line="14" selection-end-column="57" />
             </state>
           </provider>
           <provider editor-type-id="android-designer2" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/res/layout-560dpi/activity_about.xml">
+        <entry file="file://$PROJECT_DIR$/src/main/res/layout-xhdpi/activity_google_map.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="271">
-              <caret line="183" column="63" selection-start-line="183" selection-start-column="63" selection-end-line="183" selection-end-column="63" />
+            <state relative-caret-position="210">
+              <caret line="14" column="57" selection-start-line="14" selection-start-column="57" selection-end-line="14" selection-end-column="57" />
             </state>
           </provider>
           <provider editor-type-id="android-designer2" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/res/layout-xhdpi/activity_about.xml">
+        <entry file="file://$PROJECT_DIR$/src/main/AndroidManifest.xml">
+          <provider editor-type-id="android-manifest" />
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="256">
-              <caret line="182" column="60" selection-start-line="182" selection-start-column="60" selection-end-line="182" selection-end-column="60" />
-            </state>
-          </provider>
-          <provider editor-type-id="android-designer2" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/CategoryActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="656">
-              <caret line="332" column="39" selection-start-line="332" selection-start-column="39" selection-end-line="332" selection-end-column="39" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/MainActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="550">
-              <caret line="637" column="59" selection-start-line="637" selection-start-column="59" selection-end-line="637" selection-end-column="59" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/res/layout-xhdpi/activity_add_post.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="178">
-              <caret line="726" column="50" selection-start-line="726" selection-start-column="50" selection-end-line="726" selection-end-column="50" />
-              <folding>
-                <element signature="e#1394#1672#0" />
-                <element signature="e#2033#3109#0" />
-                <element signature="e#3123#3425#0" />
-                <element signature="e#3439#3859#0" />
-              </folding>
-            </state>
-          </provider>
-          <provider editor-type-id="android-designer2" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/res/layout-xhdpi/activity_detail.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="338" column="61" selection-start-line="338" selection-start-column="61" selection-end-line="338" selection-end-column="61" />
-            </state>
-          </provider>
-          <provider editor-type-id="android-designer2" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/ProfileActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="212">
-              <caret line="414" column="67" selection-start-line="414" selection-start-column="67" selection-end-line="414" selection-end-column="67" />
+            <state relative-caret-position="960">
+              <caret line="64" column="43" selection-start-line="64" selection-start-column="43" selection-end-line="64" selection-end-column="43" />
             </state>
           </provider>
         </entry>
@@ -217,9 +335,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/res/layout-xhdpi/activity_register.xml" />
-        <option value="$PROJECT_DIR$/src/main/res/drawable/users.xml" />
-        <option value="$PROJECT_DIR$/src/main/res/layout-xhdpi/activity_policy.xml" />
         <option value="$PROJECT_DIR$/src/main/res/layout-xhdpi/activity_search.xml" />
         <option value="$PROJECT_DIR$/src/main/res/layout-xhdpi/activity_setting.xml" />
         <option value="$PROJECT_DIR$/src/main/res/layout-560dpi/org_showing_layout.xml" />
@@ -238,8 +353,6 @@
         <option value="$PROJECT_DIR$/src/main/res/layout-xhdpi/filter_dialog.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/Main2Activity.java" />
         <option value="$PROJECT_DIR$/src/main/res/layout/activity_main2.xml" />
-        <option value="$PROJECT_DIR$/src/main/res/layout/activity_main3.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/Main3Activity.java" />
         <option value="$PROJECT_DIR$/build.gradle" />
         <option value="$PROJECT_DIR$/src/main/res/layout-560dpi/activity_register.xml" />
         <option value="$PROJECT_DIR$/src/main/res/layout-560dpi/activity_login.xml" />
@@ -249,17 +362,10 @@
         <option value="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/SearchActivity.java" />
         <option value="$PROJECT_DIR$/src/main/res/layout-560dpi/filter_dialog.xml" />
         <option value="$PROJECT_DIR$/src/main/res/layout-560dpi/activity_profile.xml" />
-        <option value="$PROJECT_DIR$/src/main/res/values/strings.xml" />
-        <option value="$PROJECT_DIR$/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/Adapter/PlaceAutoCompleteAdapter.java" />
         <option value="$PROJECT_DIR$/src/main/res/layout-xhdpi/activity_main.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/OtherProfileActivity.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/GoogleMapActivity.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/Model/ESCCI.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/DetailActivity.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/AddPostActivity.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/EditPostsActivity.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/SettingActivity.java" />
         <option value="$PROJECT_DIR$/src/main/res/layout-560dpi/activity_add_post.xml" />
         <option value="$PROJECT_DIR$/src/main/res/layout-xhdpi/activity_add_post.xml" />
         <option value="$PROJECT_DIR$/src/main/res/layout-560dpi/activity_about.xml" />
@@ -267,7 +373,19 @@
         <option value="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/MainActivity.java" />
         <option value="$PROJECT_DIR$/src/main/res/layout-560dpi/activity_detail.xml" />
         <option value="$PROJECT_DIR$/src/main/res/layout-xhdpi/activity_detail.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/SettingActivity.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/ProfileActivity.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/DetailActivity.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/OtherProfileActivity.java" />
+        <option value="$PROJECT_DIR$/src/main/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/values/strings.xml" />
+        <option value="$PROJECT_DIR$/google-services.json" />
+        <option value="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/AddPostActivity.java" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/activity_main3.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/Main3Activity.java" />
+        <option value="$PROJECT_DIR$/src/main/res/layout-560dpi/activity_google_map.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/layout-xhdpi/activity_google_map.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/GoogleMapActivity.java" />
       </list>
     </option>
   </component>
@@ -320,23 +438,62 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="ProjectPane">
+      <pane id="AndroidView">
         <subPane>
           <expand>
             <path>
-              <item name="UKM" type="b2602c69:ProjectViewProjectNode" />
-              <item name="UKM" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="UKM" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
             </path>
             <path>
-              <item name="UKM" type="b2602c69:ProjectViewProjectNode" />
-              <item name="UKM" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="UKM" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="manifests" type="f94875db:AndroidManifestsGroupNode" />
+            </path>
+            <path>
+              <item name="UKM" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+            </path>
+            <path>
+              <item name="UKM" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="jobber" type="cbb59c9e:AndroidPsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="UKM" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="jobber" type="cbb59c9e:AndroidPsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="UKM" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="assets" type="edd41e36:AndroidSourceTypeNode" />
+            </path>
+            <path>
+              <item name="UKM" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="res" type="d4f16f75:AndroidResFolderNode" />
+            </path>
+            <path>
+              <item name="UKM" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="res" type="d4f16f75:AndroidResFolderNode" />
+              <item name="layout" type="ddeffd01:AndroidResFolderTypeNode" />
+            </path>
+            <path>
+              <item name="UKM" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="res" type="d4f16f75:AndroidResFolderNode" />
+              <item name="layout" type="ddeffd01:AndroidResFolderTypeNode" />
+              <item name="activity_google_map" type="c431d0b8:AndroidResGroupNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane">
         <subPane>
           <expand>
@@ -353,86 +510,33 @@
           <select />
         </subPane>
       </pane>
-      <pane id="AndroidView">
+      <pane id="Scope">
+        <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
+          <expand>
+            <path>
+              <item name="UKM" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="~/Desktop/UKMFinalProjects/UKM" type="442cc68d:ScopeViewTreeModel$RootNode" />
+            </path>
+            <path>
+              <item name="UKM" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="~/Desktop/UKMFinalProjects/UKM" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="app" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
-              <item name="UKM" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="UKM" type="b2602c69:ProjectViewProjectNode" />
+              <item name="UKM" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
             </path>
             <path>
-              <item name="UKM" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-            </path>
-            <path>
-              <item name="UKM" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="jobber" type="cbb59c9e:AndroidPsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="UKM" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="jobber" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="Adapter" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="UKM" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="jobber" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="Model" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="UKM" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-            </path>
-            <path>
-              <item name="UKM" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-              <item name="layout" type="ddeffd01:AndroidResFolderTypeNode" />
-            </path>
-            <path>
-              <item name="UKM" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-              <item name="layout" type="ddeffd01:AndroidResFolderTypeNode" />
-              <item name="activity_add_post" type="c431d0b8:AndroidResGroupNode" />
-            </path>
-            <path>
-              <item name="UKM" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-              <item name="layout" type="ddeffd01:AndroidResFolderTypeNode" />
-              <item name="activity_category" type="c431d0b8:AndroidResGroupNode" />
-            </path>
-            <path>
-              <item name="UKM" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-              <item name="layout" type="ddeffd01:AndroidResFolderTypeNode" />
-              <item name="activity_detail" type="c431d0b8:AndroidResGroupNode" />
-            </path>
-            <path>
-              <item name="UKM" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-              <item name="layout" type="ddeffd01:AndroidResFolderTypeNode" />
-              <item name="activity_main" type="c431d0b8:AndroidResGroupNode" />
-            </path>
-            <path>
-              <item name="UKM" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-              <item name="values" type="ddeffd01:AndroidResFolderTypeNode" />
-            </path>
-            <path>
-              <item name="UKM" type="1abcf292:AndroidViewProjectNode" />
-              <item name="Gradle Scripts" type="ae0cef3a:AndroidBuildScriptsGroupNode" />
+              <item name="UKM" type="b2602c69:ProjectViewProjectNode" />
+              <item name="UKM" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -445,30 +549,33 @@
     <property name="android.project.structure.last.selected" value="SDK Location" />
     <property name="android.project.structure.proportion" value="0.15" />
     <property name="android.sdk.path" value="$USER_HOME$/Library/Android/sdk" />
-    <property name="device.picker.selection" value="c3b15a18" />
+    <property name="device.picker.selection" value="c3dd7612" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/src/main/res/drawable" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="project.structure.last.edited" value="Problems" />
-    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="android.sdk-updates" />
   </component>
+  <component name="PsdUISettings">
+    <option name="MODULE_TAB" value="Default Config" />
+  </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/main/res/drawable" />
-      <recent name="$PROJECT_DIR$/src/main/res/layout-560dpi" />
-      <recent name="$PROJECT_DIR$/src/main/res/values" />
-      <recent name="$PROJECT_DIR$/src/main/res/values-560dpi" />
-      <recent name="$PROJECT_DIR$/src/main/res/values-xhdpi" />
-    </key>
-    <key name="android.template.packageName">
-      <recent name="com.example.phakneath.jobber" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/res/drawable" />
       <recent name="$PROJECT_DIR$/src/main/res/layout-hdpi" />
       <recent name="$PROJECT_DIR$/src/main/res/drawable-v24" />
       <recent name="$PROJECT_DIR$/src/main/res/layout-xhdpi" />
+      <recent name="$PROJECT_DIR$/src/main/res/values-xhdpi" />
+    </key>
+    <key name="android.template.packageName">
+      <recent name="com.example.phakneath.jobber" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/res/drawable" />
+      <recent name="$PROJECT_DIR$/src/main/res/layout-560dpi" />
+      <recent name="$PROJECT_DIR$/src/main/res/values" />
+      <recent name="$PROJECT_DIR$/src/main/res/values-560dpi" />
       <recent name="$PROJECT_DIR$/src/main/res/values-xhdpi" />
     </key>
   </component>
@@ -695,7 +802,7 @@
     <frame x="0" y="23" width="1680" height="954" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24908425" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24908425" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Build Variants" order="3" side_tool="true" />
@@ -706,15 +813,15 @@
       <window_info id="Resources Explorer" order="8" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32830626" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.496337" visible="true" weight="0.14617169" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.496337" weight="0.47215778" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.498779" weight="0.32946634" />
-      <window_info anchor="bottom" id="Build" order="7" sideWeight="0.496337" weight="0.5464037" />
+      <window_info anchor="bottom" id="Build" order="7" sideWeight="0.496337" weight="0.6774942" />
       <window_info anchor="bottom" id="Android Profiler" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.503663" side_tool="true" weight="0.41067284" />
-      <window_info anchor="bottom" id="Logcat" order="10" weight="0.41067284" />
+      <window_info active="true" anchor="bottom" id="Logcat" order="10" visible="true" weight="0.061484918" />
       <window_info anchor="bottom" id="Version Control" order="11" weight="0.32945284" />
       <window_info anchor="bottom" id="Terminal" order="12" weight="0.32945284" />
       <window_info anchor="bottom" id="Messages" order="13" weight="0.32945284" />
@@ -766,39 +873,8 @@
     </layout-to-restore>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout-xhdpi/activity_google_map.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-line="78" selection-end-column="17" />
-          <folding>
-            <element signature="e#39#2948#0" />
-          </folding>
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../build.gradle">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_main2.xml" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/Main2Activity.java" />
     <entry file="file://$PROJECT_DIR$/../settings.gradle">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_main3.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="13" selection-start-line="1" selection-start-column="13" selection-end-line="1" selection-end-column="13" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="24" selection-start-line="6" selection-start-column="24" selection-end-line="6" selection-end-column="24" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/layout-560dpi/activity_register.xml">
       <provider selected="true" editor-type-id="text-editor">
@@ -851,13 +927,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/WelcomeActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/SearchActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="271">
@@ -903,50 +972,6 @@
     <entry file="file://$PROJECT_DIR$/src/main/res/drawable/ic_launcher_background.xml">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/values/styles.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" column="59" selection-start-line="12" selection-start-column="59" selection-end-line="12" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/values/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="34" selection-start-line="1" selection-start-column="34" selection-end-line="1" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="487">
-          <caret line="80" column="48" selection-start-line="80" selection-start-column="48" selection-end-line="80" selection-end-column="48" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-manifest" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/Main3Activity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="16" column="15" selection-start-line="16" selection-start-column="15" selection-end-line="16" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout-560dpi/activity_google_map.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="54" column="4" selection-start-line="54" selection-start-column="4" selection-end-line="54" selection-end-column="4" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/Adapter/PlaceAutoCompleteAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="430">
-          <caret line="212" column="92" selection-start-line="212" selection-start-column="92" selection-end-line="212" selection-end-column="92" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/layout-560dpi/activity_main.xml">
       <provider selected="true" editor-type-id="text-editor" />
       <provider editor-type-id="android-designer2" />
@@ -967,30 +992,6 @@
       </provider>
       <provider editor-type-id="android-designer2" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/OtherProfileActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="316">
-          <caret line="339" column="19" selection-start-line="339" selection-start-column="19" selection-end-line="339" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/google-services.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/GoogleMapActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="265">
-          <caret line="133" column="16" selection-start-line="133" selection-start-column="16" selection-end-line="133" selection-end-column="16" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#4196#4922#0" expanded="true" />
-            <element signature="e#4921#4922#0" expanded="true" />
-            <element signature="e#12110#12111#0" expanded="true" />
-            <element signature="e#12177#12178#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/Model/MyESCCI.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
@@ -1002,20 +1003,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="158">
           <caret line="220" column="30" selection-start-line="220" selection-start-column="30" selection-end-line="220" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/EditPostsActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="350">
-          <caret line="680" column="62" selection-start-line="680" selection-start-column="62" selection-end-line="680" selection-end-column="62" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/SettingActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="259" column="62" selection-start-line="259" selection-start-column="62" selection-end-line="259" selection-end-column="62" />
         </state>
       </provider>
     </entry>
@@ -1073,24 +1060,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/AddPostActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1985">
-          <caret line="554" column="62" selection-start-line="554" selection-start-column="62" selection-end-line="554" selection-end-column="62" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/DetailActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="254" column="45" selection-start-line="254" selection-start-column="45" selection-end-line="254" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/CategoryActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="656">
-          <caret line="332" column="39" selection-start-line="332" selection-start-column="39" selection-end-line="332" selection-end-column="39" />
+          <caret line="331" column="39" selection-start-line="331" selection-start-column="39" selection-end-line="331" selection-end-column="39" />
         </state>
       </provider>
     </entry>
@@ -1110,10 +1083,161 @@
       </provider>
       <provider editor-type-id="android-designer2" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/WelcomeActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/DetailActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3540">
+          <caret line="277" column="57" selection-start-line="277" selection-start-column="57" selection-end-line="277" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/Dialog/LoadingDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="30" selection-start-column="30" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/OtherProfileActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3720">
+          <caret line="293" column="62" selection-start-line="293" selection-start-column="62" selection-end-line="293" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/ProfileActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="212">
-          <caret line="414" column="67" selection-start-line="414" selection-start-column="67" selection-end-line="414" selection-end-column="67" />
+        <state relative-caret-position="5400">
+          <caret line="416" column="78" selection-start-line="416" selection-start-column="78" selection-end-line="416" selection-end-column="78" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/EditPostsActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="9315">
+          <caret line="679" column="62" selection-start-line="679" selection-start-column="62" selection-end-line="679" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/SettingActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1980">
+          <caret line="174" column="5" selection-start-line="174" selection-start-column="5" selection-end-line="174" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="24" selection-start-line="6" selection-start-column="24" selection-end-line="6" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../build.gradle">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/values/styles.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="59" selection-start-line="12" selection-start-column="59" selection-end-line="12" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="12" selection-start-line="11" selection-start-column="12" selection-end-line="11" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/google-services.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="465">
+          <caret line="31" column="65" selection-start-line="31" selection-start-column="65" selection-end-line="31" selection-end-column="65" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/AndroidManifest.xml">
+      <provider editor-type-id="android-manifest" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="960">
+          <caret line="64" column="43" selection-start-line="64" selection-start-column="43" selection-end-line="64" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/AddPostActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="602">
+          <caret line="706" column="62" selection-start-line="706" selection-start-column="62" selection-end-line="706" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ab0cba61f449d20f2a83815fc09cd869/jars/classes.jar!/com/google/android/gms/location/FusedLocationProviderClient.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="241">
+          <caret line="59" column="22" selection-start-line="59" selection-start-column="22" selection-end-line="59" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/Adapter/PlaceAutoCompleteAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-993">
+          <caret line="27" column="13" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/GoogleMapActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-203">
+          <caret line="142" column="13" selection-start-line="142" selection-start-column="13" selection-end-line="142" selection-end-column="13" />
+          <folding>
+            <element signature="e#4097#4967#0" expanded="true" />
+            <element signature="e#4966#4967#0" expanded="true" />
+            <element signature="e#13270#13271#0" expanded="true" />
+            <element signature="e#13337#13338#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_main3.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="555">
+          <caret line="37" column="48" selection-start-line="37" selection-start-column="48" selection-end-line="37" selection-end-column="48" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout-560dpi/activity_google_map.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="50" selection-start-line="14" selection-start-column="50" selection-end-line="14" selection-end-column="57" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout-xhdpi/activity_google_map.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="57" selection-start-line="14" selection-start-column="57" selection-end-line="14" selection-end-column="57" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/phakneath/jobber/GoogleMapActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="609">
+          <caret line="371" column="21" selection-start-line="371" selection-start-column="21" selection-end-line="371" selection-end-column="21" />
+          <folding>
+            <element signature="e#5452#5453#0" expanded="true" />
+            <element signature="e#10302#10303#0" expanded="true" />
+            <element signature="e#10369#10370#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

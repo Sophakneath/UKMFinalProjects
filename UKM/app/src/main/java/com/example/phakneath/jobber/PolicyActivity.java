@@ -6,8 +6,6 @@ import android.view.View;
 import android.webkit.WebView;
 import android.widget.ImageView;
 
-import de.hdodenhof.circleimageview.CircleImageView;
-
 public class PolicyActivity extends AppCompatActivity implements View.OnClickListener {
 
     private WebView web;

@@ -173,9 +173,12 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
 
     public void editUser()
     {
-        nation = nationality.getText().toString().trim();
-        place = workplace.getText().toString().trim();
-        pos = position.getText().toString().trim();
+        if(!TextUtils.isEmpty(nationality.getText().toString().trim()))
+            nation = nationality.getText().toString().trim();
+        if(!TextUtils.isEmpty(workplace.getText().toString().trim()))
+            place = workplace.getText().toString().trim();
+        if(!TextUtils.isEmpty(position.getText().toString().trim()))
+            pos = position.getText().toString().trim();
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("Users").child(uID).child("username").setValue(name).addOnSuccessListener(new OnSuccessListener<Void>() {

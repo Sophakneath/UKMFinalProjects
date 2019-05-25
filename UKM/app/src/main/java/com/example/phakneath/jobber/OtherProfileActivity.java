@@ -291,7 +291,7 @@ public class OtherProfileActivity extends AppCompatActivity implements View.OnCl
                 String username = dataSnapshot.child("username").getValue(String.class);
                 String nationality = dataSnapshot.child("nationality").getValue(String.class);
                 String workPlace = dataSnapshot.child("workplace").getValue(String.class);
-                String position = dataSnapshot.child("position_30dp").getValue(String.class);
+                String position = dataSnapshot.child("position").getValue(String.class);
                 String image = dataSnapshot.child("image").getValue(String.class);
                 for(DataSnapshot d: dataSnapshot.child("randomThings").getChildren())
                 {

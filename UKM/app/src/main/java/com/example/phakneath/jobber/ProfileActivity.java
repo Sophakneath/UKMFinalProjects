@@ -28,7 +28,6 @@ import com.example.phakneath.jobber.Model.ESCCI;
 import com.example.phakneath.jobber.Model.MyESCCI;
 import com.example.phakneath.jobber.Model.Users;
 import com.example.phakneath.jobber.Model.saveESCCI;
-import com.facebook.Profile;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -360,7 +359,7 @@ public class ProfileActivity extends AppCompatActivity implements OnClickListene
                 String username = dataSnapshot.child("username").getValue(String.class);
                 String nationality = dataSnapshot.child("nationality").getValue(String.class);
                 String workPlace = dataSnapshot.child("workplace").getValue(String.class);
-                String position = dataSnapshot.child("position_30dp").getValue(String.class);
+                String position = dataSnapshot.child("position").getValue(String.class);
                 String image = dataSnapshot.child("image").getValue(String.class);
                 for(DataSnapshot d: dataSnapshot.child("randomThings").getChildren())
                 {
@@ -412,10 +411,10 @@ public class ProfileActivity extends AppCompatActivity implements OnClickListene
         count4 = 0;
         count5 = 0;
         username.setText(users.getUsername());
-        if(users.getPosition() != null || users.getPosition() != "") position.setText(users.getPosition());
-        if(users.getNationality() != null && users.getWorkplace() != null || users.getNationality() != "" && users.getWorkplace() != "") nationAndWork.setText(users.getNationality() + ", " + users.getWorkplace());
-        else if(users.getNationality() != null && users.getWorkplace() == null || users.getNationality() != "" && users.getWorkplace() == "") nationAndWork.setText(users.getNationality());
-        else if(users.getNationality() == null && users.getWorkplace() != null || users.getNationality() == "" && users.getWorkplace() != "") nationAndWork.setText(users.getWorkplace());
+        if(users.getPosition() != null) position.setText(users.getPosition());
+        if(users.getNationality() != null && users.getWorkplace() != null) nationAndWork.setText(users.getNationality() + ", " + users.getWorkplace());
+        else if(users.getNationality() != null && users.getWorkplace() == null) nationAndWork.setText(users.getNationality());
+        else if(users.getNationality() == null && users.getWorkplace() != null) nationAndWork.setText(users.getWorkplace());
         else nationAndWork.setText("No data provided");
 
         if(myESCCIS != null)

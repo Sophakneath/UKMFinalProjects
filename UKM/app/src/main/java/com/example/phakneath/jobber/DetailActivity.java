@@ -1,8 +1,6 @@
 package com.example.phakneath.jobber;
 
 import android.app.Activity;
-import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -10,7 +8,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,11 +23,6 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.phakneath.jobber.Model.ESCCI;
 import com.example.phakneath.jobber.Model.saveESCCI;
-import com.facebook.FacebookSdk;
-import com.facebook.LoggingBehavior;
-import com.facebook.share.model.ShareHashtag;
-import com.facebook.share.model.ShareLinkContent;
-import com.facebook.share.widget.ShareDialog;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -283,7 +275,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String name = dataSnapshot.child("username").getValue(String.class);
-                String pos = dataSnapshot.child("position_30dp").getValue(String.class);
+                String pos = dataSnapshot.child("position").getValue(String.class);
                 String img = dataSnapshot.child("image").getValue(String.class);
                 String id = dataSnapshot.child("id").getValue(String.class);
 
