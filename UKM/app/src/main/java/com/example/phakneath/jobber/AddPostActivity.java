@@ -228,8 +228,7 @@ public class AddPostActivity extends AppCompatActivity implements View.OnClickLi
         a.setVisibility(View.VISIBLE);
         b.setVisibility(View.GONE);
         c.setVisibility(View.GONE);
-        d.setVisibility(View.GONE);
-    }
+        d.setVisibility(View.GONE); }
 
     public void postExecute()
     {
@@ -239,17 +238,14 @@ public class AddPostActivity extends AppCompatActivity implements View.OnClickLi
             etName.setError("Cannot Empty");
             etOrganizer.setError("Cannot Empty");
             return;
-        }
-        else
+        } else
         {
             name = etName.getText().toString();
-            organizer = etOrganizer.getText().toString();
-        }
+            organizer = etOrganizer.getText().toString(); }
 
         if(pathImage == null) {
             Toast.makeText(this, "Please choose an image for your post", Toast.LENGTH_SHORT).show();
-            return;
-        }
+            return; }
 
         mode = categories.getSelectedItem().toString();
         image = pathImage;
@@ -348,8 +344,10 @@ public class AddPostActivity extends AppCompatActivity implements View.OnClickLi
             chFee.setError("Please choose");
             chFree.setError("Please choose");
         }
-
-        if(TextUtils.isEmpty(etEWhen.getText().toString()) || TextUtils.isEmpty(etEFrom.getText().toString()) || TextUtils.isEmpty(etEUntil.getText().toString()) || TextUtils.isEmpty(etEWhere.getText().toString()) || TextUtils.isEmpty(etEAddress.getText().toString()) || TextUtils.isEmpty(etEAbout.getText().toString()) || TextUtils.isEmpty(etELink.getText().toString()))
+        if(TextUtils.isEmpty(etEWhen.getText().toString()) || TextUtils.isEmpty(etEFrom.getText().toString()) ||
+                TextUtils.isEmpty(etEUntil.getText().toString()) || TextUtils.isEmpty(etEWhere.getText().toString()) ||
+                TextUtils.isEmpty(etEAddress.getText().toString()) || TextUtils.isEmpty(etEAbout.getText().toString()) ||
+                TextUtils.isEmpty(etELink.getText().toString()))
         {
             etEWhen.setError("Cannot Empty");
             etEFrom.setError("Cannot Empty");
@@ -357,8 +355,7 @@ public class AddPostActivity extends AppCompatActivity implements View.OnClickLi
             etEWhere.setError("Cannot Empty");
             etEAddress.setError("Cannot Empty");
             etEAbout.setError("Cannot Empty");
-            etELink.setError("Canoot Empty");
-        }
+            etELink.setError("Canoot Empty");  }
         else
         {
             postingTime = System.currentTimeMillis();
@@ -371,8 +368,7 @@ public class AddPostActivity extends AppCompatActivity implements View.OnClickLi
             about = etEAbout.getText().toString();
             link = etELink.getText().toString();
 
-            myPost = new ESCCI(id,uID,name,mode,organizer,date,from,until,where,address,link,admission,fee,about,postingTime, image, longit, lat);
-        }
+            myPost = new ESCCI(id,uID,name,mode,organizer,date,from,until,where,address,link,admission,fee,about,postingTime, image, longit, lat); }
         return myPost;
     }
 

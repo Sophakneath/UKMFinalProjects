@@ -256,16 +256,6 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                 };
 
                 recyclerView.setAdapter(firebaseRecyclerAdapter);
-                /*Toast.makeText(this, ""+firebaseRecyclerAdapter.getItem(0).getId(), Toast.LENGTH_SHORT).show();
-                if(firebaseRecyclerAdapter.getItem(0).getId().equals(null))
-                {
-                    noPosts.setVisibility(View.VISIBLE);
-                    recyclerView.setVisibility(View.GONE);
-                }
-                else {
-                    noPosts.setVisibility(View.GONE);
-                    recyclerView.setVisibility(View.VISIBLE);
-                }*/
 
             }catch(Exception e) {
                 Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();

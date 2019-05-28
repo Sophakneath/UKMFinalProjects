@@ -488,7 +488,7 @@ public class CategoryActivity extends AppCompatActivity {
     //search from firebase
     private void searchItems(String key, String newText)
     {
-        Toast.makeText(this, key, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, key, Toast.LENGTH_SHORT).show();
         if(!newText.isEmpty()) {
             try{
                 //Toast.makeText(this, "done", Toast.LENGTH_SHORT).show();

@@ -239,24 +239,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             switch (state) {
                                 case LOADING_INITIAL:
                                 case LOADING_MORE:
-                                    // Do your loading animation
-                                    //swipeRefreshLayout.setRefreshing(true);
                                     shimmer.startShimmerAnimation();
                                     shimmer.setVisibility(View.VISIBLE);
                                     recyclerView.setVisibility(View.GONE);
                                     break;
 
                                 case LOADED:
-                                    // Stop Animation
-                                    //swipeRefreshLayout.setRefreshing(false);
                                     shimmer.startShimmerAnimation();
                                     shimmer.setVisibility(View.GONE);
                                     recyclerView.setVisibility(View.VISIBLE);
                                     break;
 
                                 case FINISHED:
-                                    //Reached end of Data set
-                                    //swipeRefreshLayout.setRefreshing(false);
                                     shimmer.startShimmerAnimation();
                                     shimmer.setVisibility(View.GONE);
                                     recyclerView.setVisibility(View.VISIBLE);
@@ -270,14 +264,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                         @Override
                         protected void onError(@NonNull DatabaseError databaseError) {
-                            //swipeRefreshLayout.setRefreshing(false);
                             shimmer.startShimmerAnimation();
                             shimmer.setVisibility(View.GONE);
                             recyclerView.setVisibility(View.VISIBLE);
                             databaseError.toException().printStackTrace();
                             retry();
                         }
-
                     };
                     mManager = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.VERTICAL, true);
                     mManager.setStackFromEnd(true);
@@ -289,14 +281,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 {
                     noPosts.setVisibility(View.VISIBLE);
                     shimmer.stopShimmerAnimation();
-                    shimmer.setVisibility(View.GONE);
-                }
+                    shimmer.setVisibility(View.GONE); }
             }
-
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
+            public void onCancelled(@NonNull DatabaseError databaseError) { }
         });
     }
 
