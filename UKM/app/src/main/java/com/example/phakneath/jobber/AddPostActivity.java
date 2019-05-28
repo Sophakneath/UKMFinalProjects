@@ -569,7 +569,8 @@ public class AddPostActivity extends AppCompatActivity implements View.OnClickLi
         }
         if (requestCode == CropImage.CAMERA_CAPTURE_PERMISSIONS_REQUEST_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                CropImage.startPickImageActivity(this);
+                //CropImage.startPickImageActivity(this);
+                startCropImageActivity(mCropImageUri);
             } else {
                 Toast.makeText(this, "Cancelling, required permissions are not granted", Toast.LENGTH_LONG).show();
             }
